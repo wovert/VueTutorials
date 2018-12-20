@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Directive</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+      new Vue({
+        el: document.getElementById('app'),
+        template: `
+          <!--必须一个根节点-->
+          <section>
+            <h1 v-text="title"></h1>
+            <p v-html="htmlTitle"></p>
+            <p><button v-if="isButton">if按钮</button></p>
+            <hr />
+            <article>
+                <button v-if="type === 'A'">A</button>
+                <button v-else-if="type === 'B'">B</button>
+                <button v-else-if="type === 'C'">C</button>
+                <button v-else>
+                  Not A/B/C
+                </button>
+            </article>
+            <hr />
+            <button v-show="show">v-show按钮</button>
+            <hr />
+            
+            
+          </section>
+        `,
+        data: function() {
+          return {
+            title: 'Vue 指令标题',
+            htmlTitle: '<span>带有HTML的标题</span>',
+            isButton: true,
+            type: 'D',
+            show: true
+
+          }
+        }
+      })
+  </script>  
+</body>
+</html>
