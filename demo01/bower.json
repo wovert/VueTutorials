@@ -1,0 +1,20 @@
+{
+  "name": "demo01",
+  "homepage": "https://github.com/wovert/VueTutorials",
+  "authors": [
+    "wovert"
+  ],
+  "description": "test bower",
+  "main": "index.js",
+  "keywords": [
+    "bower"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
