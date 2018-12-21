@@ -136,7 +136,7 @@ Vue.component('my-btn', {
 ### 监视改动
 
 - watch 监视单个
-- cumputed 监视多个
+- computed 监视多个
   - `computed: {监视的业务名： function(){ return 显示一些内容}}`
   - 使用 `{{ 计算属性的名称 }}`
   - 包含原值不变，缓存不掉函数的优化机制
