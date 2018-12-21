@@ -35,7 +35,7 @@
 
 ## Vue的文件介绍
 
-- dist/vue.js (所有能支持的模块)
+- dist/vue.js (所有能支持的模块：支持adm/comonjs/es6/umd(通用模块机制))
   - 支持所有模块，vue.min.js是压缩后的，初学引入vue.js有提示
 - dist/vue.common.js (CommonJS模块化代码)
 - dist/vue.esm.js (ES6模块化代码)
@@ -81,9 +81,20 @@
 
 - **v-bind** 可以给任何属性赋值，是从Vue到页面的单项数据流
 - **v-model** 只能给具备value属性的元素进行双向数据绑定（**必须使用value属性的元素**）
+- `v-for="(item,index) in arr" :class="index"`
+- 数组：item,index
+- 对象：value,key,index
 
+## 组件渲染
 
+### 父子组件传值（父传子）
 
+1. 父用子的时候通过属性传值
+2. 子要声明 `props:['属性名']` 来接受
+3. 收到后在`template`或js的`this.属性名` 直接使用
+4. 常量传递直接用，变量传递加冒号
+5. 父用子，先有子，声明子，使用子
+6. 父传子，父传子(属性)， 子声明(收)，子直接用(就是自己的一样)
 
 
 ## vue-cli
