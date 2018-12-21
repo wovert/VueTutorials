@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>filter-fitlers</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+    // 注册公共全局组件，省去compnents: {xxx:xx}
+    Vue.component('my-btn', {
+      template: `
+        <button style="background:red;color:white">按钮</button>
+      `
+    });
+
+
+    // 头组件
+    let MyHeader = {
+      template: `
+        <header>
+          <h1>我是头部</h1>
+          <my-btn />
+        </header>
+      `,
+      data() {
+        return {
+          xxx: true,
+          text: 'hello'
+        }
+      },
+      methods: {
+        changeXxx() {
+          this.xxx = !this.xxx
+        }
+      },
+
+      // 声明接受参数
+      props: ['title','status']
+    }
+
+
+    // 函数调用的方式调用组件
+    // 语法糖
+    let MyBody = Vue.extend({
+      template: `<main>
+          <h1>Vue函数调用创建组件</h1>  
+          <my-btn />
+        </main>`
+    });
+
+
+    // foot组件
+    let MyFooter = {
+      template: `
+        <footer>
+          <h1>我是footer</h1>
+          <my-btn />
+          <p>我是底部<button @click="showNum(123)">click me</button></p>  
+        </footer>
+      `,
+      methods: {
+        showNum(arg) {
+          console.log(arg);
+        }
+      }
+    }    
+
+    // 全局过滤器 {{ 'xxx' | myreverse(xxx) }}
+    Vue.filter('myreverse', (original, arg,arg1)=>{
+      return arg + arg1 + original.split('').reverse().join('')
+    })    
+
+
+    // 声明入口组件
+    let App = {
+      components: {
+        'my-header': MyHeader,
+        'my-body': MyBody,
+        'my-footer': MyFooter
+      },
+      template: `
+        <div>
+          <input type="text" v-model="myText" /><br />
+          {{ myText | reverse('英文版', ':') }} <br />
+          {{ myText | myreverse('全局过滤器', '=========') }}
+        </div>
+      `,
+      data() {
+        return {
+          myText: 'Hello'
+        }
+      },
+      // 组件内的过滤器
+      filters: {
+        /**
+         * 翻转字符串
+         * @param original 原数据
+         * @return 翻转后的字符串
+         */
+        reverse(original, lang, arg) {
+          return lang + arg + original.split('').reverse().join('')
+        }
+      }
+    }
+
+    // 启动 Vue
+    new Vue({
+      el: document.getElementById('app'),
+      components: { // 应用组件
+        app: App
+      },
+      template: '<app/>', // 入口组件
+      data: function() {
+        return {
+          isShow: true
+        }
+      },
+      methods: { }
+    })
+  </script>  
+</body>
+</html>
