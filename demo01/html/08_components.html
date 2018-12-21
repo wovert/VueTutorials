@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>components</title>
+  <style>
+    .a {
+      background: red;
+    }
+    .b {
+      background: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+
+    // 头组件
+    let MyHeader = {
+      template: `
+        <header>
+          <h1>我是头部</h1>  
+        </header>
+      `
+    }
+
+    // body组件
+    // let MyBody = {
+    //   template: `
+    //     <main>
+    //       <h1>我是内容</h1>  
+    //     </main>
+    //   `
+    // } 
+
+
+    // 函数调用的方式调用组件
+    // 语法糖
+    let MyBody = Vue.extend({
+      template: `<main>
+          <h1>Vue函数调用创建组件</h1>  
+        </main>`
+    });
+
+
+    // foot组件
+    let MyFooter = {
+      template: `
+        <footer>
+          <h1>我是footer</h1>
+          <p>我是底部<button @click="showNum(123)">click me</button></p>  
+        </footer>
+      `,
+      methods: {
+        showNum(arg) {
+          console.log(arg);
+        }
+      }
+    }    
+
+
+    // 声明入口组件
+    let App = {
+      components: {
+        'my-header': MyHeader,
+        'my-body': MyBody,
+        'my-footer': MyFooter
+      },
+      template: `
+        <div>
+          <my-header/>
+          <my-body></my-body>
+          <my-footer/>
+        </div>
+      `
+    }
+
+    new Vue({
+      el: document.getElementById('app'),
+      components: { // 声明要使用的组件
+        app: App
+      },
+      template: '<app/>', // 入口组件
+      data: function() {
+        return {
+          isShow: true
+        }
+      },
+      methods: { }
+    })
+  </script>  
+</body>
+</html>
