@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>获取DOM元素</title>
+  <style>
+    .a {
+      background: red;
+    }
+    .b {
+      background: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  
+  <script>
+
+    // 1. 组件的DOM不服，任意的标签中写 ref="xxx"
+    // 2. 通过组件对象 this.$ref.xxx 获取DOM元素
+
+    // sub component
+    var tempComponent = {
+      template: `<div>我是子组件</div>`
+    }
+
+    Vue.component('temp', tempComponent)
+
+    // 头组件
+    let MyHeader = {
+      template: `
+        <header>
+          <temp ref="tmp" />
+          <button ref="btn">我是按钮</button>
+        </header>
+      `,
+      data() {
+        return {
+          text: 'hello world'
+        }
+      },
+      methods: {
+        changeText() {
+          this.text = 'change text'
+        }
+      },
+      beforeCreate(){
+        console.log('beforeCreate:', this.$refs.btn)
+      },
+      created() {
+        console.log('created:', this.$refs.btn)
+      },
+
+      // Vue启动之前的DOM
+      beforeMount() {
+        console.log('beforeMount:', this.$refs.btn)
+      },
+
+      // Vue启动之后的DOM，仅执行一次
+      mounted() {
+        console.log('btn:', this.$refs.btn)
+        console.log('tmp:', this.$refs.tmp.$el)
+        console.log('parent:', this.$refs.tmp.$parent)
+        console.log('root:', this.$refs.tmp.$root)
+      },
+
+      // update事件基于Vue数据改变，影响页面
+      // 以下两个是当有Vue数据更改时才会触发
+      beforeUpdate() {  // 改变前，获取原DOM
+        console.log("【5】当前组件数据改变前:", document.getElementsByTagName('h1')[0].innerHTML) // hello world
+      },
+      updated() {       // 改变后，获取新DOM
+        console.log("【6】当前组件数据改变后:", document.getElementsByTagName('h1')[0].innerHTML) // change value
+      },
+
+      // 对应父组件 v-if false 就销毁当前组件
+      // 销毁都是做一些其他功能的释放：销毁之前保存到 LocalStorage
+      beforeDestroy() { // 销毁之前
+        console.log('销毁之前:', this.text)
+      },
+      destroyed() {
+        console.log('销毁之后:', this.text)
+      },
+
+      // keep-alive 组件会被处罚 activated和deactivated
+      // 频繁创建销毁的组件使用 keep-alive 
+      activated() {
+        console.log('组件被激活了');
+      },
+      deactivated() {
+        console.log('组件被停用了');
+      }
+
+      // created 和 actived 都是v-if="true" 子组件的状态
+      // created 没有被 keep-alive 内置组件包裹，actived 被包裹了
+      
+    }
+
+
+    // 声明入口组件
+    let App = {
+      components: {
+        'my-header': MyHeader
+      },
+      template: `
+        <div>
+          <keep-alive>
+            <my-header v-if="isExists"/>
+          </keep-alive>
+          <button @click="isExists = !isExists">事关子组件生死</button>
+        </div>
+      `,
+      data() {
+        return {
+          isExists: true
+        }
+      }
+    }
+
+    var vm = new Vue({
+      el: document.getElementById('app'),
+      components: { // 声明要使用的组件
+        app: App
+      },
+      template: '<app/>', // 入口组件
+      data: function() {
+        return {
+          isShow: true
+        }
+      },
+      methods: { }
+    })
+  </script>  
+</body>
+</html>

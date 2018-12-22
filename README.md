@@ -30,7 +30,7 @@
 # cd demo01
 # bower init
 # bower install
-# bower install vue
+# bower install vue vue-router
 ```
 
 ## Vue的文件介绍
@@ -157,6 +157,55 @@ Vue.component('my-btn', {
   - 应用：发起 `Ajax` 请求
 
 ![组件声明周期流程图](./images/lifecycle.png)
+
+## Vue 获取DOM元素
+
+- `$属性`：$refs 获取组件内人元素
+- `$parent`: 获取当前组件对象的父组件
+- `$children`: 获取子组件
+- `$root`: 获取 new Vue 的实例 vm
+- `$el`: 组件对象的 DOM 元素
+
+## 路由
+
+### 路由原理
+
+- 传统开发方式：URL改变后立刻发起请求，响应整个页面，渲染整个页面
+- SPA 锚点值改变后不会发起请求，发起Ajax请求，局部改变页面数据
+  - 页面不跳转 用户体验更好
+
+### SPA
+
+- Single Page Application(单页面应用程序)
+- 前段路由
+  - 锚点值监视
+  - ajax 获取动态数据
+  - 核心点事锚点值
+- 前段框架：Vue/Angular/Reat 都适合开发单页应用
+
+### vue-router 使用步骤
+
+1. 引入
+2. 安装插件
+3. 创建路由实例
+4. 配置路由规则
+5. 将路由对象关联vue
+6. 留坑
+
+- router-link to="/xxx" 命名路由
+  - 在路由规则对象中加入 name 属性
+  - 在 router-link 中 :to="{ name:'xxx'}"
+
+``` js
+Vue.use(插件对象); // 过程中会注册一些全局组件及给vm或者组件对象挂在属性
+
+// 给vm及组件对象挂在的方式
+object.defineProperty(Vue.prototype, '$router', {
+  get: function(){
+    return 自己的router对象
+  }
+})
+```
 
 ## vue-cli
 
