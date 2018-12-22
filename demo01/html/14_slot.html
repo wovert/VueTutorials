@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot</title>
+  <style>
+    li {
+      list-style: none;
+      float: left;
+      width: 33%;
+      background: yellowgreen;
+      border: 1px solid black;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+
+    // slot是坑，外部填入HTML内容
+    var MyLi = {
+      template: `<li>
+          <slot></slot>
+        </li>`
+    }
+    Vue.component('my-li', MyLi);
+
+    let App = {
+      template: `
+        <div>
+          <my-li><button>11</button></my-li>          <my-li><button>11</button></my-li>
+          <my-li><button>22</button></my-li>
+          <my-li><button>33</button></my-li>
+          <my-li><button>44</button></my-li>
+          <my-li><button>55</button></my-li>
+          <my-li><button>66</button></my-li>
+          <my-li><button>77</button></my-li>
+          <my-li><button>88</button></my-li>
+          <my-li><button>99</button></my-li>
+
+        </div>
+      `,
+      data() {
+        return {
+
+        }
+      },
+      computed: {
+      },
+      watch: {}
+    }
+
+    // 启动 Vue
+    new Vue({
+      el: document.getElementById('app'),
+      components: {
+        app: App
+      },
+      template: '<app/>',
+      data: function() {
+        return {
+          isShow: true
+        }
+      },
+      methods: { }
+    })
+  </script>  
+</body>
+</html>

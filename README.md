@@ -141,6 +141,22 @@ Vue.component('my-btn', {
   - 使用 `{{ 计算属性的名称 }}`
   - 包含原值不变，缓存不掉函数的优化机制
 
+## slot
+
+> 父组件传递的DOM结构, Vue提供的内置组件
+
+- 就是子组件里给DOM留下的坑
+- `<子组件>DOM</子组件>`
+- slot动态的DOM、props是动态的数据
+
+## 组件生命周期
+
+- `beforeCreate()`
+- `created()` 可以操作数据并且可以实现vue->页面的影响
+  - 事件函数，钩子函数
+  - 应用：发起 `Ajax` 请求
+
+![组件声明周期流程图](./images/lifecycle.png)
 
 ## vue-cli
 
