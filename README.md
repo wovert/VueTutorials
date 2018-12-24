@@ -220,6 +220,18 @@ object.defineProperty(Vue.prototype, '$router', {
   - 每次路由匹配后，渲染组件到 router->view之前
   - `router.beforeEach(function(to, from, next) { })`
 
+- 练习
+  - 服务端：
+    - /login ctx.body = {msg: 'ok'} 前段用jQ发送ajax请求
+  - 客户端
+    - 接受响应以后，如果OK，localStorage中保存改值
+  - 在全局路由守卫中区分/login不验证(meta)，/show 要验证，验证条件就是localStorage中获取
+
+- 编程导航
+  - 跳到指定锚点并显示页面 `this.$router.push({ name:'xxx',query:{ id:1 }, params:{ name:'abc' } })`
+  - 配置规则：`{ name: 'xxx', path: 'xxx/:name' }`
+  - 根据历史记录，前进或后退
+    - `this.$router.go(-1|1)` 1：进一步，-1：退一步
 
 ## vue-cli
 
