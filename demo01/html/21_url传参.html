@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>URL传参</title>
+  <style>
+    .a {
+      background: red;
+    }
+    .b {
+      background: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script src="../bower_components/vue-router/dist/vue-router.js"></script>
+  
+  <script>
+    var Login = {
+      template: `<div>我是登录页面</div>`,
+      mounted() {
+        console.log(this.$route.query); // {id: 1} 类似 服务器request对象
+      }
+    }
+    var Register = {
+      template: `<div>我是注册页面</div>`,
+      mounted() {
+        console.log(this.$route.params); // {name:"wovert"}
+      }
+    }
+
+    Vue.use(VueRouter)
+
+    // 2.创建一个路由对象
+    var router = new VueRouter({
+      // 3.配置路由对象
+      routes: [
+        // 路由对象油了名称就等于油了变量名，router-link 秩序说明这个变量名就可以
+        { name: 'login', path: '/mylogin', component: Login },
+        { name: 'register', path: '/myregister/:name', component: Register }
+      ]
+    })
+
+
+    var App = {
+      template: `
+        <div>
+          <router-link :to="{ name: 'login', query: {id: 1} }">登录啦</router-link>
+          <router-link :to="{ name: 'register', params: {name:'wovert'} }">注册啦</router-link>
+          <router-view></router-view>
+        </div>
+      `,
+      mounted() {
+        console.log(this.$router);
+      }
+    }
+
+    // 4.
+    new Vue({
+      el: '#app',
+      router: router, // 将配置好的路由对象关联到 vue 实例中, 不加这个导致运行时提示undefined对象中取不到matched
+      components: {
+        app: App
+      },
+      template: '<app />'
+    })
+
+
+
+  </script>  
+</body>
+</html>

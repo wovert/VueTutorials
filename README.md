@@ -207,6 +207,20 @@ object.defineProperty(Vue.prototype, '$router', {
 })
 ```
 
+### vue-router 中的对象
+
+- `$route` 路由信息对象，只读对象
+- `$router` 路由操作对象，只写对象
+
+- 嵌套路由
+
+- 路由meta元数据 -> meta是对于路由规则是否需要验证权限的配置 (路由数据)
+  - 路由对象中和name属性同级 `{ meta: {isChecked:true }}`
+- 路由钩子 -> 权限控制的函数执行时期 (前段权限控制)
+  - 每次路由匹配后，渲染组件到 router->view之前
+  - `router.beforeEach(function(to, from, next) { })`
+
+
 ## vue-cli
 
 > A simple CLI for scaffolding Vue.js projects.

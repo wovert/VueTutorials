@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>嵌套路由</title>
+  <style>
+    .a {
+      background: red;
+    }
+    .b {
+      background: green;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script src="../bower_components/vue-router/dist/vue-router.js"></script>
+  
+  <script>
+    // 1. router-view 中包含router-view
+    // 2. 路由规则中存在子路由
+
+    var Woman = {
+      template: `
+        <h2 style="background-color:red">欢迎美女登录...</h2>
+      `
+    }
+
+    var Man = {
+      template: `
+        <h2 style="background-color:blue">欢迎绅士登录...</h2>
+      `
+    }
+
+    var Login = {
+      template: `<div>
+        <h1>我是login页面，下面是子路由显示的内容</h1>
+        <router-view></router-view>
+      </div>`,
+      mounted() {
+        console.log(this.$route.query);
+      }
+    }
+    var Register = {
+      template: `<div>
+        <router-view></router-view>
+      </div>`,
+      mounted() {
+        console.log(this.$route.params);
+      }
+    }
+
+    Vue.use(VueRouter)
+
+    var router = new VueRouter({
+      routes: [
+        { 
+          name: 'login', 
+          path: '/mylogin', 
+          component: Login,
+          children: [
+            {
+              name: 'login.woman',
+              path: 'woman', // /login/womain
+              component: Woman // 在路由当中不用注册组件或使用组件声明
+            },
+            {
+              name: 'login.man',
+              path: '/man',
+              component: Man
+            }
+          ]
+        },
+        { 
+          name: 'register', 
+          path: '/myregister/:name', 
+          component: Register 
+        }
+      ]
+    })
+
+
+    var App = {
+      template: `
+        <div>
+          <router-link :to="{ name: 'login' }">登录</router-link> | 
+          <router-link :to="{ name: 'login.woman' }">美女登录窗口</router-link> | 
+          <router-link :to="{ name: 'login.man' }">绅士登录窗口</router-link> | 
+          <router-link :to="{ name: 'register', params: {name:'wovert'} }">注册</router-link>
+          <router-view></router-view>
+        </div>
+      `,
+      mounted() {
+        console.log(this.$router);
+      }
+    }
+
+    // 4.
+    new Vue({
+      el: '#app',
+      router: router, // 将配置好的路由对象关联到 vue 实例中, 不加这个导致运行时提示undefined对象中取不到matched
+      components: {
+        app: App
+      },
+      template: '<app />'
+    })
+
+
+
+  </script>  
+</body>
+</html>
