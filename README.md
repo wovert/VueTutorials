@@ -233,6 +233,49 @@ object.defineProperty(Vue.prototype, '$router', {
   - 根据历史记录，前进或后退
     - `this.$router.go(-1|1)` 1：进一步，-1：退一步
 
+- 后端路由：url + 请求方式
+- 前段路由：url(锚点值) + innerHTML
+
+## axios
+
+> 基于 http 客户端的 promise，面向浏览器和 NodeJS
+
+- 浏览器端发起XMLHttpRequests请求
+- Node发起http请求
+- 支持Promise API
+- 拦截请求和返回
+- 转化请求和返回（数据）
+- 取消请求
+- 自动转化JSON数据
+- 客户端支持低于XSRF（跨站请求伪造）
+
+### setup axios
+
+``` sh
+$ npm i axios
+$ bower install axios
+```
+
+使用CDN
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## vue-cli
 
 > A simple CLI for scaffolding Vue.js projects.
