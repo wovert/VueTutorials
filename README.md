@@ -258,9 +258,26 @@ $ bower install axios
 
 使用CDN
 
+## 拦截器
 
+> 比全局配置优先级更高
 
-
+- 请求拦截器：在发起请求之前，做的处理
+  - 案例：显示loadding图标, 请求头：附带 客户端cookie
+- 响应拦截器：响应之后，做的处理
+  - 案例：去掉loadding图标, 响应头：存储服务器的cookie
+- 单请求配置 options: `axios.post(url, data, options)`
+- 全局配置 defaults: this.$axios.defaults
+- config: 请求拦截器中的参数
+- response.config : 响应拦截器中的参数
+- options:
+  - baseURL 基础URL路径
+  - params 查询字符串（对象）
+  - transformRequest: function(post请求数据传递的数据) {} 转换请求体数据
+  - transformResponse: function(re) { 自己转换相应回来的数据 } 转换响应体数据
+  - headers 请求头信息
+  - data 请求体数据
+  - timeout 请求超时，请求多久以后没有响应算是超时（毫秒）
 
 
 
