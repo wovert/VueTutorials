@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>token</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script src="../bower_components/axios/dist/axios.js"></script>
+  <style>
+  .loading{
+            width: 80px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top:100px;
+        }
+        .loading span{
+            display: inline-block;
+            width: 8px;
+            height: 100%;
+            border-radius: 4px;
+            background: lightgreen;
+            -webkit-animation: load 1s ease infinite;
+        }
+        @-webkit-keyframes load{
+            0%,100%{
+                height: 40px;
+                background: lightgreen;
+            }
+            50%{
+                height: 70px;
+                margin: -15px 0;
+                background: lightblue;
+            }
+        }
+        .loading span:nth-child(2){
+            -webkit-animation-delay:0.2s;
+        }
+        .loading span:nth-child(3){
+            -webkit-animation-delay:0.4s;
+        }
+        .loading span:nth-child(4){
+            -webkit-animation-delay:0.6s;
+        }
+        .loading span:nth-child(5){
+            -webkit-animation-delay:0.8s;
+        }
+  </style>
+  <script>
+    var App = {
+      template: `
+        <div>
+          <div class="loading" v-show="isShow">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+</div>
+
+           <button @click="sendAjax">发请求</button>
+         </div>
+       `,
+      data() {
+        return {
+          isShow: false
+        }
+      },
+      mounted() {
+      },
+      methods: {
+        // 实现一个类似 cookie的机制
+        // 响应过程：服务器 -> set-cookie: xxx => 保存在响应拦截器中完成
+        // 请求过程：本地获取xxx，设置拦截器的请求头 
+        sendAjax() {
+
+          // 请求拦截器 use给请求之前可以是多件，可以use多次
+          this.$axios.interceptors.request.use(config=>{
+            console.log('请求之前:',config)
+            // 设置请求头,类似 cookie
+            var token = window.localStorage.getItem('token')
+            if (token) {
+              config.headers['token'] = token
+            }
+
+            this.isShow = true
+            return config
+          })
+
+          // 响应拦截器
+          this.$axios.interceptors.response.use(res=>{
+            // 获取服务器的响应头
+            if (res.data.token) {
+              let token = res.data.token
+              window.localStorage.setItem('token', token)
+            }
+
+            this.isShow = false
+            return res
+
+          })
+
+          this.$axios.defaults.baseURL = 'http://yanji.chengguo.com/'
+          this.$axios.post('get-token.php')
+          .then(res => {
+              console.log('响应回来了:', res)
+          })
+        }
+      }
+    }
+
+    Vue.prototype.$axios = axios;
+    new Vue({
+      el: '#app',
+      components: {
+        app: App
+      },
+      template: '<app />'
+    })
+
+
+
+  </script>  
+</body>
+</html>
