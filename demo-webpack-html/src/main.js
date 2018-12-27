@@ -1,4 +1,4 @@
-import Vue from '../demo-vue/bower_components/vue/dist/vue'
+import Vue from '../../demo-vue/bower_components/vue/dist/vue'
 import App from './App'
 import  './main.less'
 

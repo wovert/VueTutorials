@@ -407,6 +407,9 @@ $ npm i css-loader -S
 style标签模块
 $ npm i style-loader -S
 
+less转css
+$ npm i less less-loader -S
+
 ```
 
 ### img 打包
@@ -415,3 +418,29 @@ $ npm i style-loader -S
 $ npm i file-loader -S
 $ npm i url-loader -S
 ```
+
+### html
+
+```sh
+$ npm i html-webpack-plugin -S
+```
+
+## Error: Cannot find module 'webpack/lib/node/NodeTemplatePlugin'
+
+是因为全局安装webpack导致的
+
+`npm install webpack`
+
+### webpack-dev-server
+
+``` sh
+$ npm i webpack-dev-server@2.9.0 -S
+```
+
+- --open 自动打开浏览器
+- --hot 热更新，不在刷新的情况下替换，CSS样式
+- --inline, 自动刷新
+- --port 9999 指定端口
+- --process 显示编译进度
+
+### ES6浏览器下兼容
