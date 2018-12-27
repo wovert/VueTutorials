@@ -1,6 +1,6 @@
 var app = {
   template: `<div>
-    我是App组件
+    我是App组件更行
   </div>`
 }
 

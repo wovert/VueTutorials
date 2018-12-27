@@ -99,7 +99,7 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return num2; });
 var app = {
   template: `<div>
-    我是App组件
+    我是App组件更行
   </div>`
 }
 
@@ -117,8 +117,8 @@ var num2 = 2
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bower_components_vue_dist_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bower_components_vue_dist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__bower_components_vue_dist_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__demo01_bower_components_vue_dist_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__demo01_bower_components_vue_dist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__demo01_bower_components_vue_dist_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App__ = __webpack_require__(1);
 // entry
 
@@ -127,7 +127,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 console.log(__WEBPACK_IMPORTED_MODULE_1__App__["b" /* num1 */], __WEBPACK_IMPORTED_MODULE_1__App__["c" /* num2 */])
 
-new __WEBPACK_IMPORTED_MODULE_0__bower_components_vue_dist_vue___default.a({
+new __WEBPACK_IMPORTED_MODULE_0__demo01_bower_components_vue_dist_vue___default.a({
   el: '#app',
   components: {
     app: __WEBPACK_IMPORTED_MODULE_1__App__["a" /* default */]

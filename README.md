@@ -358,6 +358,60 @@ dependecies: {
   - **UMD** 通用模块定义，一种既能兼容AMD也能兼容CommonJS也能兼容浏览器运行的万能代码
 - **npm/bower** 集中包管理的方式备受青睐，12年的browserify/webpack 诞生
   - npm 是下载前段后端JS代码
-  - bower智能下载前段的JS代码，bower在下载bootstrap的时候会自动的下载依赖库（下载jQuery）
-  - browserify 解决让require可以运行在浏览器，分析require的关系，组装代码
+  - **bower**只能下载前段的JS代码，bower在下载bootstrap的时候会自动的下载依赖库（下载jQuery）
+  - **browserify** 解决让require可以运行在浏览器，分析require的关系，组装代码
   - webpack 打包工具，占市场主流
+
+### UMD 规范
+
+``` js
+(function(root, factory){
+  if (typeof exports === 'object') {
+    module.exports = factory(); // commonjs环境下能拿到返回值
+  } else if(typeof define === 'function') {
+    define(factory);  // define(function(){return 'a'}) AMD
+  } else {
+    window.eventUtil = factory();
+  }
+})(this, function(){
+  // module
+  return {
+
+    // 具体模块代码
+    addEvent: function(el, type, handle) {
+      // ...
+    },
+    removeEvent: function(el, type, handle) {
+      // ...
+    }
+  }
+})
+```
+
+### webpack 打包模块的源码
+
+1. 把所有模块的代码放入到函数中，用一个数组保存起来
+2. 根据require时传入的数组索引，能知道需要哪一段代码
+3. 从数组中，根据索引取出包含我们代码的函数
+4. 执行该函数，传入一个对象 module.exports
+5. 我们的代码，按照约定，正好是用 module.exports = 'xxx' 进行赋值
+6. 调用函数结束后，module.exports 从原来的空对象，就有值了
+7. 最终 return module.exports; 作为require函数的返回值
+
+### css 打包
+
+```sh
+css样式嵌入到html页面中（缺少style标签）
+$ npm i css-loader -S
+
+style标签模块
+$ npm i style-loader -S
+
+```
+
+### img 打包
+
+```sh
+$ npm i file-loader -S
+$ npm i url-loader -S
+```
