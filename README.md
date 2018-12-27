@@ -279,20 +279,6 @@ $ bower install axios
   - data 请求体数据
   - timeout 请求超时，请求多久以后没有响应算是超时（毫秒）
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## vue-cli
 
 > A simple CLI for scaffolding Vue.js projects.
@@ -354,3 +340,24 @@ dependecies: {
 2. 安装自定义模板
 
 `# vim init wovert/webpack temp`
+
+## webpack
+
+### 历史介绍
+
+- 2009年初，CommonJS 规范还未出来，此时前段开发人员编写的代码都是非模块化的。文件加载顺序所需带来的依赖问题
+
+- NodeJS开启了JS全栈入门，而RequireJS在国外带动着前段逐步实现模块化
+  - 国内seaJS大力推广
+  - **AMD规范**，具体实现是 requrejs define('模块id', [模块依赖1,模块依赖2],function(){return;}) ajax请求文件并加载
+  - **CommonJS** || CMD 规范 seajs淘伯
+    - CommonJS 和CMD非常相似
+      - CMD requrie/module.exports
+    - CommonJS 是js在后端语言的规范：模块、文件操作、操作系统底层
+    - CMD 模块定义
+  - **UMD** 通用模块定义，一种既能兼容AMD也能兼容CommonJS也能兼容浏览器运行的万能代码
+- **npm/bower** 集中包管理的方式备受青睐，12年的browserify/webpack 诞生
+  - npm 是下载前段后端JS代码
+  - bower智能下载前段的JS代码，bower在下载bootstrap的时候会自动的下载依赖库（下载jQuery）
+  - browserify 解决让require可以运行在浏览器，分析require的关系，组装代码
+  - webpack 打包工具，占市场主流
