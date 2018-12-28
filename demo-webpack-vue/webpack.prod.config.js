@@ -1,6 +1,6 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
-
+const uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   // 1. 入口
@@ -49,8 +49,20 @@ module.exports = {
     ]
   },
   plugins: [
+
+    //启用js压缩
+    new uglify(),
+
     // 插件的执行顺序与元素索引有关
     new htmlWebpackPlugin({
+      // 压缩文件，removeAttributeQuotes指去掉属性的双引号
+      minify:{
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
+      // 加入hash值，为了避免浏览器缓存js
+      hash:true, // 了开发中js有缓存效果，加入hash，可以有效避免js缓存
       template: './src/index.html', // 参照物 ./src/index.html移动到 ./dist/index.html
     })
   ]

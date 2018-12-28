@@ -507,3 +507,14 @@ devDependencies
 "webpack-dev-server": "^2.9.0"
 ```
 
+### uglify 错误提示
+
+ERROR in build.js from UglifyJs
+
+Unexpected token: punc (() [build.js:1053,6]
+
+``` .babelrc
+{
+  "presets": ["env"]
+}
+```
