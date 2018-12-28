@@ -518,3 +518,31 @@ Unexpected token: punc (() [build.js:1053,6]
   "presets": ["env"]
 }
 ```
+
+### ts
+
+- webpack3
+- typescript@3 ts-loader@3
+
+``` ts.config.json
+{
+  "compilerOptions": {     // 编译选项
+    "module": "commonjs",   // 包含 es6 module, es7 module 和 他自己
+    "target": "es5",        // 编译成 es5
+    "allowJs": true         // 允许使用 js
+  },
+ 
+  "include": [            // 编译路径
+    "./src/*"
+  ],
+ 
+  "exclude": [            // 不包括路径
+    "./node_modules"
+  ]
+}
+```
+
+### main.ts报错（ Cannot find module './App.vue'.）
+
+- 原因： typescript不能识别.vue文件
+- 解决办法： 引入vue的typescript declare库
