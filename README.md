@@ -303,11 +303,11 @@ exmpale : `# vue init webpack my-project`
 
 - template-name 模板名称
   - webpack: - A full-featured Webpack + vue-loader setup with hot reload, linting, testing & css extraction.
-  - webpack-simple
-  - browserify
-  - browserify-simple
+  - webpack-simple 缺少 hot reload, linting, testing & css extraction
+  - browserify 基于浏览器完整版
+  - browserify-simple 缺少hot-reload,linting & unit testing
   - pwa
-  - simple
+  - simple - The simplest possible Vue setup in a single HTML file
 
 ### Custom Templates
 

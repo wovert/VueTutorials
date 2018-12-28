@@ -1,0 +1,20 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+
+// 注册全局组件 router-view router-link
+// 挂在Vue.prototype.$router
+// 挂在Vue.prototype.$route
+// 未来所有的组件中的 this 对象，就具备该属性
+// 所有的 this 其实就是Vue的子类对象
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'HelloWorld',
+      component: HelloWorld
+    }
+  ]
+})
