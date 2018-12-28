@@ -41,7 +41,7 @@
 - dist/vue.esm.js (ES6模块化代码)
   - dist/vue.esm.browser.js (基于浏览器的ES6模块化代码)
 - dist/vue.min.js (压缩后的代码)
-- dist/vue.runtime.js (运行时，和vue.js要小30%，阉割版)
+- dist/vue.runtime.js (运行时，和vue.js要小30%, 少模板编译器，阉割版)
 
 ## 插值表达式
 
@@ -464,3 +464,46 @@ $ npm i babel-core babel-loader babel-preset-env babel-plugin-transform-runtime 
 $ npm uninstall babel-loader
 $ npm install babel-loader@7.1.5 -S
 ```
+
+### vue-loader
+
+**webpacke@3.6.0 + vue-loader@14.1.1**
+
+``` sh
+$ npm info vue-loader versions
+$ npm i vue@2 -S
+$ npm i vue-loader@14.2.3 -S
+$ npm i vue-template-compiler@2.5.16 -S 模板编译器
+```
+
+### 包的分类管理和分类回复
+
+- 安装包的时候，做一个分类的管理
+  - 开发依赖（打包相关的webpack）npm i package -D   => devDependencies
+  - 生产依赖（不包含webapck打包依赖）npm i package -S => dependencies
+
+- 恢复依赖
+  - 如果包文件不小心珊了，少了
+  - 开发恢复：`npm i` 对应 devDependencies
+  - 生产恢复：`npm i --production` 对应dependencies
+
+``` json
+
+devDependencies
+
+"babel-core": "^6.26.3",
+"babel-loader": "^7.1.5",
+"babel-plugin-transform-runtime": "^6.23.0",
+"babel-preset-env": "^1.7.0",
+"css-loader": "^2.1.0",
+"file-loader": "^3.0.1",
+"html-webpack-plugin": "^3.2.0",
+"install": "^0.12.2",
+"less": "^3.9.0",
+"less-loader": "^4.1.0",
+"style-loader": "^0.23.1",
+"url-loader": "^1.1.2",
+"webpack": "^3.5.0",
+"webpack-dev-server": "^2.9.0"
+```
+
