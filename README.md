@@ -444,3 +444,23 @@ $ npm i webpack-dev-server@2.9.0 -S
 - --process 显示编译进度
 
 ### ES6浏览器下兼容
+
+- babel-core: babel核心api的模块
+  - babel.transform：用于字符串转码得到AST
+- babel-loader 对接webapck
+- babel-preset-env 预设和环境,包含ES6/ES7
+  - 早起低版本：babel-preset-es6
+  - 处理ES7：babel-preset-es2015
+- babel-plugin-transform-runtime
+
+``` sh
+$ npm i babel-core babel-loader babel-preset-env babel-plugin-transform-runtime -S
+```
+
+`Module build failed: Error: Cannot find module '@babel/core'`
+
+解决：
+``` sh
+$ npm uninstall babel-loader
+$ npm install babel-loader@7.1.5 -S
+```
