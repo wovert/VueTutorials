@@ -22,12 +22,10 @@
 
     // 头组件
     let MyHeader = {
-      template: `
-        <header>
+      template: `<header>
           <input type="text" v-if="isShow" ref="input" />
           <button ref="btn">我是按钮</button>
-        </header>
-      `,
+        </header>`,
       data() {
         return {
           isShow: false

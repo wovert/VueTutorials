@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>开始使用Vue框架</title>
 </head>
 <body>
   <div id="app"></div>
@@ -13,12 +13,11 @@
   <!-- 3. 配置optiosn选项对象 -->
   <!-- 4. el:目的地,template:模板,data:function(){return {key:value}}  -->
   <!-- 5. 页面中存在该目的地，目的地字符串描述，同jQuery方式一样 -->
-
   <script src="../bower_components/vue/dist/vue.js"></script>
   <script>
       new Vue({
         //el: '#app',                   // #id, .class, tag 都可以
-        el: document.getElementById('app'), // 优化：提前设定目的地节点
+        el: document.getElementById('app'), // 优化：提前设定目标节点
         template: '<h1>{{ text }}</h1>',  // 装载的模板
         data: function() {            // 动态数据的声明
           return {

@@ -17,8 +17,7 @@
 <body>
   <div id="app"></div>
   <script src="../bower_components/vue/dist/vue.js"></script>
-  <script src="../bower_components/vue-router/dist/vue-router.js"></script>
-  
+  <script src="../bower_components/vue-router/dist/vue-router.js"></script> 
   <script>
     /*
      1. 引入 vue-router（核心插件）对象
@@ -27,8 +26,6 @@
      4. 将配置好的路由对象关联到 vue 实例中
      5. 指定路由改变局部的位置
     */
-
-
     var Login = {
       template: `<div>我是登录页面</div>`,
       mounted() {
@@ -54,7 +51,6 @@
         { name: 'register', path: '/myregister', component: Register }
       ]
     })
-
 
     var App = {
       template: `

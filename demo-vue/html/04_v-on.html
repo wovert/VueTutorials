@@ -13,7 +13,6 @@
       new Vue({
         el: document.getElementById('app'),
         template: `
-          <!--必须一个根节点-->
           <section>
             <input type="text" v-bind:value="myVal" :file="file" :title=" '常量' " />
             <hr />
@@ -25,7 +24,7 @@
         `,
         data: function() {
           return {
-            myVal: '沙龙的看法家拉时代峻峰了',
+            myVal: 'value值',
             file: "属性值"
           }
         }
