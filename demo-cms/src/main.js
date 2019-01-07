@@ -8,6 +8,9 @@ import router from './router'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// 引入自己的css
+import './assets/css/global.css'
+
 // 安装插件 注册全局组件及挂在属性
 
 // config axios

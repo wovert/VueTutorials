@@ -1,22 +1,23 @@
 <template>
   <div>
-    <mt-header fixed title="信息管理系统"></mt-header>
+    <mt-header title="信息管理系统"></mt-header>
+    <router-view/>
     <mt-tabbar v-model="selected">
-      <mt-tab-item id="外卖">
-        <img slot="icon" src="" alt="外卖">
-        外卖
+      <mt-tab-item id="home">
+        <img slot="icon" src="./assets/img/home.png" alt="首页">
+        首页
       </mt-tab-item>
-      <mt-tab-item id="订单">
-        <img slot="icon" src="" alt="订单">
-        订单
+      <mt-tab-item id="member">
+        <img slot="icon" src="./assets/img/user.png" alt="订单">
+        会员
       </mt-tab-item>
-      <mt-tab-item id="发现">
-        <img slot="icon" src="" alt="发现">
-        发现
+      <mt-tab-item id="cart">
+        <img slot="icon" src="./assets/img/cart.png" alt="购物车">
+        购物车
       </mt-tab-item>
-      <mt-tab-item id="我的">
-        <img slot="icon" src="" alt="我的">
-        我的
+      <mt-tab-item id="search">
+        <img slot="icon" src="./assets/img/search.png" alt="search">
+        查找
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -25,7 +26,15 @@
 export default {
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      selected: ''
+    }
+  },
+  watch: {
+    selected (newV, oldV) {
+      console.log(oldV, newV)
+      this.$router.push({
+        name: newV
+      })
     }
   }
 }
