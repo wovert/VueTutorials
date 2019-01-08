@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <mt-header title="信息管理系统"></mt-header>
+  <div class="container">
+    <mt-header title="信息管理系统" fixed></mt-header>
     <router-view/>
-    <mt-tabbar v-model="selected">
+    <mt-tabbar v-model="selected" fixed>
       <mt-tab-item id="home">
         <img slot="icon" src="./assets/img/home.png" alt="首页">
         首页
@@ -39,4 +39,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style scoped>
+  .container {
+    padding: 40px 0 55px 0;
+  }
+</style>

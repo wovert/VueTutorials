@@ -8,10 +8,10 @@
     <div class="gridview">
       <my-ul>
         <my-li v-for="(grid, index) in grids" :key="index">
-          <a href="">
+          <router-link :to="grid.router">
             <i :class="grid.className"></i>
             <span>{{ grid.title }}</span>
-          </a>
+          </router-link>
         </my-li>
       </my-ul>
     </div>
@@ -26,27 +26,45 @@ export default {
       grids: [
         {
           className: 'cms-news',
-          title: '新闻资讯'
+          title: '新闻资讯',
+          router: {
+            name: 'news.list'
+          }
         },
         {
           className: 'cms-photo',
-          title: '图文分享'
+          title: '图文分享',
+          router: {
+            name: 'news.list'
+          }
         },
         {
           className: 'cms-product',
-          title: '商品展示'
+          title: '商品展示',
+          router: {
+            name: 'news.list'
+          }
         },
         {
           className: 'cms-comment',
-          title: '留言反馈'
+          title: '留言反馈',
+          router: {
+            name: 'news.list'
+          }
         },
         {
           className: 'cms-qa',
-          title: '搜索资讯'
+          title: '搜索资讯',
+          router: {
+            name: 'news.list'
+          }
         },
         {
           className: 'cms-contact',
-          title: '联系我们'
+          title: '联系我们',
+          router: {
+            name: 'news.list'
+          }
         }
       ]
     }
@@ -54,7 +72,7 @@ export default {
   // created 创建组件的生命周期函数中，可操作数据
   created () {
     this.$axios.get('banners.php').then(res => {
-      console.log(res.data.images)
+      // console.log(res.data.images)
       this.imgs = res.data.images
     }).catch(err => console.log('轮播图获取异常', err))
   }

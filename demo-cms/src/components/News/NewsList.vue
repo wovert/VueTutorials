@@ -1,0 +1,39 @@
+<template>
+  <section>
+    <nav-bar title="新闻列表"/>
+    <article v-for="(news, index) in newsList" :key="index">
+      <p>
+        {{ news.title }}<br />
+        发布时间：<time>{{ news.addTime*1000 | convertTime('YYYY-MM-DD')}}</time>
+      </p>
+    </article>
+  </section>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      newsList: []
+    }
+  },
+  created () {
+    this.$axios.get('getnewslist.php').then(res => {
+      if (res.data.state === 200 && res.data.message.length > 0) {
+        this.newsList = res.data.message
+      }
+    }).catch(err => console.log('新闻列表异常', err))
+  }
+}
+</script>
+
+<style scoped>
+  section {
+    background: #f0f0f0;
+  }
+  article {
+    background: #fefefe;
+    padding: .714286rem;
+    margin-bottom: .357143rem;
+  }
+</style>

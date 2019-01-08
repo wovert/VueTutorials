@@ -5,6 +5,7 @@ import Home from '@/components/Home/Home'
 import Member from '@/components/Member/Member'
 import Search from '@/components/Search/Search'
 import Cart from '@/components/Cart/Cart'
+import NewsList from '@/components/News/NewsList'
 
 // 注册全局组件 router-view router-link
 // 挂在Vue.prototype.$router
@@ -17,6 +18,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: { name: 'home' }
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home
     },
@@ -34,6 +39,12 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: Cart
+    },
+    // 新闻列表
+    {
+      path: '/news/list',
+      name: 'news.list',
+      component: NewsList
     }
   ]
 })

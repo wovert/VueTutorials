@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Moment from 'moment'
 
 // config mint-ui
 import MintUI from 'mint-ui'
@@ -13,6 +14,8 @@ import './assets/css/global.css'
 
 import MyUl from '@/components/Common/MyUl'
 import MyLi from '@/components/Common/MyLi'
+
+import NavBar from '@/components/Common/NavBar'
 
 // 安装插件 注册全局组件及挂在属性
 
@@ -30,6 +33,12 @@ Vue.use(MintUI)
 // 注册全局组件
 Vue.component(MyUl.name, MyUl)
 Vue.component(MyLi.name, MyLi)
+Vue.component(NavBar.name, NavBar)
+
+// 定义moment全局日期过滤器
+Vue.filter('convertTime', function (data, formatStr) {
+  return Moment(data).format(formatStr)
+})
 
 /* eslint-disable no-new */
 new Vue({

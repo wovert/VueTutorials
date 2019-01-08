@@ -546,3 +546,9 @@ Unexpected token: punc (() [build.js:1053,6]
 
 - 原因： typescript不能识别.vue文件
 - 解决办法： 引入vue的typescript declare库
+
+## moment.js
+
+``` sh
+$ npm i moment -S
+```
