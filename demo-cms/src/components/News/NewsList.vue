@@ -2,10 +2,12 @@
   <section>
     <nav-bar title="新闻列表"/>
     <article v-for="(news, index) in newsList" :key="index">
+      <router-link :to="{name:'news.detail', query: {id: news.id}}">
       <p>
         {{ news.title }}<br />
         发布时间：<time>{{ news.addTime*1000 | convertTime('YYYY-MM-DD')}}</time>
       </p>
+      </router-link>
     </article>
   </section>
 </template>

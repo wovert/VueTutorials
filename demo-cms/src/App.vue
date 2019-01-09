@@ -4,19 +4,19 @@
     <router-view/>
     <mt-tabbar v-model="selected" fixed>
       <mt-tab-item id="home">
-        <img slot="icon" src="./assets/img/home.png" alt="首页">
+        <img slot="icon" @click="changeHash" src="./assets/img/home.png" alt="首页">
         首页
       </mt-tab-item>
       <mt-tab-item id="member">
-        <img slot="icon" src="./assets/img/user.png" alt="订单">
+        <img slot="icon" @click="changeHash" src="./assets/img/user.png" alt="订单">
         会员
       </mt-tab-item>
       <mt-tab-item id="cart">
-        <img slot="icon" src="./assets/img/cart.png" alt="购物车">
+        <img slot="icon" @click="changeHash" src="./assets/img/cart.png" alt="购物车">
         购物车
       </mt-tab-item>
       <mt-tab-item id="search">
-        <img slot="icon" src="./assets/img/search.png" alt="search">
+        <img slot="icon" @click="changeHash" src="./assets/img/search.png" alt="search">
         查找
       </mt-tab-item>
     </mt-tabbar>
@@ -29,14 +29,26 @@ export default {
       selected: ''
     }
   },
-  watch: {
-    selected (newV, oldV) {
-      console.log(oldV, newV)
-      this.$router.push({
-        name: newV
+  methods: {
+    changeHash () {
+      // 在vue完成渲染任务以后的行为
+      this.$nextTick(function () {
+        // 该调用早于了子组件赋值给父组件的selected
+        console.log(this.selected)
+        this.$router.push({
+          name: this.selected
+        })
       })
     }
   }
+  // watch: {
+  //   selected (newV, oldV) {
+  //     console.log(oldV, newV)
+  //     this.$router.push({
+  //       name: newV
+  //     })
+  //   }
+  // }
 }
 </script>
 <style scoped>

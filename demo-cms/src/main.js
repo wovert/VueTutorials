@@ -11,6 +11,7 @@ import 'mint-ui/lib/style.css'
 
 // 引入自己的css
 import './assets/css/global.css'
+import './assets/ttf/iconfont.css'
 
 import MyUl from '@/components/Common/MyUl'
 import MyLi from '@/components/Common/MyLi'

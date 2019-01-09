@@ -14,7 +14,7 @@ export default {
     }
   },
   methods: {
-    goback() {
+    goback () {
       this.$router.go(-1)
     }
   }

@@ -6,6 +6,8 @@ import Member from '@/components/Member/Member'
 import Search from '@/components/Search/Search'
 import Cart from '@/components/Cart/Cart'
 import NewsList from '@/components/News/NewsList'
+import NewsDetail from '@/components/News/NewsDetail'
+import PhotoList from '@/components/Photo/PhotoList'
 
 // 注册全局组件 router-view router-link
 // 挂在Vue.prototype.$router
@@ -45,6 +47,18 @@ export default new Router({
       path: '/news/list',
       name: 'news.list',
       component: NewsList
+    },
+    // 新闻详情
+    {
+      path: '/news/detail',
+      name: 'news.detail',
+      component: NewsDetail
+    },
+    // 图文列表
+    {
+      path: '/photo/list/:categoryId',
+      name: 'photo.list',
+      component: PhotoList
     }
   ]
 })

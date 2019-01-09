@@ -552,3 +552,5 @@ Unexpected token: punc (() [build.js:1053,6]
 ``` sh
 $ npm i moment -S
 ```
+
+`headers: {'content-type': undefined}`
