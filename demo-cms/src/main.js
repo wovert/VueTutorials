@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Moment from 'moment'
+import VuePreview from 'vue-preview'
 
 // config mint-ui
 import MintUI from 'mint-ui'
@@ -30,6 +31,10 @@ Vue.prototype.$axios = Axios
 Vue.config.productionTip = false
 // 安装插件 注册全局组件及挂在属性
 Vue.use(MintUI)
+
+// 图片预览插件
+Vue.use(VuePreview) // 内部运行
+// Vue.component('vue-preview', componentObj)
 
 // 注册全局组件
 Vue.component(MyUl.name, MyUl)

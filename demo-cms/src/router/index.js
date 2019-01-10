@@ -8,6 +8,7 @@ import Cart from '@/components/Cart/Cart'
 import NewsList from '@/components/News/NewsList'
 import NewsDetail from '@/components/News/NewsDetail'
 import PhotoList from '@/components/Photo/PhotoList'
+import PhotoDetail from '@/components/Photo/PhotoDetail'
 
 // 注册全局组件 router-view router-link
 // 挂在Vue.prototype.$router
@@ -59,6 +60,12 @@ export default new Router({
       path: '/photo/list/:categoryId',
       name: 'photo.list',
       component: PhotoList
+    },
+    // 图文详情
+    {
+      path: '/photo/detail',
+      name: 'photo.detail',
+      component: PhotoDetail
     }
   ]
 })

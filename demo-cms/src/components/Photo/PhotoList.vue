@@ -10,7 +10,7 @@
       <router-link :to="{name:'photo.detail', query: {id: photo.id}}">
       <p>
         {{ photo.title }}<br />
-        发布时间：<time>{{ photo.showTime*1000 | convertTime('YYYY-MM-DD')}}</time>
+        发布时间：<time>{{ photo.showTime*1000 | convertTime('YYYY年MM月DD日')}}</time>
       </p>
       <figure>
         <img v-lazy="getImgUrl(photo.pic)" :key="photo.pic" :alt="photo.title">
@@ -31,13 +31,13 @@ export default {
   beforeRouteUpdate (to, from, next) {
     // 路由复用，但参数改变触发，参数：query||params
     console.log(to)
-    this.loadImagesByCategoryId(to.params.categoryId)
+    this.loadImageById(to.params.categoryId)
     next()
   },
   created () {
     // 1. 获取路由参数categoryId
     let categoryId = this.$route.params.categoryId
-    this.loadImagesByCategoryId(categoryId)
+    this.loadImageById(categoryId)
 
     // 2. 获取图文分类信息
     this.$axios.get('getphotocategory.php').then(res => {
@@ -55,6 +55,16 @@ export default {
       return 'http://img.static.gqsj.cc/' + img
     },
     loadImagesByCategoryId (categoryId) {
+      // 1. 路由参数改变, 此函数会触发 beforeRouteUpdate
+      this.$router.push({
+        name: 'photo.list',
+        params: {
+          categoryId
+        }
+      })
+    },
+    // 通过id获取数据
+    loadImageById (categoryId) {
       // 2. 通过url拼接参数发请求
       // 3. 获取数组渲染
       this.$axios.get('getphotolist.php', {params: {categoryId}}).then(res => {
@@ -118,5 +128,16 @@ export default {
     width: 40px;
     height: 300px;
     margin: auto;
+  }
+
+  ul {
+    list-style: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+  }
+  ul li {
+    float:left;
+    margin-right: .714286rem
   }
 </style>

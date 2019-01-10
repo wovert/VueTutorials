@@ -554,3 +554,9 @@ $ npm i moment -S
 ```
 
 `headers: {'content-type': undefined}`
+
+## 缩略图插件
+
+``` sh
+$ npm i vue-preview -S
+```

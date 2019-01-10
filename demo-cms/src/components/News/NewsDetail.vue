@@ -6,7 +6,7 @@
       <p>
         发布时间：<time>{{ news.addTime*1000 | convertTime('YYYY年MM月DD日') }}</time>
       </p>
-      <div v-html="news.content"></div>
+      <div class="news-content" v-html="news.content"></div>
     </article>
   </section>
 </template>
@@ -37,5 +37,13 @@ export default {
     background: #fefefe;
     padding: .714286rem;
     margin-bottom: .357143rem;
+  }
+  /*
+    先找到.new-content img的图像进行渲染，但是还没有渲染 v-html="news-content"
+    v-html="newsDetail.content" 是nextTick以后才会有
+    解决方案：全局样式文件中
+  */
+  .news-content img {
+    width: 100%
   }
 </style>

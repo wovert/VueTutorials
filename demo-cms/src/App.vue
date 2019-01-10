@@ -55,4 +55,7 @@ export default {
   .container {
     padding: 40px 0 55px 0;
   }
+  .mint-header,.mint-tabbar{
+    z-index: 10;
+  }
 </style>
