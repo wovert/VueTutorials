@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <mt-header title="信息管理系统" fixed></mt-header>
-    <router-view/>
+    <main><router-view /></main>
     <mt-tabbar v-model="selected" fixed>
       <mt-tab-item id="home">
         <img slot="icon" @click="changeHash" src="./assets/img/home.png" alt="首页">
@@ -34,7 +34,6 @@ export default {
       // 在vue完成渲染任务以后的行为
       this.$nextTick(function () {
         // 该调用早于了子组件赋值给父组件的selected
-        console.log(this.selected)
         this.$router.push({
           name: this.selected
         })
@@ -52,9 +51,6 @@ export default {
 }
 </script>
 <style scoped>
-  .container {
-    padding: 40px 0 55px 0;
-  }
   .mint-header,.mint-tabbar{
     z-index: 10;
   }

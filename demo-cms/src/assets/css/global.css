@@ -1,6 +1,13 @@
 body {
   margin:0
 }
+main {
+  margin: 40px 0 55px 0;
+}
+a, a:link {
+  color: #333;
+  text-decoration: none;
+}
 .news-content img {
   width: 100%
 }

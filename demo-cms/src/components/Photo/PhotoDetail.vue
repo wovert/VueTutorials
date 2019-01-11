@@ -16,6 +16,8 @@
       </div>
       <vue-preview :slides="photoList"></vue-preview>
     </article>
+    <!-- comments -->
+    <comment :cid="$route.query.id" />
   </section>
 </template>
 
@@ -66,11 +68,13 @@ export default {
 <style scoped>
   section {
     background: #f0f0f0;
+    overflow: hidden;
   }
   article {
     background: #fefefe;
     padding: .714286rem;
     margin-bottom: .357143rem;
+    overflow: hidden;
   }
   .content-image img {
     width: 60%;

@@ -16,8 +16,8 @@ import './assets/ttf/iconfont.css'
 
 import MyUl from '@/components/Common/MyUl'
 import MyLi from '@/components/Common/MyLi'
-
 import NavBar from '@/components/Common/NavBar'
+import Comment from '@/components/Common/Comment'
 
 // 安装插件 注册全局组件及挂在属性
 
@@ -25,7 +25,7 @@ import NavBar from '@/components/Common/NavBar'
 import Axios from 'axios'
 
 // config public API URL
-Axios.defaults.baseURL = 'http://127.0.0.1/api/'
+Axios.defaults.baseURL = 'http://192.168.1.88/api/'
 Vue.prototype.$axios = Axios
 
 Vue.config.productionTip = false
@@ -40,10 +40,17 @@ Vue.use(VuePreview) // 内部运行
 Vue.component(MyUl.name, MyUl)
 Vue.component(MyLi.name, MyLi)
 Vue.component(NavBar.name, NavBar)
+Vue.component(Comment.name, Comment)
+
+Moment.locale('zh-cn')
 
 // 定义moment全局日期过滤器
 Vue.filter('convertTime', function (data, formatStr) {
   return Moment(data).format(formatStr)
+})
+
+Vue.filter('relativeTime', function (previousTime) {
+  return Moment(previousTime).fromNow()
 })
 
 /* eslint-disable no-new */
