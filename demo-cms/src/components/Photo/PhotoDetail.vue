@@ -4,20 +4,20 @@
     <article>
       <h1>{{ photo.title }}</h1>
       <p>
-        发布时间：<time>{{ photo.showTime*1000 | convertTime('YYYY年MM月DD日') }}</time>
+        发布时间：<time>{{ photo.endTime*1000 | relativeTime('YYYY年MM月DD日') }}</time>
       </p>
       <p class="content-image">
-        <img :src="getImgUrl(photo.pic)" :key="photo.pic" :alt="photo.title" />
+        <img :src="photo.cover" :key="photo.cover" :alt="photo.title" />
       </p>
-      <div class="photo-content">
-        <!-- <p v-for="(photo, index) in photoList" :key="index">
-          <img v-lazy="getImgUrl(photo.pic)" :key="photo.pic" :alt="photo.title">
-        </p> -->
-      </div>
+      <!-- <div class="photo-content">
+        <p v-for="(img, index) in photo.images" :key="index">
+          <img v-lazy="img" :key="img" :alt="photo.title">
+        </p>
+      </div> -->
       <vue-preview :slides="photoList"></vue-preview>
     </article>
     <!-- comments -->
-    <comment :cid="$route.query.id" />
+    <!-- <comment :cid="$route.query.id" /> -->
   </section>
 </template>
 
@@ -33,29 +33,20 @@ export default {
     }
   },
   created () {
-    let id = this.$route.query.id
-    this.$axios.get('getphoto.php', {params: {id}}).then(res => {
+    let id = this.$route.params.id
+    this.$axios.get(`tuan/${id}`).then(res => {
       if (res.data.state === 200) {
-        this.photo = res.data.message
+        this.photo = res.data.result
+        for (let i in res.data.result.images) {
+          this.photoList.push({
+            src: res.data.result.images[i],
+            msrc: res.data.result.images[i],
+            w: 600,
+            h: 400
+          })
+        }
       }
     }).catch(err => console.log('没有图文详情', err))
-
-    this.$axios.get('getphotolist.php', {params: {categoryId: 0}}).then(res => {
-      if (res.data.state === 200 && res.data.message.length > 0) {
-        this.photoList = res.data.message
-        this.photoList.forEach(pic => {
-          pic.src = this.getImgUrl(pic.pic)
-          pic.msrc = this.getImgUrl(pic.pic + '@300w_300h_1e_1c_99q_1o')
-          pic.w = 600
-          pic.h = 400
-        })
-      } else {
-        this.$toast({
-          message: '没有图片了',
-          iconClass: 'iconfont icon-debug'
-        })
-      }
-    }).catch(err => console.log('图文列表异常', err))
   },
   methods: {
     getImgUrl (img) {

@@ -6,7 +6,7 @@
       <p>
         发布时间：<time>{{ news.addTime*1000 | convertTime('YYYY年MM月DD日') }}</time>
       </p>
-      <div class="news-content" v-html="news.content"></div>
+      <div class="news-content" v-html="news.html"></div>
     </article>
   </section>
 </template>
@@ -20,9 +20,9 @@ export default {
   },
   created () {
     let id = this.$route.query.id
-    this.$axios.get('getnews.php', {params: {id}}).then(res => {
+    this.$axios.get(`channel/news/${id}`).then(res => {
       if (res.data.state === 200) {
-        this.news = res.data.message
+        this.news = res.data.result
       }
     }).catch(err => console.log('没有新闻详情', err))
   }
@@ -37,6 +37,9 @@ export default {
     background: #fefefe;
     padding: .714286rem;
     margin-bottom: .357143rem;
+  }
+  figure img {
+    width: 100%
   }
   /*
     先找到.new-content img的图像进行渲染，但是还没有渲染 v-html="news-content"

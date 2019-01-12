@@ -3,17 +3,17 @@
     <nav-bar title="图文列表"/>
     <ul>
       <li v-for="(c, index) in categories" :key="index">
-        <a href="javascript:;" @click="loadImagesByCategoryId(c.position)">{{c.title}}</a>
+        <a href="javascript:;" @click="loadImagesByCategoryId(c.topCaId)">{{c.name}}</a>
       </li>
     </ul>
     <article v-for="(photo, index) in photoList" :key="index">
-      <router-link :to="{name:'photo.detail', query: {id: photo.id}}">
+      <router-link :to="{name:'photo.detail',  params: {id: photo.id}}">
       <p>
         {{ photo.title }}<br />
         发布时间：<time>{{ photo.showTime*1000 | convertTime('YYYY年MM月DD日')}}</time>
       </p>
       <figure>
-        <img v-lazy="getImgUrl(photo.pic)" :key="photo.pic" :alt="photo.title">
+        <img v-lazy="photo.cover" :key="photo.cover" :alt="photo.title">
       </figure>
       </router-link>
     </article>
@@ -30,7 +30,7 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     // 路由复用，但参数改变触发，参数：query||params
-    console.log(to)
+    // console.log(to)
     this.loadImageById(to.params.categoryId)
     next()
   },
@@ -40,9 +40,9 @@ export default {
     this.loadImageById(categoryId)
 
     // 2. 获取图文分类信息
-    this.$axios.get('getphotocategory.php').then(res => {
-      if (res.data.state === 200 && res.data.message.length > 0) {
-        this.categories = res.data.message
+    this.$axios.get('event/main/tuan/category').then(res => {
+      if (res.data.state === 200 && res.data.result.length > 0) {
+        this.categories = res.data.result
         this.categories.unshift({
           id: 0,
           title: '全部'
@@ -64,12 +64,12 @@ export default {
       })
     },
     // 通过id获取数据
-    loadImageById (categoryId) {
+    loadImageById (cat) {
       // 2. 通过url拼接参数发请求
       // 3. 获取数组渲染
-      this.$axios.get('getphotolist.php', {params: {categoryId}}).then(res => {
-        if (res.data.state === 200 && res.data.message.length > 0) {
-          this.photoList = res.data.message
+      this.$axios.get('tuan/list/1', {params: {cat}}).then(res => {
+        if (res.data.state === 200 && res.data.result.length > 0) {
+          this.photoList = res.data.result
         } else {
           this.$toast({
             message: '没有图片了',
