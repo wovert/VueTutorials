@@ -6,21 +6,21 @@
         <p><a href="#">返回</a></p>
       </header>
       <form>
-        <textarea></textarea>
-        <mt-button size="large" type="primary">发表评论</mt-button>
+        <textarea v-model="msg"></textarea>
+        <mt-button size="large" type="primary" @click="sendMsg">发表评论</mt-button>
       </form>
     </fieldset>
     <section>
       <header>
         <h1>评论列表</h1>
-        <p><span class="comment-count">44</span>条评论</p>
+        <p><span class="comment-count">{{comments.length}}</span>条评论</p>
       </header>
       <article v-for="(comment, index) in comments" :key="index">
         <dl>
-          <dt>{{ comment.name}}</dt>
+          <dt>{{ comment.nickname}}</dt>
           <dd>
-              <span>{{ comment.title }}</span>
-              <time>{{ comment.created*1000 | relativeTime('YYYY年MM月DD日') }}</time>
+              <span>{{ comment.msg }}</span>
+              <time>{{ comment.addTime*1000 | relativeTime('YYYY年MM月DD日') }}</time>
           </dd>
         </dl>
       </article>
@@ -35,11 +35,12 @@ export default {
   data () {
     return {
       comments: [],
-      page: 1
+      page: 1,
+      msg: ''
     }
   },
   props: [
-    'cid' // 评论需要的id
+    'cid'
   ],
   created () {
     // 这个组件是否有页码，没有则使用第一页
@@ -48,16 +49,31 @@ export default {
   },
   methods: {
     loadMore () {
-      this.$axios.get(`getcomments?id=${this.cid}&page=${this.page}`).then(res => {
-        if (res.data.message.length === 0) {
+      this.cid = 154
+      this.$axios.get(`bang/comment/${this.cid}/${this.page}`).then(res => {
+        if (res.data.result.length === 0) {
           this.$toast('没有数据')
-        } else if (res.data.state === 200 && res.data.message.length > 0) {
-          this.comments = this.page === 1 ? res.data.message : this.comments.concat(res.data.message)
+        } else if (res.data.state === 200 && res.data.result.length > 0) {
+          this.comments = this.page === 1 ? res.data.result : this.comments.concat(res.data.result)
           this.page++
         }
       }).catch(err => {
         console.log('评论获取失败', err)
       })
+    },
+    // 发表评论
+    sendMsg () {
+      // 发表之前判断是否为空
+      if (this.msg.trim() === '') {
+        return this.$toast('评论信息不能为空！')
+      }
+      this.$axios.post(`postcomment/${this.cid}`, `content=${this.msg}`).then(res => {
+        // 发表之后，清空评论
+        this.msg = ''
+        // 加载第页的数据
+        this.page = 1
+        this.loadMore()
+      }).catch(err => console.log('发表评论失败', err))
     }
   }
 }
@@ -97,6 +113,12 @@ export default {
     display: flex;
     margin: .357143rem;
   }
+  dt {
+    width: 4em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
   dd {
     display: flex;
     flex: 1;
@@ -104,5 +126,8 @@ export default {
   }
   dd {
     margin-left: .714286rem;
+  }
+  dd time {
+    width: 100px;
   }
 </style>

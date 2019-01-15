@@ -18,6 +18,7 @@ import MyUl from '@/components/Common/MyUl'
 import MyLi from '@/components/Common/MyLi'
 import NavBar from '@/components/Common/NavBar'
 import Comment from '@/components/Common/Comment'
+import MySwipe from '@/components/Common/MySwipe'
 
 // 安装插件 注册全局组件及挂在属性
 
@@ -28,6 +29,20 @@ import Axios from 'axios'
 // Axios.defaults.baseURL = 'http://api.haoshan.com/v1/'
 Axios.defaults.baseURL = '/v1'
 Vue.prototype.$axios = Axios
+
+// 配置请求拦截器，显示loadding 图标
+Axios.interceptors.request.use(function (config) {
+  MintUI.Indicator.open({
+    text: '加载中'
+  })
+  return config
+})
+// 配置响应拦截器，关闭loadding图标
+Axios.interceptors.response.use(function (response) {
+  // response.config 类似 上面config
+  MintUI.Indicator.close()
+  return response
+})
 
 Vue.config.productionTip = false
 // 安装插件 注册全局组件及挂在属性
@@ -42,6 +57,7 @@ Vue.component(MyUl.name, MyUl)
 Vue.component(MyLi.name, MyLi)
 Vue.component(NavBar.name, NavBar)
 Vue.component(Comment.name, Comment)
+Vue.component(MySwipe.name, MySwipe)
 
 Moment.locale('zh-cn')
 
@@ -52,6 +68,11 @@ Vue.filter('convertTime', function (data, formatStr) {
 
 Vue.filter('relativeTime', function (previousTime) {
   return Moment(previousTime).fromNow()
+})
+
+// 处理字符串过长的过滤器
+Vue.filter('convertStr', function (str, count) {
+  return str.substring(0, count) + '...'
 })
 
 /* eslint-disable no-new */
