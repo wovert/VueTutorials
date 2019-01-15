@@ -84,10 +84,14 @@ export default {
       this.$refs.loadmore.onTopLoaded()
     },
     loadBottom () {
-      console.log('上拉函数调用被触发了')
-      let categoryId = this.$route.params.categoryId
-      this.loadImageById(categoryId)
-      this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
+      if (!this.isAllLoaded) {
+        console.log('上拉函数调用被触发了')
+        let categoryId = this.$route.params.categoryId
+        this.loadImageById(categoryId)
+        this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
+      } else {
+        console.log("已加载全部")
+      }
     },
     getImgUrl (img) {
       return 'http://img.static.gqsj.cc/' + img
@@ -133,6 +137,7 @@ export default {
 <style scoped>
   section {
     background: #f0f0f0;
+    height: 100%;
   }
   li {
     position: relative;
