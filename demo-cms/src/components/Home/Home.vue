@@ -1,6 +1,6 @@
 <template>
-  <div class="swiper">
-    <MySwipe url="banner/channel_main"></MySwipe>
+  <div>
+    <my-swipe class="swiper" url="banner/channel_main"></my-swipe>
     <div class="gridview">
       <my-ul>
         <my-li v-for="(grid, index) in grids" :key="index">
@@ -79,13 +79,6 @@ export default {
 </script>
 
 <style scoped>
-  .swiper {
-    height: 100px;
-    background: #fff;
-  }
-  .swiper img {
-    width: 100%;
-  }
   .gridview {
     overflow: hidden;
     background: #333;

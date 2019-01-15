@@ -25,9 +25,9 @@ import MySwipe from '@/components/Common/MySwipe'
 // config axios
 import Axios from 'axios'
 
-//Axios.defaults.baseURL = 'http://m.spa.com/api/'
+// Axios.defaults.baseURL = 'http://m.spa.com/api/'
 
-// Axios.defaults.baseURL = 'http://api.haoshan.com/v1/'
+Axios.defaults.baseURL = 'http://api.haoshan.com/v1/'
 Axios.defaults.baseURL = '/v1'
 Vue.prototype.$axios = Axios
 
