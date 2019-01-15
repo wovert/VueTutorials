@@ -1,12 +1,28 @@
 <template>
   <section>
-    <nav-bar title="图文列表"/>
-    <ul>
+    <nav-bar title="商品列表"/>
+    <!-- <ul>
       <li v-for="(c, index) in categories" :key="index">
         <a href="javascript:;" @click="loadImagesByCategoryId(c.topCaId)">{{c.name}}</a>
       </li>
-    </ul>
-    <article v-for="(photo, index) in photoList" :key="index">
+    </ul> -->
+    <!-- <mt-loadmore :auto-fill="false" :top-method="loadTop" :bottom-method="loadBottom" @top-status-change="handleTopChange" ref="loadmore"> -->
+    <mt-loadmore :auto-fill="false" :bottom-method="loadBottom" ref="loadmore" :bottom-all-loaded="isAllLoaded">
+      <ul class="data-list">
+        <li v-for="(item, index) in photoList" :key="index">
+          <router-link :to="{name:'goods.detail',  params: {id: item.id}}">
+            <img v-lazy="item.cover" :key="item.cover" :alt="item.title">
+            <span>{{ item.title | convertStr(18) }}</span>
+            发布时间：<time>{{ item.addTime*1000 | convertTime('YYYY年MM月DD日')}}</time>
+          </router-link>
+        </li>
+        <div slot="top" class="mint-loadmore-top">
+          <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
+          <span v-show="topStatus === 'loading'">Loading...</span>
+        </div>
+      </ul>
+    </mt-loadmore>
+    <!-- <article v-for="(photo, index) in photoList" :key="index">
       <router-link :to="{name:'photo.detail',  params: {id: photo.id}}">
       <p>
         {{ photo.title }}<br />
@@ -16,7 +32,7 @@
         <img v-lazy="photo.cover" :key="photo.cover" :alt="photo.title">
       </figure>
       </router-link>
-    </article>
+    </article> -->
   </section>
 </template>
 
@@ -25,7 +41,10 @@ export default {
   data () {
     return {
       photoList: [],
-      categories: []
+      categories: [],
+      topStatus: '',
+      page: 1,
+      isAllLoaded: false
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -51,6 +70,25 @@ export default {
     }).catch(err => console.log('分类信息获取失败', err))
   },
   methods: {
+    loadByPage () {
+
+    },
+    handleTopChange (status) {
+      this.topStatus = status
+      console.log(status)
+      // pull 没有达到下拉范围
+      // drop 达到下拉范围
+    },
+    loadTop () {
+      console.log('函数调用被触发了')
+      this.$refs.loadmore.onTopLoaded()
+    },
+    loadBottom () {
+      console.log('上拉函数调用被触发了')
+      let categoryId = this.$route.params.categoryId
+      this.loadImageById(categoryId)
+      this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
+    },
     getImgUrl (img) {
       return 'http://img.static.gqsj.cc/' + img
     },
@@ -67,9 +105,19 @@ export default {
     loadImageById (cat) {
       // 2. 通过url拼接参数发请求
       // 3. 获取数组渲染
-      this.$axios.get('tuan/list/1', {params: {cat}}).then(res => {
+      this.$axios.get(`tuan/list/${this.page}`, {params: {cat}}).then(res => {
+        // 判断是否还有数据
+        if (res.data.result.length === 0) {
+          // loadmore禁止函数调用的属性来控制
+          this.isAllLoaded = true
+          this.$toast({
+            message: '没有更多数据了'
+          })
+          return
+        }
         if (res.data.state === 200 && res.data.result.length > 0) {
-          this.photoList = res.data.result
+          this.photoList = this.photoList.concat(res.data.result)
+          this.page++
         } else {
           this.$toast({
             message: '没有图片了',
@@ -86,38 +134,35 @@ export default {
   section {
     background: #f0f0f0;
   }
-  article {
-    background: #fefefe;
-    padding: .714286rem;
-    margin-bottom: .357143rem;
+  li {
     position: relative;
     overflow: hidden;
-    height: 100px;
+    margin: 0;
+  }
+
+  .data-list li {
+    margin: 0;
+    float: left;
+    width: 50%;
+    overflow: hidden;
+  }
+  .data-list > li > a {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
   }
   figure {
     margin: 0;
   }
   img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 1;
+    height: 200px;
   }
   p {
-    position: absolute;
-    z-index: 2;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4em;
-    line-height: 2em;
-    background-color: rgba(0,0,0,0.4);
     text-align: center;
     margin: 0;
     font-size: 16px;
-    color: #fff;
   }
   a {
     color: #333;

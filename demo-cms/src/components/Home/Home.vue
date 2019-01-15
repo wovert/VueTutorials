@@ -1,10 +1,6 @@
 <template>
   <div class="swiper">
-    <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="(img, index) in imgs" :key="index">
-        <img :src="img" />
-      </mt-swipe-item>
-    </mt-swipe>
+    <MySwipe url="banner/channel_main"></MySwipe>
     <div class="gridview">
       <my-ul>
         <my-li v-for="(grid, index) in grids" :key="index">
@@ -22,7 +18,7 @@
 export default {
   data () {
     return {
-      imgs: [], // 轮播图数据
+      banners: [], // 轮播图数据
       grids: [
         {
           className: 'cms-news',
@@ -45,7 +41,10 @@ export default {
           className: 'cms-product',
           title: '商品展示',
           router: {
-            name: 'news.list'
+            name: 'goods.list',
+            params: {
+              id: 1
+            }
           }
         },
         {
@@ -74,10 +73,7 @@ export default {
   },
   // created 创建组件的生命周期函数中，可操作数据
   created () {
-    this.$axios.get('banners.php').then(res => {
-      // console.log(res.data.images)
-      this.imgs = res.data.images
-    }).catch(err => console.log('轮播图获取异常', err))
+
   }
 }
 </script>

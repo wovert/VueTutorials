@@ -1,6 +1,6 @@
 <template>
   <section>
-    <nav-bar title="图文详情页"/>
+    <nav-bar title="商品详情页"/>
     <article>
       <h1>{{ photo.title }}</h1>
       <p>

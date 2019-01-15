@@ -20,9 +20,9 @@ export default {
     }
   },
   created () {
-    this.$axios.get('getnewslist.php').then(res => {
-      if (res.data.state === 200 && res.data.message.length > 0) {
-        this.newsList = res.data.message
+    this.$axios.get(`channel/news?page=1`).then(res => {
+      if (res.data.state === 200 && res.data.result.length > 0) {
+        this.newsList = res.data.result
       }
     }).catch(err => console.log('新闻列表异常', err))
   }
