@@ -25,7 +25,7 @@ import Comment from '@/components/Common/Comment'
 import Axios from 'axios'
 
 // config public API URL
-Axios.defaults.baseURL = 'http://192.168.1.88/api/'
+Axios.defaults.baseURL = 'http://m.spa.com/api/'
 Vue.prototype.$axios = Axios
 
 Vue.config.productionTip = false
