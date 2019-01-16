@@ -90,7 +90,7 @@ export default {
         this.loadImageById(categoryId)
         this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
       } else {
-        console.log("已加载全部")
+        console.log('已加载全部')
       }
     },
     getImgUrl (img) {
@@ -135,6 +135,9 @@ export default {
 </script>
 
 <style scoped>
+  input["type"] {
+    width: 50px;
+  }
   section {
     background: #f0f0f0;
     height: 100%;
@@ -144,7 +147,6 @@ export default {
     overflow: hidden;
     margin: 0;
   }
-
   .data-list li {
     margin: 0;
     float: left;

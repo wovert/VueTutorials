@@ -11,6 +11,7 @@ import PhotoList from '@/components/Photo/PhotoList'
 import PhotoDetail from '@/components/Photo/PhotoDetail'
 import GoodsList from '@/components/Goods/GoodsList'
 import GoodsDetail from '@/components/Goods/GoodsDetail'
+import GoodsComment from '@/components/Goods/GoodsComment'
 
 // 注册全局组件 router-view router-link
 // 挂在Vue.prototype.$router
@@ -81,6 +82,18 @@ export default new Router({
       path: '/goods/detail/:id',
       name: 'goods.detail',
       component: GoodsDetail
+    },
+    // 商品图文介绍
+    {
+      path: '/goods/photo/info',
+      name: 'photo.info',
+      component: NewsDetail
+    },
+    // 商品评论组件
+    {
+      path: '/goods/comment',
+      name: 'goods.comment',
+      component: GoodsComment
     }
   ]
 })

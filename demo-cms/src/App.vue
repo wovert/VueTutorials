@@ -13,7 +13,7 @@
       </mt-tab-item>
       <mt-tab-item id="cart">
         <img slot="icon" @click="changeHash" src="./assets/img/cart.png" alt="购物车">
-        购物车
+        购物车<mt-badge type="error" size="small">{{ num }}</mt-badge>
       </mt-tab-item>
       <mt-tab-item id="search">
         <img slot="icon" @click="changeHash" src="./assets/img/search.png" alt="search">
@@ -23,11 +23,22 @@
   </div>
 </template>
 <script>
+import EventBus from '@/EventBus'
+
 export default {
   data () {
     return {
-      selected: ''
+      selected: '',
+      num: 0
     }
+  },
+  created () {
+    EventBus.$on('addCart', data => {
+      // console.log(data)
+      // console.log(this)
+      console.log(data)
+      this.num += data
+    })
   },
   methods: {
     changeHash () {

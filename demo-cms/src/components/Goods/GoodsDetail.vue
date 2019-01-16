@@ -5,13 +5,19 @@
       <my-swipe class="swiper" url="banner/channel_main"></my-swipe>
       <h1>{{ goods.title }}</h1>
       <p class="data-box">
-        发布时间：<time>{{ goods.endTime*1000 | relativeTime('YYYY年MM月DD日') }}</time><br />
-        价格：{{ goods.fxMoney }}元<br />
+        上架时间：<time>{{ goods.endTime*1000 | convertTime('YYYY年MM月DD日') }}</time><br />
+        价格：{{ goods.origPrice }}元<br />
+        库存：{{ goods.stockRemain }}<br />
+        <span>购买数量：<button @click="substract">-</button><input type="number" v-model="pickNum" class="cnt" /><button @click="add">+</button></span><br />
         <mt-button type="primary">立即购买</mt-button>
         <mt-button type="danger" @click="insertBall">加入购物车</mt-button>
         <transition name="ball" @after-enter="afterEnter">
           <span class="ball" v-if="isExists"></span>
         </transition>
+      </p>
+      <p>
+        <mt-button @click="showPhotoInfo" type="primary" size="large" plain>图文介绍</mt-button>
+        <mt-button @click="goodsComment" type="danger" size="large" plain>商品评论</mt-button>
       </p>
       <p class="content-image">
         <img :src="goods.cover" :key="goods.cover" :alt="goods.title" />
@@ -29,13 +35,14 @@
 </template>
 
 <script>
+import EventBus from '@/EventBus'
+
 let defaultImg = '../../assets/img/default.jpg'
 export default {
   data () {
     return {
-      goods: {
-        pic: defaultImg
-      },
+      pickNum: 1,
+      goods: '',
       photoList: [],
       isExists: false // 小球隐藏
     }
@@ -44,7 +51,7 @@ export default {
     let id = this.$route.params.id
     this.$axios.get(`tuan/${id}`).then(res => {
       if (res.data.state === 200) {
-        this.photo = res.data.result
+        this.goods = res.data.result
         for (let i in res.data.result.images) {
           this.photoList.push({
             src: res.data.result.images[i],
@@ -57,6 +64,13 @@ export default {
     }).catch(err => console.log('没有图文详情', err))
   },
   methods: {
+    substract () {
+      this.pickNum = this.pickNum <= 1 ? 1 : --this.pickNum
+    },
+    add () {
+      if (this.goods.stockRemain <= this.pickNum) return
+      this.pickNum++
+    },
     getImgUrl (img) {
       return img === defaultImg ? img : 'http://img.static.gqsj.cc/' + img
     },
@@ -65,6 +79,31 @@ export default {
     },
     afterEnter () {
       this.isExists = false // 移除元素
+      // 通知APP组件增加小球数量
+      EventBus.$emit('addCart', this.pickNum)
+    },
+    showPhotoInfo () {
+      // 编程导航（去哪里）
+      this.$router.push({
+        name: 'photo.info',
+        query: {
+          id: this.$route.params.id
+        }
+      })
+    },
+    goodsComment () {
+      this.$router.push({
+        name: 'goods.comment',
+        query: {
+          id: this.$route.params.id
+        }
+      })
+    }
+  },
+  watch: {
+    // key是data属性名
+    pickNum (newV, oldV) {
+      this.pickNum = newV < 1 ? 1 : newV
     }
   }
 }
@@ -74,6 +113,10 @@ export default {
   section {
     background: #f0f0f0;
     overflow: hidden;
+  }
+  .cnt {
+    width: 50px;
+    text-align: center;
   }
   article {
     background: #fefefe;

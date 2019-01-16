@@ -1,6 +1,6 @@
 <template>
   <section>
-    <nav-bar title="新闻详情页"/>
+    <nav-bar :title="title"/>
     <article>
       <h1>{{ news.title }}</h1>
       <p>
@@ -15,7 +15,8 @@
 export default {
   data () {
     return {
-      news: {}
+      news: {},
+      title: ''
     }
   },
   created () {
@@ -25,6 +26,26 @@ export default {
         this.news = res.data.result
       }
     }).catch(err => console.log('没有新闻详情', err))
+  },
+  // 路由确认前，组件渲染前的守卫函数
+  beforeRouteEnter (to, from, next) {
+    let title = ''
+    if (from.name === null) {
+      if (to.name === 'news.detail') {
+        title = '新闻详情'
+      } else if (to.name === 'photo.info') {
+        title = '商品图文介绍'
+      }
+    } else if (from.name === 'news.list') {
+      title = '新闻详情'
+    } else if (from.name === 'goods.detail') {
+      title = '商品图文介绍'
+    }
+    // 最终都放行，大不了赋值一个title为空串
+    next(vm => {
+      // 通过 vm 访问组件实例
+      vm.title = title
+    })
   }
 }
 </script>
