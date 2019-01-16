@@ -30,6 +30,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    // 预先渲染两个HTML
+    new PrerenderSPAPlugin({
+      staticDir: path.join(__dirname, '..', 'dist'),
+      // required - Routes to render.
+      routes: ['/home', '/news/list'], // 根据这两个路由规则找组件渲染HTML文件
+      captureAfterTime: 10000 // 在一定时间后再捕获页面信息，使得页面数据信息加载完成
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
@@ -76,7 +83,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
+      chunks: ['manifest', 'vendor', 'app']
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -119,14 +127,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-
-    // 预先渲染两个HTML
-    new PrerenderSPAPlugin({
-      staticDir: path.join(__dirname, '..', 'dist'),
-      // required - Routes to render.
-      routes: ['/home', '/news/list'] // 根据这两个路由规则找组件渲染HTML文件
-    })
+    ])
   ]
 })
 

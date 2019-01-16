@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import Moment from 'moment'
 import VuePreview from 'vue-preview'
+import MetaInfo from 'vue-meta-info'
 
 // config mint-ui
 import MintUI from 'mint-ui'
@@ -78,6 +79,8 @@ Vue.filter('relativeTime', function (previousTime) {
 Vue.filter('convertStr', function (str, count) {
   return str.substring(0, count) + '...'
 })
+
+Vue.use(MetaInfo)
 
 /* eslint-disable no-new */
 new Vue({

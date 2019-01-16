@@ -687,3 +687,11 @@ D" env variable to skip download.
 
 然后手动下载Chromium
 解压到你当前项目中的node_modules/puppeteer/.local-chromium/mac-571375下就可以了
+
+[vue 解决seo优化之预渲染prerender-spa-plugin](https://www.jianshu.com/p/8f82459895c9)
+
+## vue-meta-info
+
+``` sh
+# cnpm i vue-meta-info -D
+```
