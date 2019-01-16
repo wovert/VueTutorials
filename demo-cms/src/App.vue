@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <mt-header title="信息管理系统" fixed></mt-header>
-    <main><router-view /></main>
+    <main>
+      <transition name="rv" mode="out-in">
+        <router-view />
+      </transition>
+    </main>
     <mt-tabbar v-model="selected" fixed>
       <mt-tab-item id="home">
         <img slot="icon" @click="changeHash" src="./assets/img/home.png" alt="首页">
@@ -24,6 +28,7 @@
 </template>
 <script>
 import EventBus from '@/EventBus'
+import GoodsModel from '@/model/GoodsModel'
 
 export default {
   data () {
@@ -33,6 +38,9 @@ export default {
     }
   },
   created () {
+    // 初始化小球的数量
+    this.num = GoodsModel.getTotalCount()
+
     EventBus.$on('addCart', data => {
       // console.log(data)
       // console.log(this)
@@ -64,5 +72,11 @@ export default {
 <style scoped>
   .mint-header,.mint-tabbar{
     z-index: 10;
+  }
+  .rv-enter-active, .rv-leave-active {
+    transition: opacity .5s
+  }
+  .rv-enter, .rv-leave-to {
+    opacity: 0
   }
 </style>

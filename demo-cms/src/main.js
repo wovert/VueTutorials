@@ -10,6 +10,9 @@ import VuePreview from 'vue-preview'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// import button from 'mint-ui/lib/button'
+// import 'mint-ui/lib/button/style.css'
+
 // 引入自己的css
 import './assets/css/global.css'
 import './assets/ttf/iconfont.css'

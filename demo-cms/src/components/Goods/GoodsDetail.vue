@@ -36,6 +36,7 @@
 
 <script>
 import EventBus from '@/EventBus'
+import GoodsModel from '@/model/GoodsModel'
 
 let defaultImg = '../../assets/img/default.jpg'
 export default {
@@ -81,6 +82,12 @@ export default {
       this.isExists = false // 移除元素
       // 通知APP组件增加小球数量
       EventBus.$emit('addCart', this.pickNum)
+
+      // 添加本地存储
+      GoodsModel.add({
+        id: this.goods.id,
+        num: this.pickNum
+      })
     },
     showPhotoInfo () {
       // 编程导航（去哪里）

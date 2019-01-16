@@ -567,3 +567,56 @@ $ npm i vue-preview -S
 - 子管自己
 - 全局都管
 - 组件负责自己的样式，全局都可以控制
+
+## json-server
+
+> 模拟数据
+
+``` sh
+1. 安装包
+# npm i -g json-server
+
+2. 创建数据库
+# vim db.json
+
+3. 启动数据服务
+# json-server --watch ./db.json
+
+4. 修改接口
+# vim Cart.vue
+
+```
+
+## EventBus
+
+> 一个 new Vue
+
+- $emit(xxx, 数据)
+- $on('xxx', fn)
+- $once('xxx', fn)
+- $off('xxx')
+
+## 路由守卫
+
+1. 全局守卫(前)：前段的权限控制中 next() next(false)
+2. 后置路由
+
+- 路由独享
+- 组件内的路由钩子函数
+  - 1. 进入前，根据过来的路由做判断，让组件不同显示
+    - next(vm => vm.xxx =123)
+  - 2. 路由更新 (组件 created不会被调用)
+    - 路由参数的改变触发：?id=xxx /xxx/:id
+  - 3. 路由离开前(用户离开前的询问及保存)
+
+- 内键组件
+  - keep-alive 缓存频繁的创建和销毁的组件 => 停用与激活
+  - transition 给元素或组件加过度效果 (js+css)
+- 特殊函数
+  - this.$nextTick(fn) 在 vue 生成DOM以后的DOM操作行为
+    - 比如：当前 this.isExist = true 立刻操作这个元素不行
+    - 而需要在$nextTick中，因为当前代码执行的时候元素还未存在
+  - this.$set(obj,key,value) 手动通知vue数据响应式
+  - this.$refs.xxx => ref="xxx"
+    - 元素获取的就是元素对象
+    - 组件后去的就是组件对象 xxx.$el 获取DOM对象
