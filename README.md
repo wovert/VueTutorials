@@ -567,3 +567,123 @@ $ npm i vue-preview -S
 - 子管自己
 - 全局都管
 - 组件负责自己的样式，全局都可以控制
+
+## json-server
+
+> 模拟数据
+
+``` sh
+1. 安装包
+# npm i -g json-server
+
+2. 创建数据库
+# vim db.json
+
+3. 启动数据服务
+# json-server --watch ./db.json
+
+4. 修改接口
+# vim Cart.vue
+
+```
+
+## EventBus
+
+> 一个 new Vue
+
+- $emit(xxx, 数据)
+- $on('xxx', fn)
+- $once('xxx', fn)
+- $off('xxx')
+
+## 路由守卫
+
+1. 全局守卫(前)：前段的权限控制中 next() next(false)
+2. 后置路由
+
+- 路由独享
+- 组件内的路由钩子函数
+  - 1. 进入前，根据过来的路由做判断，让组件不同显示
+    - next(vm => vm.xxx =123)
+  - 2. 路由更新 (组件 created不会被调用)
+    - 路由参数的改变触发：?id=xxx /xxx/:id
+  - 3. 路由离开前(用户离开前的询问及保存)
+
+- 内键组件
+  - keep-alive 缓存频繁的创建和销毁的组件 => 停用与激活
+  - transition 给元素或组件加过度效果 (js+css)
+- 特殊函数
+  - this.$nextTick(fn) 在 vue 生成DOM以后的DOM操作行为
+    - 比如：当前 this.isExist = true 立刻操作这个元素不行
+    - 而需要在$nextTick中，因为当前代码执行的时候元素还未存在
+  - this.$set(obj,key,value) 手动通知vue数据响应式
+  - this.$refs.xxx => ref="xxx"
+    - 元素获取的就是元素对象
+    - 组件后去的就是组件对象 xxx.$el 获取DOM对象
+
+## 动态载入模板
+
+注意：总容量不变
+
+``` js
+import Home from '@/components/Home/Home'
+import Member from '@/components/Member/Member'
+import Search from '@/components/Search/Search'
+```
+
+``` sh
+# npm i --save-dev babel-plugin-syntax-dynamic-import
+# vim .babel.rc
+"plugins": ["syntax-dynamic-import"]
+```
+
+![动态载入组件](./images/dynamic-import.png)
+
+## vuex
+
+``` sh
+# vue init webpack demo-vuex
+# npm i vuex -S
+```
+
+## prerender-spa-lugin
+
+```sh
+1. 下载包
+# npm i prerender-spa-plugin -D --ignore-scripts
+
+2. 配置build/webpack.prod.js文件
+# vim webpack.prod.js
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+plugins: [
+  new PrerenderSpaPlugin({
+    staticDir: path.join(__dirname, '..', 'dist'),
+    // required - Routes to render.
+    routes: ['/', '/user'] // 根据这两个路由规则找组件渲染HTML文件
+  })
+]
+
+3. 配置路由变更对象，传递构造属性
+mode: 'history'
+
+4. 构建项目代码：
+# npm run build
+
+5. 进入dist目录，启动生成代码
+# hs -o -p 9999
+
+
+```
+
+### prerender-spa-plugin中有puppeteer 可能会报错
+
+ERROR: Failed to download Chromium r515411! Set "PUPPETEER_SKIP_CHROMIUM_DOWNLOA
+D" env variable to skip download.
+
+此时可以试试淘宝镜像安装 `cnpm install --save prerender-spa-plugin`
+
+因为在执行安装的过程中需要执行install.js，这里会下载Chromium,官网建议是进行跳过，我们可以执行 —ignore-scripts 忽略这个js执行。也可以通过设置环境变量set PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1阻止下载 Chromium （因为封网，直接下载会失败）
+`npm i --save puppeteer --ignore-scripts`
+
+然后手动下载Chromium
+解压到你当前项目中的node_modules/puppeteer/.local-chromium/mac-571375下就可以了

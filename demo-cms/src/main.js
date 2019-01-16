@@ -10,6 +10,9 @@ import VuePreview from 'vue-preview'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// import button from 'mint-ui/lib/button'
+// import 'mint-ui/lib/button/style.css'
+
 // 引入自己的css
 import './assets/css/global.css'
 import './assets/ttf/iconfont.css'
@@ -25,9 +28,10 @@ import MySwipe from '@/components/Common/MySwipe'
 // config axios
 import Axios from 'axios'
 
-// config public API URL
-// Axios.defaults.baseURL = 'http://api.haoshan.com/v1/'
-Axios.defaults.baseURL = '/v1'
+// Axios.defaults.baseURL = 'http://m.spa.com/api/'
+
+Axios.defaults.baseURL = 'http://api.haoshan.com/v1/'
+// Axios.defaults.baseURL = '/v1'
 Vue.prototype.$axios = Axios
 
 // 配置请求拦截器，显示loadding 图标
@@ -81,4 +85,7 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+  // mounted () {
+  //   document.dispatchEvent(new Event('render-event'))
+  // }
 })

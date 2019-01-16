@@ -1,0 +1,7 @@
+{
+  "getcartlist": [
+    { "id": 1, "myid": "306", "title": "华为荣耀", "price": 3000 },
+    { "id": 2, "myid": "325", "title": "苹果iphone6", "price": 6000 },
+    { "id": 3, "myid": "343", "title": "苹果iphoneX", "price": 9000 }
+  ]
+}

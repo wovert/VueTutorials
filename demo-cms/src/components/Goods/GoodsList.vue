@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :style="{ height: boxHeight }">
     <nav-bar title="商品列表"/>
     <!-- <ul>
       <li v-for="(c, index) in categories" :key="index">
@@ -38,13 +38,17 @@
 
 <script>
 export default {
+  props: [
+    'apprefs'
+  ],
   data () {
     return {
       photoList: [],
       categories: [],
       topStatus: '',
       page: 1,
-      isAllLoaded: false
+      isAllLoaded: false,
+      boxHeight: 0
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -69,6 +73,16 @@ export default {
       }
     }).catch(err => console.log('分类信息获取失败', err))
   },
+  mounted () {
+    // 装载数据完毕，接受apprefs.appHeader
+    // 公式：设备高度 - 头 - 尾 = 中间的高度(loadmore父元素的高度)
+    let headerHeight = this.apprefs.appHeader.$el.offsetHeight
+    let footerHeight = this.apprefs.appFooter.$el.offsetHeight
+    console.log(headerHeight)
+    console.log(footerHeight)
+    console.log(document.body.clientHeight)
+    this.boxHeight = document.body.clientHeight - headerHeight - footerHeight
+  },
   methods: {
     loadByPage () {
 
@@ -84,10 +98,14 @@ export default {
       this.$refs.loadmore.onTopLoaded()
     },
     loadBottom () {
-      console.log('上拉函数调用被触发了')
-      let categoryId = this.$route.params.categoryId
-      this.loadImageById(categoryId)
-      this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
+      if (!this.isAllLoaded) {
+        console.log('上拉函数调用被触发了')
+        let categoryId = this.$route.params.categoryId
+        this.loadImageById(categoryId)
+        this.$refs.loadmore.onBottomLoaded() // 通知元素重新定位
+      } else {
+        console.log('已加载全部')
+      }
     },
     getImgUrl (img) {
       return 'http://img.static.gqsj.cc/' + img
@@ -131,15 +149,19 @@ export default {
 </script>
 
 <style scoped>
+  input["type"] {
+    width: 50px;
+  }
   section {
     background: #f0f0f0;
+    height: 100%;
+    overflow: hidden;
   }
   li {
     position: relative;
     overflow: hidden;
     margin: 0;
   }
-
   .data-list li {
     margin: 0;
     float: left;

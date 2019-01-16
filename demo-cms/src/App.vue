@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <mt-header title="信息管理系统" fixed></mt-header>
-    <main><router-view /></main>
-    <mt-tabbar v-model="selected" fixed>
+    <mt-header title="信息管理系统" fixed ref="appHeader"></mt-header>
+    <main>
+      <transition name="rv" mode="out-in">
+        <router-view :apprefs="$refs" />
+      </transition>
+    </main>
+    <mt-tabbar v-model="selected" fixed ref="appFooter">
       <mt-tab-item id="home">
         <img slot="icon" @click="changeHash" src="./assets/img/home.png" alt="首页">
         首页
@@ -13,7 +17,7 @@
       </mt-tab-item>
       <mt-tab-item id="cart">
         <img slot="icon" @click="changeHash" src="./assets/img/cart.png" alt="购物车">
-        购物车
+        购物车<mt-badge type="error" size="small">{{ num }}</mt-badge>
       </mt-tab-item>
       <mt-tab-item id="search">
         <img slot="icon" @click="changeHash" src="./assets/img/search.png" alt="search">
@@ -23,11 +27,26 @@
   </div>
 </template>
 <script>
+import EventBus from '@/EventBus'
+import GoodsModel from '@/model/GoodsModel'
+
 export default {
   data () {
     return {
-      selected: ''
+      selected: '',
+      num: 0
     }
+  },
+  created () {
+    // 初始化小球的数量
+    this.num = GoodsModel.getTotalCount()
+
+    EventBus.$on('addCart', data => {
+      // console.log(data)
+      // console.log(this)
+      console.log(data)
+      this.num += data
+    })
   },
   methods: {
     changeHash () {
@@ -53,5 +72,11 @@ export default {
 <style scoped>
   .mint-header,.mint-tabbar{
     z-index: 10;
+  }
+  .rv-enter-active, .rv-leave-active {
+    transition: opacity .5s
+  }
+  .rv-enter, .rv-leave-to {
+    opacity: 0
   }
 </style>

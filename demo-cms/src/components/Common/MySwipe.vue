@@ -24,9 +24,11 @@ export default {
 </script>
 
 <style scoped>
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .swiper {
+    height: 100px;
+    background: #fff;
+  }
+  .swiper img {
+    width: 100%;
   }
 </style>
