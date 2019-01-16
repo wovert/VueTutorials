@@ -620,3 +620,70 @@ $ npm i vue-preview -S
   - this.$refs.xxx => ref="xxx"
     - 元素获取的就是元素对象
     - 组件后去的就是组件对象 xxx.$el 获取DOM对象
+
+## 动态载入模板
+
+注意：总容量不变
+
+``` js
+import Home from '@/components/Home/Home'
+import Member from '@/components/Member/Member'
+import Search from '@/components/Search/Search'
+```
+
+``` sh
+# npm i --save-dev babel-plugin-syntax-dynamic-import
+# vim .babel.rc
+"plugins": ["syntax-dynamic-import"]
+```
+
+![动态载入组件](./images/dynamic-import.png)
+
+## vuex
+
+``` sh
+# vue init webpack demo-vuex
+# npm i vuex -S
+```
+
+## prerender-spa-lugin
+
+```sh
+1. 下载包
+# npm i prerender-spa-plugin -D --ignore-scripts
+
+2. 配置build/webpack.prod.js文件
+# vim webpack.prod.js
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+plugins: [
+  new PrerenderSpaPlugin({
+    staticDir: path.join(__dirname, '..', 'dist'),
+    // required - Routes to render.
+    routes: ['/', '/user'] // 根据这两个路由规则找组件渲染HTML文件
+  })
+]
+
+3. 配置路由变更对象，传递构造属性
+mode: 'history'
+
+4. 构建项目代码：
+# npm run build
+
+5. 进入dist目录，启动生成代码
+# hs -o -p 9999
+
+
+```
+
+### prerender-spa-plugin中有puppeteer 可能会报错
+
+ERROR: Failed to download Chromium r515411! Set "PUPPETEER_SKIP_CHROMIUM_DOWNLOA
+D" env variable to skip download.
+
+此时可以试试淘宝镜像安装 `cnpm install --save prerender-spa-plugin`
+
+因为在执行安装的过程中需要执行install.js，这里会下载Chromium,官网建议是进行跳过，我们可以执行 —ignore-scripts 忽略这个js执行。也可以通过设置环境变量set PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1阻止下载 Chromium （因为封网，直接下载会失败）
+`npm i --save puppeteer --ignore-scripts`
+
+然后手动下载Chromium
+解压到你当前项目中的node_modules/puppeteer/.local-chromium/mac-571375下就可以了

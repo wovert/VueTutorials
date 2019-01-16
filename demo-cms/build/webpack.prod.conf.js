@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
@@ -119,7 +119,14 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+
+    // 预先渲染两个HTML
+    new PrerenderSPAPlugin({
+      staticDir: path.join(__dirname, '..', 'dist'),
+      // required - Routes to render.
+      routes: ['/home', '/news/list'] // 根据这两个路由规则找组件渲染HTML文件
+    })
   ]
 })
 

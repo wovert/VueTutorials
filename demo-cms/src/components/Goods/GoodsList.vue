@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section :style="{ height: boxHeight }">
     <nav-bar title="商品列表"/>
     <!-- <ul>
       <li v-for="(c, index) in categories" :key="index">
@@ -38,13 +38,17 @@
 
 <script>
 export default {
+  props: [
+    'apprefs'
+  ],
   data () {
     return {
       photoList: [],
       categories: [],
       topStatus: '',
       page: 1,
-      isAllLoaded: false
+      isAllLoaded: false,
+      boxHeight: 0
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -68,6 +72,16 @@ export default {
         })
       }
     }).catch(err => console.log('分类信息获取失败', err))
+  },
+  mounted () {
+    // 装载数据完毕，接受apprefs.appHeader
+    // 公式：设备高度 - 头 - 尾 = 中间的高度(loadmore父元素的高度)
+    let headerHeight = this.apprefs.appHeader.$el.offsetHeight
+    let footerHeight = this.apprefs.appFooter.$el.offsetHeight
+    console.log(headerHeight)
+    console.log(footerHeight)
+    console.log(document.body.clientHeight)
+    this.boxHeight = document.body.clientHeight - headerHeight - footerHeight
   },
   methods: {
     loadByPage () {
@@ -141,6 +155,7 @@ export default {
   section {
     background: #f0f0f0;
     height: 100%;
+    overflow: hidden;
   }
   li {
     position: relative;
