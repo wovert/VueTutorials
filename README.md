@@ -569,7 +569,7 @@ $ npm i vue-preview -S
 - 组件负责自己的样式，全局都可以控制
 
 ## json-server
-
+4
 > 模拟数据
 
 ``` sh
@@ -581,6 +581,8 @@ $ npm i vue-preview -S
 
 3. 启动数据服务
 # json-server --watch ./db.json
+
+# json-server --host 192.168.1.2 --port 3004 --watch ./db.json
 
 4. 修改接口
 # vim Cart.vue
@@ -687,3 +689,42 @@ D" env variable to skip download.
 
 然后手动下载Chromium
 解压到你当前项目中的node_modules/puppeteer/.local-chromium/mac-571375下就可以了
+
+[vue 解决seo优化之预渲染prerender-spa-plugin](https://www.jianshu.com/p/8f82459895c9)
+
+## vue-meta-info
+
+``` sh
+# cnpm i vue-meta-info -D
+```
+
+## 骨架屏(Sekeleton)
+
+``` sh
+# cnpm i lavas -g
+# lavas init
+# 选择包含app_shell 页包含了骨架屏的功能
+```
+
+- 骨架屏代替loading图标，用户体验更好，可以体检预览结构
+- 配置PWA中的service worker 就可以缓存各种数据，不必请求多余的资源（包括骨架屏）
+- service worker 可以实现离线浏览（所有资源缓存在起哄，拦截浏览器请求，相应保存的结果）
+
+## history
+
+`history.pushState({}, '', url)` // 判断后做相应url改变
+
+## webpack插件实现骨架屏
+
+- 首次加载慢
+  - 首屏白屏（量太大，渲染好久）
+  - 首屏卡顿（加载一半，一半卡住）
+- 解决方案：
+  - 1. 客户端太慢，渲染容易卡住。服务端渲染好页面，客户端就加载HTML
+  - 2. 白屏时，显示骨架屏
+
+## pwa
+
+``` sh
+# vue init pwa demo-pwa
+```

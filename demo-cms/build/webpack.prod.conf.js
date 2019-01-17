@@ -11,6 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const MyPlugin = require('./MyPlugin')
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
@@ -30,6 +31,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    // 预先渲染两个HTML
+    new PrerenderSPAPlugin({
+      staticDir: path.join(__dirname, '..', 'dist'),
+      // required - Routes to render.
+      routes: ['/home', '/news/list'], // 根据这两个路由规则找组件渲染HTML文件
+      captureAfterTime: 10000 // 在一定时间后再捕获页面信息，使得页面数据信息加载完成
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
@@ -76,7 +84,12 @@ const webpackConfig = merge(baseWebpackConfig, {
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
+      chunks: ['manifest', 'vendor', 'app']
+    }),
+    // 插入自己定插件
+    new MyPlugin({
+      test: 'xxx'
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -119,14 +132,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ]),
-
-    // 预先渲染两个HTML
-    new PrerenderSPAPlugin({
-      staticDir: path.join(__dirname, '..', 'dist'),
-      // required - Routes to render.
-      routes: ['/home', '/news/list'] // 根据这两个路由规则找组件渲染HTML文件
-    })
+    ])
   ]
 })
 

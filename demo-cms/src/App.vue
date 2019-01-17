@@ -2,6 +2,7 @@
   <div class="container">
     <mt-header title="信息管理系统" fixed ref="appHeader"></mt-header>
     <main>
+      <div></div>
       <transition name="rv" mode="out-in">
         <router-view :apprefs="$refs" />
       </transition>
@@ -38,6 +39,11 @@ export default {
     }
   },
   created () {
+    let now = Date.now()
+    while (Date.now() - now < 2000) {
+      // 等待两秒以后渲染
+    }
+
     // 初始化小球的数量
     this.num = GoodsModel.getTotalCount()
 
