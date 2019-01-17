@@ -582,6 +582,8 @@ $ npm i vue-preview -S
 3. 启动数据服务
 # json-server --watch ./db.json
 
+# json-server --host 192.168.1.2 --port 3004 --watch ./db.json
+
 4. 修改接口
 # vim Cart.vue
 
