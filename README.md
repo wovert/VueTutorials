@@ -711,3 +711,12 @@ D" env variable to skip download.
 ## history
 
 `history.pushState({}, '', url)` // 判断后做相应url改变
+
+## webpack插件实现骨架屏
+
+- 首次加载慢
+  - 首屏白屏（量太大，渲染好久）
+  - 首屏卡顿（加载一半，一半卡住）
+- 解决方案：
+  - 1. 客户端太慢，渲染容易卡住。服务端渲染好页面，客户端就加载HTML
+  - 2. 白屏时，显示骨架屏
