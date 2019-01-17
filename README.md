@@ -695,3 +695,19 @@ D" env variable to skip download.
 ``` sh
 # cnpm i vue-meta-info -D
 ```
+
+## 骨架屏(Sekeleton)
+
+``` sh
+# cnpm i lavas -g
+# lavas init
+# 选择包含app_shell 页包含了骨架屏的功能
+```
+
+- 骨架屏代替loading图标，用户体验更好，可以体检预览结构
+- 配置PWA中的service worker 就可以缓存各种数据，不必请求多余的资源（包括骨架屏）
+- service worker 可以实现离线浏览（所有资源缓存在起哄，拦截浏览器请求，相应保存的结果）
+
+## history
+
+`history.pushState({}, '', url)` // 判断后做相应url改变
