@@ -569,7 +569,7 @@ $ npm i vue-preview -S
 - 组件负责自己的样式，全局都可以控制
 
 ## json-server
-
+4
 > 模拟数据
 
 ``` sh
@@ -722,3 +722,9 @@ D" env variable to skip download.
 - 解决方案：
   - 1. 客户端太慢，渲染容易卡住。服务端渲染好页面，客户端就加载HTML
   - 2. 白屏时，显示骨架屏
+
+## pwa
+
+``` sh
+# vue init pwa demo-pwa
+```
