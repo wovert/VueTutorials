@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production node_modules/.bin/webpack --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js"
   },
   "author": "",
@@ -14,14 +14,18 @@
     "vue": "^2.5.22"
   },
   "devDependencies": {
+    "autoprefixer": "^9.4.6",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-jsx": "^2.0.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
-    "less": "^3.9.0",
-    "less-loader": "^4.1.0",
-    "sass": "^1.16.1",
-    "sass-loader": "^7.1.0",
+    "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
