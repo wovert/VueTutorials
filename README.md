@@ -1,5 +1,36 @@
 # Vue
 
+## 前段开发趋势
+
+- 旧浏览器逐渐淘汰，移动端需求增加
+  - IE6-8 ---不支持---> ES5特性
+  - IE9+, Chrome, Safari, Firefox 支持 ES5特性
+- 前段**交互**越来越多，**功能**越来越复杂
+  - 新闻趣味站
+  - 在线购物平台
+  - 金融信贷应用
+  - 社交网络
+  - 打车出行平台
+  - 视频分享平台
+  - 音乐互动社区
+- 架构从传统后台MVC向 *REST Api + 前段MV*迁移**
+  - MV*
+    - MVC
+    - MVP
+    - MVVM(Angular.js/React.js/Vue.js)
+      - View(视图，DOM) <---> ViewModel(中间件通信，观察者) <----> Model(数据，JavaScript对象)
+      - 应用场景
+        - 针对具有**复杂交互**逻辑的前段应用
+        - 提供基础的**架构抽象**
+        - 通过**Ajax数据持久化**，保证前段用户体验
+
+## 技术选项
+
+- 社区活跃度
+- 对比其他技术
+  - 容量
+  - 学习难度
+
 ## 前段框架与库的区别？
 
 - jQuery -> DOM 操作 + 请求
@@ -13,6 +44,31 @@
     - 1.初始化自身的一些行为
     - 2.执行你说编写的代码
     - 3.释放一些资源
+
+## Vue介绍
+
+> 2014年, 一套用于构建**用户界面**的渐进式框架。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动
+
+- 相继推出第三方库 **vue-router和vue-resource**
+- 轻量级MVVM框架
+- 数据驱动+组件化的前段开发
+
+![vue数据驱动](./images/vue-data-event.jpg)
+
+Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，当数据变化，Directives指令负责修改响应的DOM。数据驱动DOM变化，DOM是数据的一种自然映射。Vue修改视图的时候，DOM Listeners监听变化，他会改变数据，形成了数据双向绑定。
+
+![数据响应原理](./images/data-res.png)
+
+![组件化](./images/component.png)
+
+- 组件设计原则
+  - 页面上每个独立的可视/可交互区域视为一个组件
+  - 每个组件对应一个工程目录，组件所需要的各种资源在这个目录下就近维护
+
+
+![vue全栈系统](./images/vue-full-system.png)
+
+[Vue的render函数](https://www.w3cplus.com/vue/vue-render-function.html?utm_source=tuicool&utm_medium=referral)
 
 ## Vue 起步
 
@@ -282,6 +338,12 @@ $ bower install axios
 ## vue-cli
 
 > A simple CLI for scaffolding Vue.js projects.
+
+- 目录结构
+- 本地调试
+- 代码部署
+- 热加载
+- 单元测试
 
 [vue-cli](https://github.com/vuejs/vue-cli/tree/v2#vue-cli--)
 
@@ -728,3 +790,302 @@ D" env variable to skip download.
 ``` sh
 # vue init pwa demo-pwa
 ```
+
+## vue-resource
+
+> Vue Ajax 通信
+
+``` sh
+# cnpm i vue-resource -S
+```
+
+## Webpack 构建工具
+
+## eslint
+
+- es6 + eslint 代码风格价差工具
+
+## vue-cli脚手架搭建的项目可以处理vue文件中postcss语法
+
+- CSS预处理器
+  - Less
+  - Sass
+  - Stylus
+
+CSS预处理器根据它的**规则格式转成css**的东西
+
+- 语法不够强大，不能够嵌套书写，不利于模块化开发
+- 没有变量和逻辑上的复用机制，导致在css的属性值中只能使用字面量形式，以及不断重复书写重复的样式，导致难以维护
+
+- css预处理器给出了非常可行的解决方案
+  - 变量
+    - Sass：使用`$`对变量进行声明，**变量名和变量值使用冒号进行分割**
+    - Less：使用`@`对变量进行声明
+    - Stylus：中声明变量没有任何限定，结尾的**分号可有可无**，但**变量名和变量值之间必须要有『等号』**。但需要注意的是，如果用“@”符号来声明变量，Stylus会进行编译，但不会赋值给变量。就是说，Stylus 不要使用 `@`声明变量。Stylus 调用变量的方法和Less、Sass完全相同。  
+  - 作用域
+    - Sass：它的方式是三者中最差的，不存在全局变量的概念
+    - Less：它的方式和js比较相似，逐级往上查找变量
+    - Stylus：它的方式和Less比较相似，但是它和Sass一样更倾向于指令式查找  
+  - 嵌套
+    - 三者在这处的处理都是一样的，使用`&`表示父元素
+
+可以在保证DPY、可维护性、灵活性的前提下，编写css样式
+
+之所以会出现向预处理器这样子的解决方案，归根结底还是css标准发展的滞后性导致的。同时，我们也应该考虑一下，真的只要预处理器就够了吗？往往在项目过大时，由于**缺乏模块**的概念，全局变量的问题会持续困扰着你。每次定义选择器时，总是要顾及到其他文件中是否也使用了同样的命名。毕竟项目是团队的，而不是个人的。哪是否有方式可以解决这些问题呢？
+
+### 前人的方法
+
+对于css命名冲突的问题，由来已久，可以说我们前端开发人员，天天在苦思冥想，如何去优雅的解决这些问题。css并未像js一样出现了AMD、CMD和ES6 Module的模块化方案。
+
+那么，回到问题，如何去解决呢？我们的前人也有提出过不同的方案：
+
+1. Object-Oriented CSS
+2. BEM
+3. SMACSS
+
+方案可以说是层出不穷，不乏有团队内部的解决方案。但是大多数都是一个共同点——为**选择器增加前缀**。
+
+这可是一个**体力活**，你可能需要手动的去编写长长的选择器，或许你可以使用预编译的css语言。但是，它们似乎并为解决本质的问题——为何会造成这种缺憾。我们不妨来看看，使用BEM规范写出来的例子：
+
+``` css
+<!-- 正确的。元素都位于 'search-form' 模块内 -->
+<!-- 'search-form' 模块 -->
+<form class="search-form">
+    <!-- 在 'search-form' 模块内的 'input' 元素 -->
+    <input class="search-form__input" />
+    <!-- 在 'search-form' 模块内的 'button' 元素 -->
+    <button class="search-form__button"></button>
+</form>
+
+<!-- 不正确的。元素位于 'search-form' 模块的上下文之外 -->
+<!-- 'search-form' 模块 -->
+<form class=""search-block>
+</form>
+
+<!-- 在 'search-form' 模块内的 'input' 元素 -->
+<input class="search-form__input"/>
+
+<!-- 在 'search-form' 模块内的 'button' 元素 -->
+<button class="search-form__button"></button>
+```
+
+### 一种希望
+
+现在的网页开发，讲究的是**组件化的思想**，因此，急需要可行的css Module方式来完成网页组件的开发。自从2015年开始，国外就流行了**CSS-in-JS**(典型的代表，react的styled-components)，还有一种就是**CSS Module**。
+
+对于css，大家都知道，它是一门描述类语言，并不存在动态性。那么，要如何去形成module呢。我们可以先来看一个react使用postcss的例子：
+
+``` css
+//example.css
+
+.article {
+    font-size: 14px;
+}
+.title {
+    font-size: 20px;
+}
+```
+
+之后，将这些命名打乱：
+
+``` css
+.zxcvb{
+    font-size: 14px;
+}
+.zxcva{
+    font-size: 20px;
+}
+```
+
+将之命名对应的内容，放入到JSON文件中去：
+
+``` json
+{
+    "article": "zxcvb",
+    "title": "zxcva"
+}
+```
+
+之后，在js文件中运用：
+
+``` js
+import style from 'style.json';
+
+class Example extends Component {
+  render() {
+    return (
+      <div classname={style.article}>
+        <div classname={style.title}></div>
+      </div>
+    )
+  }
+}
+```
+
+这样子，就描绘出了一副**css module的原型**。当然，我们不可能每次都需要手动去写这些东西。我们需要**自动化的插件**帮助我们完成这一个过程。之后，我们应该先来了解一下**postCSS**。
+
+### postcss
+
+> 根据 can i use(http://caniuse.com) 官网去写代码
+
+PostCSS是预处理器、或者后处理器？。其实，它什么都不是。它可以理解为一种**插件系统**。使用它GitHub主页上的介绍：
+
+> PostCSS is a tool for transforming CSS with JS plugins. These plugins can support variables and mixins, transpile future CSS syntax, inline images, and more.
+
+你可以在使用预处理器的情况下使用它，也可以在原生的css中使用它。它都是支持的，并且它具备着一个庞大的生态系统，例如你可能常用的`Autoprefixer`，就是PostCSS的一个非常受欢迎的插件，被Google, Shopify, Twitter, Bootstrap和CodePen等公司广泛使用。
+
+当然，我们也可以在**CodePen**中使用它：
+
+[PostCSS Deep Dive](https://webdesign.tutsplus.com/series/postcss-deep-dive--cms-889)
+
+接下来，我们来看一下PostCSS的配置：`webpack+postcss+postcss-loader+cssnext+postcss-import`
+
+首先，我们可以通过yarn来安装这些包：
+
+`yarn add --dev webpack extract-text-webpack-plugin css-loader file-loader postcss postcss-loader postcss-cssnext postcss-import`
+
+然后，我们配置一下`webpack.config.js`：
+
+``` js
+const webpack = require('webpack');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+module.exports = {
+  context: path.resolve(__dirname, 'src'),
+  entry: {
+    app: './app.js';
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: { importLoaders: 1 },
+            },
+            'postcss-loader',
+          ],
+        }),
+      },
+    ],
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist/assets'),
+  },
+  plugins: [
+    new ExtractTextPlugin('[name].bundle.css'),
+  ],
+};
+```
+
+然后在根目录下配置`postcss.config.js`
+
+``` js
+module.exports = {
+  plugins: {
+    'postcss-import': {},
+    'postcss-cssnext': {
+      browsers: ['last 2 versions', '> 5%'],
+    },
+  },
+};
+```
+
+之后，就可以在开发中使用`cssnext`的特性了
+
+``` js
+/* Shared */
+@import "shared/colors.css";
+@import "shared/typography.css";
+/* Components */
+@import "components/Article.css";
+```
+
+``` js
+/* shared/colors.css */
+:root {
+  --color-black: rgb(0,0,0);
+  --color-blue: #32c7ff;
+}
+
+/* shared/typography.css */
+:root {
+  --font-text: "FF DIN", sans-serif;
+  --font-weight: 300;
+  --line-height: 1.5;
+}
+
+/* components/Article.css */
+.article {
+  font-size: 14px;
+  & a {
+    color: var(--color-blue);
+  }
+  & p {
+    color: var(--color-black);
+    font-family: var(--font-text);
+    font-weight: var(--font-weight);
+    line-height: var(--line-height);
+  }
+  @media (width > 600px) {
+    max-width: 30em;
+  }
+}
+```
+
+最后使用`webpack`进行编译就可以了。
+
+https://github.com/laizimo/zimo-article
+
+https://evilmartians.com/chronicles/postcss-modules-make-css-great-again
+
+
+---------------
+
+
+`&`属于postcss的语法，这样书写样式可以清楚的看出选择器之前的层级关系，非常好用。在利用vue-cli脚手架搭建的项目中如果不配置是不支持这种写法的，这样写不会报错，但是**样式不生效**。为了让项目中的vue文件支持这种写法，需要在配置`postcss-cssnext模块`
+
+往项目中安装postcss-cssnext模块
+
+`npm install postcss-cssnext --save-dev`
+
+安装完后，会在项目的package.json文件的devDependencies对象中看到postcss-cssnext模块的信息：
+
+在`build`文件夹下面的`vue-loader.config.js`文件中配置`postcss-cssnext`模块
+
+``` js
+const cssnext = require('postcss-cssnext')
+module.exports = {
+  postcss: [cssnext()],
+  ...
+```
+
+《深入PostCSS Web设计》
+
+### vue-cli 使用stylus
+
+安装stylus以webpack模板为例，在webpack的loader配置中，已经做好了stylus的兼容，`build/utils.js`中已有对loader的配置，但默认**没有stylus包和loader包**，需要安装：
+
+```sh
+# cnpm i stylus stylus-loader -D
+
+```
+
+因为是预编译嘛，肯定不用-S了
+
+内部 stylus
+
+vue-cli脚手架搭建的项目中用的是.vue文件，文件里面有三个部分，模板（template）、脚本（script）、样式表（style）。
+
+其中的style，声明一下是stylus类型：
+
+`<style lang="stylus" rel="stylesheet/stylus"></style>`
+
+外部stylus文件后缀为.styl，不是.css，这和sass、less一样，要不然怎么知道用的是stylus语法。
+
+外部建好文件以后，.vue中引入：
+
+`import 'color.styl'`
+
