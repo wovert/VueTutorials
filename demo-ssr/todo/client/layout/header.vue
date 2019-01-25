@@ -1,10 +1,20 @@
 <template>
-  <header class="main-header">
+  <header :class="$style.mainHeader">
     <h1>Todo</h1>
   </header>
 </template>
-
-<style lang="stylus" scoped>
+<script>
+export default {
+  computed: {
+    $style () {
+      return {
+        mainHeader: ''
+      }
+    }
+  }
+}
+</script>
+<style lang="stylus" module>
   .main-header
     text-align center
     h1
