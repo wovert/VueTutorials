@@ -1,1 +1,1 @@
-import './computed'
+import './directive'
