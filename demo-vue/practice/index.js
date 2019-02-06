@@ -1,1 +1,1 @@
-import './data_binding/'
+import './computed'

@@ -8,3 +8,5 @@
 - 服务端渲染：
   - beforeCreate
   - created
+
+- computed和watch不要修改数据
