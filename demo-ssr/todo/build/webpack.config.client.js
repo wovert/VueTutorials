@@ -25,8 +25,9 @@ const devServer = {
   overlay: {
     errors: true // 如果有错误显示在网页上
   },
-  // historyFallback: {
-  // },
+  historyApiFallback: {
+    index: '/public/index.html'
+  },
   hot: true // 修改一个组件，只有重新渲染这个组件
 }
 
