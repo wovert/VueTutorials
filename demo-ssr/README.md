@@ -44,3 +44,17 @@ $ vim .babelrc
   }
 $ npm run dev
 ```
+
+## vuex
+
+```sh
+$ npm i vuex -S
+
+
+...mapState(['count']),
+
+$ npm i babel-preset-stage-1 -D
+$ vim .babalrc
+  "env",
+  "stage-1",
+```
