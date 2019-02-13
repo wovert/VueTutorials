@@ -1089,3 +1089,6 @@ vue-cli脚手架搭建的项目中用的是.vue文件，文件里面有三个部
 
 `import 'color.styl'`
 
+## swiper
+
+[swiper demo](https://surmon-china.github.io/vue-awesome-swiper/)
