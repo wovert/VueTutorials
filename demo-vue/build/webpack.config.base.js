@@ -11,8 +11,7 @@ const config = {
   // 打包文件
   output: {
     filename: 'bundle.[hash:8].js',  // 打包文件
-    path: path.join(__dirname, '../dist'),  // 打包目录
-    publicPath: '/public/'
+    path: path.join(__dirname, '../dist')  // 打包目录
   },
   // 模块处理
   module: {

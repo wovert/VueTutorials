@@ -1,5 +1,5 @@
 {
-  "name": "todo",
+  "name": "demo-vue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,24 +8,21 @@
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.config.client.js",
     "build": "npm run clean && npm run build:client",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
+    "practice": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.practice.js",
     "clean": "rimraf dist"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vue": "^2.5.22",
-    "vue-router": "^3.0.2",
-    "vuex": "^3.1.0"
+    "vue": "^2.5.22"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-jsx": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-1": "^6.24.1",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",

@@ -19,7 +19,6 @@
       @togole="togoleFilter"
       @clearAllCompleted="clearAllCompleted"
     ></Tabs>
-    <!-- <router-view /> -->
   </section>
 </template>
 
@@ -28,29 +27,6 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
-  mounted () {
-    console.log('todo mounted')
-  },
-  beforeRouteEnter (to, from, next) {
-    console.log('todo before enter')
-    // next()
-    next(vm => {
-      console.log(vm)
-      console.log('after enter vm.id is', vm.id)
-    })
-  },
-  // 在当前路由改变，但是该组件被复用时调用
-  beforeRouteUpdate (to, from, next) {
-    console.log('todo before update')
-    next()
-  },
-  beforeRouteLeave (to, from, next) {
-    console.log('todo before leave')
-    if (global.confirm('are your sure?')) {
-      next()
-    }
-  },
-  props: ['id'],
   data () {
     return {
       todos: [],
@@ -60,9 +36,6 @@ export default {
   components: {
     Item,
     Tabs
-  },
-  mounted () {
-    console.log(this.id)
   },
   computed: {
     filteredTodos () {

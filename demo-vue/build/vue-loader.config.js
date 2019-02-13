@@ -10,7 +10,7 @@ module.exports = (isDev) => {
     },
     hotReload: isDev,    // 不进行热更新(vue页面)，不包括样式文件
     loaders: {
-      // 'docs': docsLoader // docs模块loader 
+      'docs': docsLoader // docs模块loader 
     },
     // // 前置loader
     // preLoader: {

@@ -16,3 +16,45 @@
 ## vue + Webpack 工程流搭建
 
 ## Vue + Vue-Router + Vuex项目架构
+
+```sh
+$ npm i vue-router -S
+```
+
+异步加载组件
+```sh
+$ vim config/router.js
+  {
+    path: '/app/:id',
+    props: true, // :id传递到Todo组件
+    name: 'app',
+    // component: Todo,
+    component: () => import('../views/todo/todo.vue'),
+  }
+$ npm i babel-plugin-syntax-dynamic-import -D
+$ vim .babelrc
+  {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-vue-jsx",
+      "syntax-dynamic-import"
+    ]
+  }
+$ npm run dev
+```
+
+## vuex
+
+```sh
+$ npm i vuex -S
+
+
+...mapState(['count']),
+
+$ npm i babel-preset-stage-1 -D
+$ vim .babalrc
+  "env",
+  "stage-1",
+```

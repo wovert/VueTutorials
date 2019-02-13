@@ -99,6 +99,11 @@ Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，�
 - dist/vue.min.js (压缩后的代码)
 - dist/vue.runtime.js (运行时，和vue.js要小30%, 少模板编译器，阉割版)
 
+- 开发环境：vue.runtime.esm.js
+- 生产环境：vue.runtime.min.js
+
+runtime与没有runtime区别？是不是可以写template, runtime不能写template。默认是runtime
+
 ## 插值表达式
 
 - {{ expression }}
