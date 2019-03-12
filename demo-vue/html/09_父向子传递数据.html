@@ -55,7 +55,17 @@
       },
 
       // 声明接受参数
-      props: ['title','status']
+      // props: ['title','status']
+      props: {
+        content: {
+          type: String,
+          required: false,
+          default: '',
+          validator: function(value) {
+            return (value.length > 5)
+          }
+        }
+      }
     }
 
 
