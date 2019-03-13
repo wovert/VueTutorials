@@ -773,6 +773,10 @@ $ npm i vue-preview -S
 
 流程：隐藏显示，移除初始类名，
 
+## Vue中使用 Animate.css 库
+
+
+
 ## 动态载入模板
 
 注意：总容量不变
