@@ -771,11 +771,9 @@ $ npm i vue-preview -S
 
 点击按钮页面显示，第一帧`fade-enter`和`fade-enter-active`一起存在，内容元素隐藏状态`opacity: 0`；第二帧的时候`fade-enter`移除了，内容元素恢复了`opaicty: 1`, 这个时候`fade-enter-active`监听`opacity`变化，在`3s`中之内做过度动画(`0~1`)
 
-流程：隐藏显示，移除初始类名，
+**小技巧**：如果你只想设置组件过渡进入的效果而不想有组件过渡离开的效果，这时你就可以用钩子函数，只设置beforeEnter、enter、afterEnter这几个钩子函数就可以了
 
 ## Vue中使用 Animate.css 库
-
-
 
 ## 动态载入模板
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>transition custom</title>
+  <style>
+    .fade-in-active, .fade-out-active {
+      transition: all 0.5s ease
+    }
+    .fade-in-enter, .fade-out-active {
+      opacity: 0
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <button @click="show=!show">show</button>
+    <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:after-enter="afterEnter"
+      v-on:enter-cancelled="enterCancelled"
+      v-on:before-leave="beforeLeave"
+      v-on:leave="leave"
+      v-on:after-leave="afterLeave"
+      v-on:leave-cancelled="leaveCancelled"
+    >
+    </transition>
+  </div>
+  <script src="../bower_components/vue/dist/vue.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#root',
+      data () {
+        return {
+          show: true
+        }
+      },
+      methods: {
+        // 过渡进入
+        // 设置过渡进入之前的组件状态
+        beforeEnter: function (el) {
+          // ...
+        },
+        // 设置过渡进入完成时的组件状态
+        enter: function (el, done) {
+          // ...
+          done()
+        },
+        // 设置过渡进入完成之后的组件状态
+        afterEnter: function (el) {
+          // ...
+        },
+        enterCancelled: function (el) {
+          // ...
+        },
+        // 过渡离开
+        // 设置过渡离开之前的组件状态
+        beforeLeave: function (el) {
+          // ...
+        },
+        // 设置过渡离开完成时地组件状态
+        leave: function (el, done) {
+          // ...
+          done()
+        },
+        // 设置过渡离开完成之后的组件状态
+        afterLeave: function (el) {
+          // ...
+        },
+        // leaveCancelled 只用于 v-show 中
+        leaveCancelled: function (el) {
+          // ...
+        }
+      }
+    })
+  </script>  
+</body>
+</html>

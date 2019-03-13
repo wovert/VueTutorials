@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>transition custom</title>
+  <style>
+    .fade-in-active, .fade-out-active {
+      transition: all 0.5s ease
+    }
+    .fade-in-enter, .fade-out-active {
+      opacity: 0
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <button @click="show=!show">show</button>
+    <transition 
+      name="fade"
+      enter-class="fade-in-enter"
+      enter-active-class="fade-in-active"
+      leave-class="fade-out-enter"
+      leave-active-class="fade-out-active"
+    >
+      <p v-show="show">hello</p>
+    </transition>
+  </div>
+  <script src="../bower_components/vue/dist/vue.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#root',
+      data () {
+        return {
+          show: true
+        }
+      }
+    })
+  </script>  
+</body>
+</html>
