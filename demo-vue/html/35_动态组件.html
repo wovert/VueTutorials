@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot</title>
+  <style>
+    li {
+      list-style: none;
+      float: left;
+      width: 33%;
+      background: yellowgreen;
+      border: 1px solid black;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <!-- <child-one v-if="type === 'child-one'"></child-one>
+    <child-two v-if="type === 'child-two'"></child-two> -->
+
+    <!--动态组件-->
+    <component :is="type"></component>
+    <button @click="handleBtnClick">change</button>
+  </div>
+  <script src="../bower_components/vue/dist/vue.min.js"></script>
+  <script>
+    Vue.component('child-one', {
+      // 优化性能：v-once 组件存储在内容，再次显示从内存读取组件并渲染。不需要重新生成组件并渲染
+      template: `<div v-once>child-one</div>`
+    })
+    Vue.component('child-two', {
+      template: `<div v-once>child-two</div>`
+    })
+
+    var vm = new Vue({
+      el: '#root',
+      data () {
+        return {
+          type: 'child-one'
+        }
+      },
+      methods: {
+        handleBtnClick () {
+          this.type = (this.type === 'child-one' ? 'child-two' : 'child-one')
+        }
+      }
+    })
+  </script>  
+</body>
+</html>

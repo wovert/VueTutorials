@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot</title>
+  <style>
+    li {
+      list-style: none;
+      float: left;
+      width: 33%;
+      background: yellowgreen;
+      border: 1px solid black;
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <child>
+      <template slot-scope="props">
+        <li>{{props.item}} - hello</li>
+      </template>
+    </child>
+  </div>
+  <script src="../bower_components/vue/dist/vue.min.js"></script>
+  <script>
+    Vue.component('child', {
+      data () {
+        return {
+          list: [1, 2, 3, 4]
+        }
+      },
+      template: `<div>
+        <ul>
+          <slot v-for="item of list" :item=item></slot>
+        </ul>
+      </div>`
+    })
+
+    var vm = new Vue({
+      el: '#root'
+    })
+  </script>  
+</body>
+</html>

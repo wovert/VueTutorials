@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>slot</title>
+  <style>
+    /* .fade-enter-active, .fade-leave-active {
+      transition: all 5s ease
+    }
+    .fade-enter, .fade-leave-active {
+      opacity: 0
+    } */
+    .fade-enter {
+      opacity: 0
+    }
+    .fade-enter-active {
+      transition: all 5s ease
+    }
+    /* 离开时第一帧opacity: 1 */
+    .fade-leave-to {
+      opacity: 0;
+    }
+    /* 监听opacity: 1=>0 */
+    .fade-leave-active {
+      transition: opacity 5s;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <transition name="fade">
+      <div v-if="show">hello world</div>
+    </transition>
+    <button @click="handleClick">切换</button>
+  </div>
+  <script src="../bower_components/vue/dist/vue.min.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#root',
+      data () {
+        return {
+          show: true
+        }
+      },
+      methods: {
+        handleClick () {
+          this.show = !this.show
+        }
+      }
+    })
+  </script>  
+</body>
+</html>

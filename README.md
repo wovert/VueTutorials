@@ -690,6 +690,89 @@ $ npm i vue-preview -S
     - 元素获取的就是元素对象
     - 组件后去的就是组件对象 xxx.$el 获取DOM对象
 
+## transition
+
+> Vue只有在插入，更新或者移除DOM元素时才会应用过渡效果，过渡效果的应用可以通过不同方式实现，官方文档中提到了如下几种：
+
+1. 在CSS过渡和动画中自动应用class
+2. 配合使用第三方的CSS动画库，如Animate.css
+3. 在过渡钩子函数中使用JavaScript直接操作DOM
+4. 配合使用第三方JavaScript动画库，如Velocity
+
+上面四种方式其实主要就是两种，一个是利用CSS过渡或者动画，另一个是利用JavaScript钩子函数
+
+### 怎么应用过渡到元素/组件上
+
+要想使元素或者组件应用到我们所写的过渡动画，需要使用vue提供的transition来封装组件成为过渡组件，transition需要与如下情景中的任一种一起使用：
+
+- v-if（条件渲染）
+- v-show（条件展示）
+- 动态组件
+- 在组建的根节点上，并且被vue实例DOM方法触发，如appendTo方法把组件添加到某个根节点上
+
+### 当需要插入或者删除封装成过渡元素的元素时，vue将做如下事情：
+
+1. 查找目标元素是否有CSS过渡或者动画，如果有就在适当的时候进行处理
+2. 如果过渡组件设置了JavaScript钩子函数，vue会在相应阶段调用钩子函数
+3. 如果以上两者都没有，DOM操作（插入或者删除）就在下一帧立即执行
+
+### CSS过渡
+
+```js
+<!-- 首先将要过渡的元素用transition包裹，并设置过渡的name，然后添加触发这个元素过渡的按钮（实际项目中不一定是按钮，任何能触发过渡组件的DOM操作的操作都可以） -->
+<div>
+  <button @click="show=!show">show</button>
+  <transition name="fade">
+    <p v-show="show">hello</p>
+  </transition>
+</div>
+```
+
+```css
+/* 接着为过渡类名添加规则 */
+&.fade-enter-active, &.fade-leave-active
+  transition: all 0.5s ease
+&.fade-enter, &.fade-leave-active
+  opacity: 0
+```
+
+#### CSS过渡类名
+
+> 组件过渡过程中，会有四个CSS类名进行切换，这四个类名与上面transition的name属性有关，比如name="fade"，会有如下四个CSS类名：
+
+1. `fade-enter`：进入过渡的开始状态，元素被插入时生效，只应用一帧后立即删除
+2. `fade-enter-active`：进入过渡的结束状态，元素被插入时就生效，在过渡过程完成之后移除
+3. `fade-leave`：离开过渡的开始状态，元素被删除时触发，只应用一帧后立即删除
+4. `fade-leave-active`：离开过渡的结束状态，元素被删除时生效，离开过渡完成之后被删除
+
+从上面四个类名可以看出，`fade-enter-active`和`fade-leave-active`在整个进入或离开过程中都有效，所以CSS的transition属性在这两个类下进行设置。
+
+上面示例中，`fade-enter`和`fade-leave-active`类设置CSS为`opacity:0`，说明过渡刚进入和离开的时候透明度为0，即不显示。当然还可以设置其他的CSS属性，transform属性是除了opacity之外经常在这里被用到的，transform用法可参考 http://www.w3cplus.com/content/css3-transition
+
+- 显示第一帧
+  - 添加 fade-enter
+  - 添加 fade-enter-active
+- 第二帧
+  - 删除 fade-enter
+  - 添加 fade-enter-to
+- 最后一针
+  - 删除 fade-enter-active
+  - 删除 fade-enter-to
+
+ - 隐藏时第一帧
+  - 添加 fade-leave
+  - 添加 fade-leave-active
+- 第二帧
+  - 删除 fade-leave
+  - 添加 fade-leave-to
+- 最后一针
+  - 删除 fade-leave-active
+  - 删除 fade-leave-to
+
+点击按钮页面显示，第一帧`fade-enter`和`fade-enter-active`一起存在，内容元素隐藏状态`opacity: 0`；第二帧的时候`fade-enter`移除了，内容元素恢复了`opaicty: 1`, 这个时候`fade-enter-active`监听`opacity`变化，在`3s`中之内做过度动画(`0~1`)
+
+流程：隐藏显示，移除初始类名，
+
 ## 动态载入模板
 
 注意：总容量不变
