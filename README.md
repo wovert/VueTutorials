@@ -65,19 +65,9 @@ Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，�
   - 页面上每个独立的可视/可交互区域视为一个组件
   - 每个组件对应一个工程目录，组件所需要的各种资源在这个目录下就近维护
 
-
 ![vue全栈系统](./images/vue-full-system.png)
 
 [Vue的render函数](https://www.w3cplus.com/vue/vue-render-function.html?utm_source=tuicool&utm_medium=referral)
-
-## Vue 起步
-
-1. 引包
-2. 启动 `new Vue({el:目的地, template: 模板内容});`
-3. options
-  + 目的地 el
-  + 内容 tempalte
-  + 数据 data
 
 ## 安装vue
 
