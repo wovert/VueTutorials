@@ -75,14 +75,14 @@ process.env.NODE_ENV = 'production'
 // 修改后
 process.env.NODE_ENV = 'production' // 此处注释掉
 // const spinner = ora('building for production...') // 此处修改成下面代码
-const spinner = ora('building for' + process.env.NODE_ENV + 'of' + process.env.env_config + 'mode...'
+const spinner = ora('building for' + process.env.NODE_ENV + 'of' + process.env.ENV_CONFIG + 'mode...')
 ```
 
 ## 7.修改根目录下的package.json的scripts
 
 ```json
-"build--test": "cross-env NODE_ENV=testing env_config=test node build/build.js", // 新增
-"build--prod": "cross-env NODE_ENV=production env_config=prod node build/build.js" // 新增
+"build-test": "cross-env NODE_ENV=testing ENV_CONFIG=test node build/build.js", // 新增
+"build-prod": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js" // 新增
 ```
 
 ## 8.在根目录的src下面新增一个config目录和js文件用作配置接口参数
@@ -114,7 +114,7 @@ export {
 
 若路径错误，则需将 根目录`config`下`index.js`中的`build`的`assetsPublicPath:'/'` 改为：`assetsPublicPath: './'`
 
-但是此时会有另外一个问题，使用 `npm run build--test` 的时候 ，因为没有配置`testing`时的路径，因此会默认是`'/'`，此时可以在根目录`build`文件夹下的`webpack.base.conf.js`的output中增加一个判断，将`testing`的路径指定到`prod`
+但是此时会有另外一个问题，使用 `npm run build-test` 的时候 ，因为没有配置`testing`时的路径，因此会默认是`'/'`，此时可以在根目录`build`文件夹下的`webpack.base.conf.js`的output中增加一个判断，将`testing`的路径指定到`prod`
 
 ```js
 
@@ -161,8 +161,8 @@ if (options.extract) {
 
 ```sh
 测试环境
-# npm run build--test
+# npm run build-test
 
 生产环境
-# npm run build--prod
+# npm run build-prod
 ```
