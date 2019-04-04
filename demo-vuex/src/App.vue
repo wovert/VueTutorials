@@ -1,24 +1,18 @@
 <template>
   <div id="app">
-    num={{appShowNum}}
+    num={{appShowNum}}<br>
+    {{$store.state.num}}<br>
     <button @click="changeNum">改变数据</button>
-    <HelloWorld />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
   methods: {
     changeNum () {
       // 一般写代码都不直接提交，除非明知是同步操作，没有后台操作
       // this.$store.commit('addNum', { num: 5 })
-
       this.$store.dispatch('addNumByServerRate', {num: 10})
     }
   },

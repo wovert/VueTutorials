@@ -785,6 +785,56 @@ import Search from '@/components/Search/Search'
 
 ## vuex
 
+> vue应用程序开发的状态管理模式。它采用集中式存储应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+
+- 状态自管理应用
+  - state: 驱动应用数据源
+  - view: 以声明方式将state 映射到视图
+  - actions: 响应在 view 上的用户输入导致的状态变化
+
+- 多个组件共享状态时，单项数据流的简洁性容易被破坏
+  - 多个视图依赖于同一状态
+    - 兄弟组件间的状态传递无能为力
+  - 来自不同视图的行为需要变更同一状态
+    - 父子组件直接引用或者通过事件来变更和同步状态的多分拷贝
+
+因此，把组件的共享状态抽取出来，以一个全局单例模式管理
+
+每一个 Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着你的应用中大部分的状态 (state)。Vuex 和单纯的全局对象有以下两点不同：
+
+Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
+
+你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。
+
+让我们来创建一个 store。创建过程直截了当——仅需要提供一个初始 state 对象和一些 mutation：
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// 在模块化构建系统中，注册插件
+Vue.use(Vuex)
+
+// 创建一个 store
+const store = new Vuex.Store({
+  state: { // 状态对象
+    count: 0
+  },
+  mutations: { // 转变对象
+    increment (state) {
+      state.count++
+    }
+  }
+})
+```
+
+现在可以通过 `store.state` 来获取状态对象，以及通过 `store.commit` 方法触发状态变更
+
+```js
+store.commit('increment')
+console.log(store.state.count) // -> 1
+```
+
 ``` sh
 # vue init webpack demo-vuex
 # npm i vuex -S
