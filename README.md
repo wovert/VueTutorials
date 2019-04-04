@@ -302,7 +302,7 @@ object.defineProperty(Vue.prototype, '$router', {
 
 ### setup axios
 
-``` sh
+```sh
 $ npm i axios
 $ bower install axios
 ```

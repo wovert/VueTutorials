@@ -16,14 +16,20 @@
           <input type="text" v-model="n1" /> + 
           <input type="text" v-model="n2" /> *
           <input type="text" v-model="rate" /> =
-          {{ result }}
+          {{ result }}<br>
+          <input type="text" v-model="firstName" /><br>
+          <input type="text" v-model="lastName" /><br>
+
+          <div id="demo">{{ fullName }}</div>
         </div>
       `,
       data() {
         return {
           n1:0,
           n2:0,
-          rate:1
+          rate:1,
+          firstName: 'Foo',
+          lastName: 'Bar'
         }
       },
       // 监视多个
@@ -35,6 +41,18 @@
           console.log('监视到了');
           return ((parseInt(this.n1) + parseInt(this.n2-0)) * parseInt(this.rate))
 
+        },
+        fullName: {
+          // getter
+          get: function () {
+            return this.firstName + ' ' + this.lastName
+          },
+          // setter
+          set: function (newValue) {
+            var names = newValue.split(' ')
+            this.firstName = names[0]
+            this.lastName = names[names.length - 1]
+          }
         }
       },
 
