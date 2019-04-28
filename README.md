@@ -136,6 +136,47 @@ runtime与没有runtime区别？是不是可以写template, runtime不能写temp
 - 数组：item,index
 - 对象：value,key,index
 
+### 事件修饰符
+
+```html
+<!--第一种情况-->
+<div @click="divEven" style="border:1px #188eee solid;">
+  <a href="www.wovert.com" @click="aEven">链接</a>
+</div>
+<!--stop的使用：阻止事件冒泡的发生-->
+<div @click="divEven" style="border:1px #188eee solid;">
+  <a href="www.wovert.com" @click.stop="aEven">链接</a>
+</div>
+
+<!--prevent的使用：阻止默认事件的发生-->
+<div @click="divEven" style="border:1px #188eee solid;">
+  <a href="www.wovert.com" @click.stop.prevent="aEven">链接</a>
+</div>
+
+<!--self的使用：只有点击他本身时才去执行，点击他的子元素不去执行-->
+<div @click.self="divEven" style="border:1px #188eee solid;">
+  <a href="www.wovert.com" @click.prevent="aEven">链接</a>
+</div>
+
+<!--capture的使用：触发捕获事件()先执行大盒子的事件，起执行小盒子的事件-->
+<div @click.capture="divEven" style="border:1px #188eee solid;">
+  <a href="www.wovert.com" @click.prevent="aEven">链接</a>
+</div>
+<script>
+new Vue({
+  el:"#demo",
+  methods:{
+    divEven(){
+      alert("我是div的事件");
+    },
+    aEven(){
+      alert("我是a链接事件");
+    }
+  }
+});
+</script>
+```
+
 ## 组件渲染
 
 ### 父子组件传值（父传子）
@@ -202,7 +243,7 @@ Vue.component('my-btn', {
 
 ## 组件生命周期
 
-- `beforeCreate()`
+- `beforeCreate()` 数据初始化之前，获取不到 data中的数据
 - `created()` 可以操作数据并且可以实现vue->页面的影响
   - 事件函数，钩子函数
   - 应用：发起 `Ajax` 请求
