@@ -1,5 +1,24 @@
 # Vue
 
+## 为什么
+
+- 现代开发模式？     20%花在表现层
+  - vue/react
+- 传统开发模式？     80%花在表现层
+  - jQuery
+
+- 视图层和数据层自适应
+
+- MVC
+- MVP
+- MVVM
+
+- 前端渲染                    vs          后台渲染
+- 降低服务器负担、带宽压力小                SEO、兼容、安全性
+- 用户体验好
+
+vue的核心是**数据**
+
 ## 前段开发趋势
 
 - 旧浏览器逐渐淘汰，移动端需求增加
@@ -1212,9 +1231,7 @@ https://github.com/laizimo/zimo-article
 
 https://evilmartians.com/chronicles/postcss-modules-make-css-great-again
 
-
 ---------------
-
 
 `&`属于postcss的语法，这样书写样式可以清楚的看出选择器之前的层级关系，非常好用。在利用vue-cli脚手架搭建的项目中如果不配置是不支持这种写法的，这样写不会报错，但是**样式不生效**。为了让项目中的vue文件支持这种写法，需要在配置`postcss-cssnext模块`
 

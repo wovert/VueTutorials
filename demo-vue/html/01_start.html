@@ -15,17 +15,19 @@
   <!-- 5. 页面中存在该目的地，目的地字符串描述，同jQuery方式一样 -->
   <script src="../bower_components/vue/dist/vue.js"></script>
   <script>
-      new Vue({
+      let vm = new Vue({
         //el: '#app',                   // #id, .class, tag 都可以
         el: document.getElementById('app'), // 优化：提前设定目标节点
         template: '<h1>{{ text }}</h1>',  // 装载的模板
         data: function() {            // 动态数据的声明
           return {
             // template 中要使用的数据
-            text: 'Hello World'
+            text: 'Hello World',
+            age: 0
           }
         }
       })
+      console.log(vm)
   </script>  
 </body>
 </html>
