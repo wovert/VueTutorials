@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>keydown</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 只当事件在该元素本身 (比如不是子元素) 触发时触发回调 -->
+    <div @click.self="fn" data-name="out">
+      <button @click="fn" data-name="in">button</button>
+   </div>
+  </div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+        el: document.getElementById('app'),
+        // template: '',
+        data: function() {
+          return {
+          }
+        },
+        methods: {
+          fn(event) {
+            console.log(event.srcElement.dataset.name)
+          }
+        }
+      })
+  </script>  
+</body>
+</html>

@@ -157,6 +157,12 @@ runtime与没有runtime区别？是不是可以写template, runtime不能写temp
 
 ### 事件修饰符
 
+- stop          禁止冒泡
+- once          单次事件
+- prevent       阻止默认事件
+- native        原生事件（组件）
+- keycode|name  筛选按键
+
 ```html
 <!--第一种情况-->
 <div @click="divEven" style="border:1px #188eee solid;">
@@ -164,22 +170,22 @@ runtime与没有runtime区别？是不是可以写template, runtime不能写temp
 </div>
 <!--stop的使用：阻止事件冒泡的发生-->
 <div @click="divEven" style="border:1px #188eee solid;">
-  <a href="www.wovert.com" @click.stop="aEven">链接</a>
+  <a href="www.wovert.com" @click.stop="aEven">禁止冒泡</a>
 </div>
 
 <!--prevent的使用：阻止默认事件的发生-->
 <div @click="divEven" style="border:1px #188eee solid;">
-  <a href="www.wovert.com" @click.stop.prevent="aEven">链接</a>
+  <a href="www.wovert.com" @click.stop.prevent="aEven">禁止冒泡/阻止默认事件</a>
 </div>
 
 <!--self的使用：只有点击他本身时才去执行，点击他的子元素不去执行-->
 <div @click.self="divEven" style="border:1px #188eee solid;">
-  <a href="www.wovert.com" @click.prevent="aEven">链接</a>
+  <a href="www.wovert.com" @click.prevent="aEven">阻止默认事件</a>
 </div>
 
 <!--capture的使用：触发捕获事件()先执行大盒子的事件，起执行小盒子的事件-->
 <div @click.capture="divEven" style="border:1px #188eee solid;">
-  <a href="www.wovert.com" @click.prevent="aEven">链接</a>
+  <a href="www.wovert.com" @click.native="aEven">原生事件</a>
 </div>
 <script>
 new Vue({

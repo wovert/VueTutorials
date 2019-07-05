@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>keydown</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" @keydown.enter="fn"><br />
+    <input type="text" @keydown.65="fn2"><br />
+    <input type="text" @keydown.ctrl.enter="fn3"><br />
+  </div>
+  <script src="../bower_components/vue/dist/vue.js"></script>
+  <script>
+    let vm = new Vue({
+        el: document.getElementById('app'),
+        // template: '',
+        data: function() {
+          return {
+          }
+        },
+        methods: {
+          fn() {
+            alert('提交')
+          },
+          fn2() {
+            alert('65 code')
+          },
+          fn3() {
+            alert('ctrl+enter')
+          }
+        }
+      })
+  </script>  
+</body>
+</html>
