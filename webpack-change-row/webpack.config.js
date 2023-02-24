@@ -40,6 +40,11 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: ['style-loader', 'css-loader','sass-loader']
+            },
+            {
+                test: /\.jpe?g|png|gif$/,
+                // 22229byte => 22kb
+                use: ['url-loader?limit=22229'] // 《=limit=(byte) 图片才会被转换为base64图片
             }
 
         ]

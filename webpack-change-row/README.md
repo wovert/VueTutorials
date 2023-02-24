@@ -108,3 +108,28 @@ npm install --save-dev sass-loader
 //因为sass-loader依赖于node-sass，所以还要安装node-sass
 npm install --save-dev node-sass
 ```
+
+### base64 img
+
+> 不需要网络请求下载
+
+- 推荐300K图片
+
+```
+npm i -D url-loader file-loader
+```
+
+### babel-loader
+
+> Webapck 只能打包处理一部分 
+
+```
+npm i -D babel-loader@8.2.2 @babel/core@7.14.6 @babel/plugin-proposal-decorators@7.14.5 -D
+
+
+{
+    test: /\.js$/,
+    use: 'babel-loader',
+    exclude: /node_modules/
+}
+```
