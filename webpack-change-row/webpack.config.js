@@ -1,5 +1,8 @@
 const path = require('path')
 
+// clean dist directory plugin
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+
 // 1. 导入 HTML 插件
 const HtmlPlugin = require('html-webpack-plugin')
 
@@ -14,7 +17,7 @@ module.exports = {
     entry: path.join(__dirname, './src/index.js'), // 打包入口文件路径
     output: {
         path: path.join(__dirname, 'dist'), // 输出目录
-        filename: 'bundle.js' // 输出文件名
+        filename: 'js/bundle.js' // 输出文件名
     },
 
     devServer: {
@@ -26,6 +29,11 @@ module.exports = {
     // 所有第三方文件模块匹配的规则
     module: {
         rules: [ // 文件后缀名的匹配规则
+            {
+                test: /\.js$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
+            },
             {
                 test: /\.css$/, // 匹配的文件类型
                 use: ['style-loader', 'css-loader'] // 固定顺序， css文件先css-loader处理，再处理style-loader，最后转交给webpack
@@ -44,11 +52,11 @@ module.exports = {
             {
                 test: /\.jpe?g|png|gif$/,
                 // 22229byte => 22kb
-                use: ['url-loader?limit=22229'] // 《=limit=(byte) 图片才会被转换为base64图片
+                use: ['url-loader?limit=22229&outputPath=images'] // 《=limit=(byte) 图片才会被转换为base64图片
             }
 
         ]
     },
     // 插件数组，webpack 运行时，会加载并调用这些插件
-    plugins: [htmlPlugin] // 通过 plugins节点，是 htmlPLugin 插件生效
+    plugins: [htmlPlugin, new CleanWebpackPlugin()] // 通过 plugins节点，是 htmlPLugin 插件生效
 }

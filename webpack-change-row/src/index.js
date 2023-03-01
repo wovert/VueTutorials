@@ -9,9 +9,11 @@ import './scss/index.scss';
 
 // 导入图片，得到图片文件
 import logo from './images/benz-logo.jpg';
+import bmw from './images/bmw.jpg';
 
 // 给 img 标签 src 动态赋值
 $('.logo').attr('src', logo);
+$('.bmw').attr('src', bmw);
 
 $(function() {
     $('li:odd').css('background-color', 'yellow')

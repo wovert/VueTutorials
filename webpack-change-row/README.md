@@ -11,7 +11,7 @@
 
 ## 配置 webpack
 
-```
+```js
 vim webpack.config.js
 module.export = {
     mode: 'development' // 构建模式：development or production
@@ -42,7 +42,7 @@ webpack 运行时读取 webapck.config.js 文件
 > 监听源代码，自动项目的打包和构建
 
 
-```
+```js
 npm i -D webpack-dev-server@3.11.2
 
 vim package.json
@@ -65,7 +65,7 @@ npm run dev 重新进行项目的打包
  - 复制 src/index.html 文件到项目根目录了中的 ./index.html，也被放到了**内存中** 
  - HTML 插件生成的 index.html 页面，**自动注入打包**的 bundle.js 文件
 
-```
+```sh
 npm i -D html-webpack-plugin@5.3.2
 ```
 
@@ -78,7 +78,7 @@ npm i -D html-webpack-plugin@5.3.2
 - less-loader 打包处理 .less 相关的文件
 - babel-loader 打包处理 webpack 无法处理的高级JS语法
 
-```
+```js
 npm i -D style-loader@3.3.1 css-loader@5.2.7
 
 // 所有第三方文件模块匹配的规则
@@ -96,8 +96,8 @@ module: {
 
 
 - less
-```
 
+```
 less 是 less-loader 内置依赖项
 npm i -D  less-loader@10.2.0 less@4.1.3
 ```
@@ -133,3 +133,54 @@ npm i -D babel-loader@8.2.2 @babel/core@7.14.6 @babel/plugin-proposal-decorators
     exclude: /node_modules/
 }
 ```
+
+- 配置 babel-loader（项目根目录下创建名为bable.config.js 配置文件）
+
+```
+module.exports = {
+  // 声明 babel 可用的插件
+  plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]]
+}
+
+```
+
+[babel配置](https://babeljs.io/docs/babel-plugin-proposal-decorators)
+
+## 配置 build
+- package.json
+  - "build": "webpack --mode production"
+
+--mode 覆盖配置文件中的mode参数
+
+```sh
+# npm run build
+```
+
+生成压缩后的 dist 目录
+
+## 优化图片和JS存放目录
+
+```js
+- webpack.config.js
+output: {
+    filename: 'js/bundle.js'
+}
+
+url-loader?limit=xxx&outputpath=images
+```
+
+
+## 打包之前清空 dist 目录
+
+
+
+```
+npm i clean-webpack-plugin -D
+- webpack.config.js
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+
+plugins: [htmlPlugin, new CleanWebpackPlugin]
+```
+
+## sourcemap
+
