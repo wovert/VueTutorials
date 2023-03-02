@@ -14,7 +14,7 @@ const htmlPlugin = new HtmlPlugin({
 
 module.exports = {
     mode: 'development', // development or production
-    devtool: 'nosources-source-map',
+    devtool: 'eval-source-map',
     entry: path.join(__dirname, './src/index.js'), // 打包入口文件路径
     output: {
         path: path.join(__dirname, 'dist'), // 输出目录
@@ -57,6 +57,12 @@ module.exports = {
             }
 
         ]
+    },
+    resolve: {
+      alias: {
+        // 定义别名 @ 表示 src 目录开始
+        '@': path.join(__dirname, './src')
+      }
     },
     // 插件数组，webpack 运行时，会加载并调用这些插件
     plugins: [htmlPlugin, new CleanWebpackPlugin()] // 通过 plugins节点，是 htmlPLugin 插件生效

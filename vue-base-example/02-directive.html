@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 指令</title>
+  <script src="./lib/vue-2.6.12.js"></script>
+</head>
+<body>
+  <article id="app">
+    <section>
+      <header>
+        <h2>内容渲染指令</h2>
+      </header>
+      <article>
+        <!-- 缺点：覆盖元素内部原有的内容 -->
+        <p v-text="username">用户名</p>
+
+        <!-- 解析 HTML 标记 -->
+        <p v-html="gender"></p>
+
+        <!-- 插值表达式 -->
+        <p>{{ info }}信息</p>
+      </article>
+    </section>
+    <section>
+      <header>
+        <h2>属性绑定指令</h2>
+      </header>
+      <article :id="'attribute-bind-directive-' + id">
+        <p>{{ id + 1 }}</p>
+        <!-- 插值表达式只能用在元素的内容节点中，不能用在元素的属性节点中 -->
+        <input type="text" v-bind:placeholder="username_tips" />
+        <input :class="ok ? 'yes': 'no'"  type="text" :placeholder="username_tips" />
+        <p>{{ title.split('').reverse().join('')  }}</p>
+      </article>
+    </section>
+
+    <section>
+      <header>
+        <h2>事件绑定指令</h2>
+      </header>
+      <article>
+
+      </article>
+    </section>
+  </article>
+  <script>
+      // Create Vue
+      const vm = new Vue({
+        el: '#app', // vm 实例 控制页面节点
+        data: { // 指定  Model 数据
+          id: 100,
+          username: '<h3>wovert</h3>',
+          gender: '<strong>男</strong>',
+          info: '<strong>欢迎使用Vue</strong>',
+          username_tips: '请输入用户名',
+          ok: true,
+          title: '这是标题'
+        }
+      })
+  </script>
+</body>
+</html>

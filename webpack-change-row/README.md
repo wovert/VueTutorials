@@ -206,3 +206,15 @@ module.exports = {
 
 - 不推荐：`devtool: 'source-map'` 发布后的错误调试可以看到源代码
 
+
+## @ 定义别名
+
+- webpack.config.js
+```js
+resolve: {
+  alias: {
+    // 定义别名 @ 表示 src 目录开始
+    '@': path.join(__dirname, './src')
+  }
+}
+```
