@@ -184,3 +184,25 @@ plugins: [htmlPlugin, new CleanWebpackPlugin]
 
 ## sourcemap
 
+> 一个信息文件，存储位置信息。文件中存储着压缩混淆后代码，所对应的转换前的位置。出错的时候，除错工具直接显示原始代码，而不是转换后的代码，极大方便调试。
+
+
+开发环境下默认生成的 Source Map ，记录的时生成后的代码的位置。导致运行时报错的行数与源代码的行数不一致的问题。
+
+- 开发环境配置（精准定位到具体的错误行）
+```js
+module.exports = {
+  devtool: 'eval-source-map'
+}
+```
+
+- 生产环境下，如果省略了 devtool 选项，则最终生成的文件中不包含 Source Map。能够防止原始代码通过 Source Map 的形式暴漏给其他别有用途的人。
+
+
+- 生产环境只定位行数不爆露源码提高网站安全性:
+  - 1. 关闭 Sourcemap
+  - 2. `devtool: 'nosources-source-map'`
+
+
+- 不推荐：`devtool: 'source-map'` 发布后的错误调试可以看到源代码
+

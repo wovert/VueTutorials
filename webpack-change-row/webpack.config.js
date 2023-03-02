@@ -14,6 +14,7 @@ const htmlPlugin = new HtmlPlugin({
 
 module.exports = {
     mode: 'development', // development or production
+    devtool: 'nosources-source-map',
     entry: path.join(__dirname, './src/index.js'), // 打包入口文件路径
     output: {
         path: path.join(__dirname, 'dist'), // 输出目录

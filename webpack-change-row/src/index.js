@@ -30,5 +30,5 @@ function info(target) {
 @info
 class Person{}
 
-console.log(Person.info)
+cons.log(Person.info)
 
