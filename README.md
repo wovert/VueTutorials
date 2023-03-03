@@ -211,6 +211,8 @@ runtime与没有runtime区别？是不是可以写template, runtime不能写temp
 - stop          禁止冒泡
 - once          单次事件
 - prevent       阻止默认事件
+- self  
+- capture
 - native        原生事件（组件）
 - keycode|name  筛选按键
 

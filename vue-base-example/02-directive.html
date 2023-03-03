@@ -61,13 +61,36 @@
         
         <!-- 取消默认绑定链接 prevent: 阻止默认行为 stop: 阻止事件冒泡 once: 绑定事件只出发1次 -->
         <p><a href="https://taobao.com" @click.prevent="goTaobao">淘宝</a></p>
+
+        <p><button @click.once="goBaidu">腾讯</button></p>
         
 
         <p @click="paraHandle" style="background:orange;color:#fff;padding: 20px;">
           <button @click="btnHandle">按钮</button>
           <button @click="btnHandle.stop">组织冒泡按钮</button>
-        </p>
+        </p> 
 
+        <p @click.capture="paraHandle" style="background:orange;color:#fff;padding: 20px;">
+          <button @click="btnHandle">按钮</button>
+          <button @click="btnHandle">捕获修饰符</button>
+        </p> 
+        <div class="box" @click="onBoxClick">
+           Box
+          <div class="outer" @click.self="onOuterClick">
+            Outer
+            <div class="inner" @click="onInnerClick">inner div</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <header>
+        <h2>按键修饰符</h2>
+      </header>
+      <article>
+        <h2>只有在key是 Enter 是调用 vm.submit()</h2>
+        <input @keyup.enter="enterSubmit" @keyup.esc="enterEsc">
       </article>
     </section>
   </article>
@@ -86,6 +109,21 @@
           count: 0
         },
         methods: {
+          enterSubmit() {
+            console.log('enter submit')
+          },
+          enterEsc(e) {
+            e.target.value = ''
+          },
+          onBoxClick() {
+            console.log('box')
+          },
+          onOuterClick() {
+            console.log('outer')
+          },
+          onInnerClick() {
+            console.log('inner')
+          },
           addCount(num) {
             vm.count += num
           },
@@ -121,11 +159,25 @@
           paraHandle() {
             console.log('param click!')
           },
-          btnHandle() {
+          btnHandle(e) {
             console.log('button click!')
           }
         } 
       })
   </script>
+  <style>
+    .box {
+      background: red;
+      padding: 20px;
+    }
+    .outer{
+      background: yellow;
+      padding: 20px;
+    }
+    .inner {
+      background: blue;
+      padding: 30px;
+    }
+  </style>
 </body>
 </html>
