@@ -7,17 +7,9 @@
 - 传统开发模式？     80%花在表现层
   - jQuery
 
-- 视图层和数据层自适应
-
-- MVC
-- MVP
-- MVVM
-
 - 前端渲染                    vs          后台渲染
 - 降低服务器负担、带宽压力小                SEO、兼容、安全性
 - 用户体验好
-
-vue的核心是**数据**
 
 ## 前段开发趋势
 
@@ -43,12 +35,13 @@ vue的核心是**数据**
         - 提供基础的**架构抽象**
         - 通过**Ajax数据持久化**，保证前段用户体验
 
-## 技术选项
+- MVVM
+  - Model: 当前页面渲染时所依赖的数据源
+  - View: 页面所渲染的 DOM 结构
+  - ViewModel: Vude 实例，MVVM 核心
 
-- 社区活跃度
-- 对比其他技术
-  - 容量
-  - 学习难度
+
+
 
 ## 前段框架与库的区别？
 
@@ -90,7 +83,7 @@ vue的核心是**数据**
 
 ## Vue和React相同点
 
-- 虚拟DOM实现快速渲染
+- 虚拟 DOM 实现快速渲染
 - 轻量级
 - 响应式组件
 - 服务端渲染
@@ -101,15 +94,15 @@ vue的核心是**数据**
 
 ## Vue介绍
 
-> 2014年, 一套用于构建**用户界面**的渐进式框架。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动
+> 2014年, 一套用于**构建用户界面**的渐进式**框架**。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也完全能够为复杂的单页应用提供驱动
 
-- 相继推出第三方库 **vue-router和vue-resource**
-- 轻量级MVVM框架
-- 数据驱动+组件化的前段开发
+- 相继推出第三方库 **vue-router 和 vue-resource**
+- 轻量级 MVVM 框架
+- 数据驱动 + 组件化的前段开发
 
 ![vue数据驱动](./images/vue-data-event.jpg)
 
-Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，当数据变化，Directives指令负责修改响应的DOM。数据驱动DOM变化，DOM是数据的一种自然映射。Vue修改视图的时候，DOM Listeners监听变化，他会改变数据，形成了数据双向绑定。
+Vue只需要改变数据，Vue的**Directives 指令 **是** DOM 进行封装**，当数据变化，Directives指令负责修改响应的DOM。数据驱动DOM变化，DOM是数据的一种自然映射。Vue修改视图的时候，DOM Listeners监听变化，他会改变数据，形成了数据双向绑定。
 
 ![数据响应原理](./images/data-res.png)
 
@@ -122,6 +115,16 @@ Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，�
 ![vue全栈系统](./images/vue-full-system.png)
 
 [Vue的render函数](https://www.w3cplus.com/vue/vue-render-function.html?utm_source=tuicool&utm_medium=referral)
+
+
+## Vue 特性
+
+- 数据驱动视图（页面 —— Vue —— 数据）
+  - Vue 监听数据的变化，驱动视图自动更新
+  - 单项的数据绑定
+- 双向数据绑定
+  - JS 数据有变化，自动渲染到页面上
+  - 不操作 DOM 前提下，自动表单内容同步到数据源
 
 ## 安装vue
 
@@ -147,6 +150,19 @@ Vue只需要改变数据，Vue的**Directives指令**是**DOM进行封装**，�
 - 生产环境：vue.runtime.min.js
 
 runtime与没有runtime区别？是不是可以写template, runtime不能写template。默认是runtime
+
+## Vue 指令 
+
+- 内容渲染指令
+  - v-text
+  - {{}}
+  - v-html
+- 属性绑定指令
+- 事件绑定指令
+- 双向绑定指令
+- 条件渲染指令
+- 列表渲染指令
+
 
 ## 插值表达式
 
@@ -195,6 +211,8 @@ runtime与没有runtime区别？是不是可以写template, runtime不能写temp
 - stop          禁止冒泡
 - once          单次事件
 - prevent       阻止默认事件
+- self  
+- capture
 - native        原生事件（组件）
 - keycode|name  筛选按键
 

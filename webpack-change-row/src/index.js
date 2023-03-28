@@ -3,9 +3,18 @@ import $ from 'jquery'
 
 // 导入样式（在 webpack 中，一切皆模块，都可以通过 ES6 导入语法进行导入和使用）
 // 模块中，使用 from 接收到的成员为 undefined，则没有必要进行接受
-import './css/index.css';
-import './less/index.less';
-import './scss/index.scss';
+// import './css/index.css';
+// import './less/index.less';
+// import './scss/index.scss';
+
+
+import '@/css/index.css';
+import '@/less/index.less';
+import '@/scss/index.scss';
+
+
+// 导入 src/js/test/info.js
+import '@/js/test/info.js'
 
 // 导入图片，得到图片文件
 import logo from './images/benz-logo.jpg';
