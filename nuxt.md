@@ -82,3 +82,24 @@ npm run dev
 ```
 npm i vue-router@next -S
 ```
+
+## element-plus
+
+
+```
+npm i element-plus -S
+```
+
+### 按需加载
+
+- 依赖包
+```
+npm i -D unplugin-vue-components unplugin-auto-import
+```
+
+## ESLint
+
+```
+npm i eslint -D
+npx eslint --init
+```
