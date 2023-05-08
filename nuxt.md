@@ -103,3 +103,33 @@ npm i -D unplugin-vue-components unplugin-auto-import
 npm i eslint -D
 npx eslint --init
 ```
+
+## sass
+
+```
+npm i sass -D
+```
+
+
+## 报错：Cannot find name '__dirname'
+
+```
+// tsconfig.json
+{
+ "compilerOptions": {
+  ...
+  "types": [
+    "node"
+  ]
+  ...
+  }
+}
+
+npm install @types/node --save-dev
+```
+
+## axios
+
+```
+npm i axios -S
+```

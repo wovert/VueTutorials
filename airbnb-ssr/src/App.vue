@@ -11,5 +11,10 @@ const router = useRouter()
   <router-view />
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+#app {
+  button {
+    font-size: 40px;
+  }
+}
 </style>

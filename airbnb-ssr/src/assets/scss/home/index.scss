@@ -1,0 +1,8 @@
+button {
+    background-color: $primaryColor;
+}
+
+.text {
+    @include line-text-overflow;
+    width: 100px;
+}

@@ -35,5 +35,21 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, 'src')
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // additionalData: `$injectedColor: orange;`,
+        additionalData: '@import "@/assets/scss/variable.scss";'
+      },
+      // less: {
+      //   math: 'parens-division',
+      // },
+      // styl: {
+      //   define: {
+      //     $specialColor: new stylus.nodes.RGBA(51, 197, 255, 1),
+      //   },
+      // },
+    },
   }
 })
