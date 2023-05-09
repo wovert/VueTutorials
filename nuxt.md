@@ -133,3 +133,13 @@ npm install @types/node --save-dev
 ```
 npm i axios -S
 ```
+
+## 国际化
+
+- elment-plush 配置国际化 ConfigProvider
+- Vue-i18n 实现网站全局国际化
+
+
+```
+npm i vue-i18n@next -S
+```

@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router'
 // import { ElMessage } from 'element-plus'
-import { h, getCurrentInstance } from 'vue'
+import { h, ref, getCurrentInstance } from 'vue'
 import { fetchRoomList } from '../../api'
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
+console.log('t=', t)
 
 const router = useRouter()
 const route = useRoute()
@@ -24,13 +29,74 @@ const getRoomList = () => {
   fetchRoomList()
 }
 getRoomList()
+
+const size = ref<'default' | 'large' | 'small'>('default')
+
+const value1 = ref('')
+const value2 = ref('')
+
+
+console.log(t('message.today'))
+const shortcuts = [
+  {
+    text: t('message.today'),
+    value: new Date(),
+  },
+  {
+    text: 'Yesterday',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24)
+      return date
+    },
+  },
+  {
+    text: 'A week ago',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+      return date
+    },
+  },
+]
+
+const disabledDate = (time: Date) => {
+  return time.getTime() > Date.now()
+}
 </script>
 
 <template>
   <div> 
-    <h1>首页</h1>
-    <el-button @click="()=>router.push({path: '/my', query: {id: 1}})">我的</el-button>
-    <p class="text">爱丽丝的客服就卡死经济ask的风景按实际的接口阿喀琉斯的房间案件上的飞机啊是酒店房间阿里山的房间可拉斯基的反馈吉安卡罗士大夫艰苦了按时间打卡练腹肌</p>
+    <h1>{{ t('message.home') }}</h1>
+    <el-button @click="()=>router.push({path: '/my', query: {id: 1}})">{{ t('message.my') }}</el-button>
+    <p class="text">{{ t('message.today') }}------爱丽丝的客服就卡死经济ask的风景按实际的接口阿喀琉斯的房间案件上的飞机啊是酒店房间阿里山的房间可拉斯基的反馈吉安卡罗士大夫艰苦了按时间打卡练腹肌</p>
+  </div>
+  <el-radio-group v-model="size" label="size control" size="small">
+    <el-radio-button label="large">large</el-radio-button>
+    <el-radio-button label="default">default</el-radio-button>
+    <el-radio-button label="small">small</el-radio-button>
+  </el-radio-group>
+  <div class="demo-date-picker">
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <el-date-picker
+        v-model="value1"
+        type="date"
+        placeholder="Pick a day"
+        :size="size"
+      />
+    </div>
+    <div class="block">
+      <span class="demonstration">Picker with quick options</span>
+      <el-date-picker
+        v-model="value2"
+        type="date"
+        placeholder="Pick a day"
+        :disabled-date="disabledDate"
+        :shortcuts="shortcuts"
+        :size="size"
+      />
+    </div>
   </div>
 </template>
 
