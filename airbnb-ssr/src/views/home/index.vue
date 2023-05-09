@@ -3,6 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 // import { ElMessage } from 'element-plus'
 import { h, ref, getCurrentInstance } from 'vue'
 import { fetchRoomList } from '../../api'
+import IndexedDB from '../../utils/indexedDB'
 
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
@@ -63,6 +64,12 @@ const shortcuts = [
 const disabledDate = (time: Date) => {
   return time.getTime() > Date.now()
 }
+
+
+const db = new IndexedDB('airbnb', 2)
+db.openStore('person', 'id', [
+  'name', 'age'
+])
 </script>
 
 <template>

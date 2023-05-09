@@ -143,3 +143,19 @@ npm i axios -S
 ```
 npm i vue-i18n@next -S
 ```
+
+## indexedDB
+
+
+## 同构（现代服务端渲染）
+
+- CSR
+- SSR
+- 同构渲染（Next/Nuxt）
+
+## nuxt
+
+```
+npx nuxi init nuxt-project && cd nuxt-project
+yarn install
+```
