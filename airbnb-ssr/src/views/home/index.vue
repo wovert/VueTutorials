@@ -65,16 +65,52 @@ const disabledDate = (time: Date) => {
   return time.getTime() > Date.now()
 }
 
-
+// db
 const db = new IndexedDB('airbnb', 2)
-db.openStore('person', 'id', [
+const storeName = 'person'
+db.openStore(storeName, 'id', [
   'name', 'age'
 ])
+
+// add/update
+function addData(storeName: string) {
+  db.updateItem(storeName, {
+    name: 'Alice',
+    age: 18
+  })
+}
+
+function updateData(storeName: string) {
+  db.updateItem(storeName, {
+    id: 1,
+    name: 'Alice Modify',
+    age: 30
+  })
+}
+
+function deleteData(storeName: string, key: number) {
+  db.deleteItem(storeName, key)
+}
+
+function getDatas(storeName: string) {
+  db.getItems(storeName)
+}
+
+function getData(storeName: string, key: number | string) {
+  db.getItem(storeName, key)
+}
+
 </script>
 
 <template>
   <div> 
     <h1>{{ t('message.home') }}</h1>
+    <el-button @click="addData(storeName)">Add</el-button>
+    <el-button @click="updateData(storeName)">Modify</el-button>
+    <el-button @click="deleteData(storeName, 2)">删除</el-button>
+    <el-button @click="getDatas(storeName)">查询所有数据</el-button>
+    <el-button @click="getData(storeName, 3)">查询一条数据</el-button>
+    <br>
     <el-button @click="()=>router.push({path: '/my', query: {id: 1}})">{{ t('message.my') }}</el-button>
     <p class="text">{{ t('message.today') }}------爱丽丝的客服就卡死经济ask的风景按实际的接口阿喀琉斯的房间案件上的飞机啊是酒店房间阿里山的房间可拉斯基的反馈吉安卡罗士大夫艰苦了按时间打卡练腹肌</p>
   </div>
