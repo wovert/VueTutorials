@@ -5,9 +5,11 @@
 
 import { ElLoading } from 'element-plus'
 import { IResultOr } from '../interface'
-import airbnb from '../../db' // 引入数据库和对象仓库
+// import airbnb from '../../db' // 引入数据库和对象仓库
+import IndexedDB from '../../utils/indexedDB'
 
-const storeName = Object.keys(airbnb.languageObjectStore)[0]
+// const storeName = Object.keys(airbnb.languageObjectStore)[0]
+const airbnbDB = new IndexedDB('airbnb', 2)
 
 // Mock接口：保存当前语言包
 export async function saveLanguageApi(lang: any) {
@@ -15,8 +17,9 @@ export async function saveLanguageApi(lang: any) {
     lock: true,
     background: 'rgba(0, 0, 0, 0.1)'
   })
-  await airbnb.airbnbDB.openStore('language', 'id', ['name'])
-  const resultOr: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then(res => {
+  await airbnbDB.openStore('language', 'id', ['name'])
+  const resultOr: IResultOr = await airbnbDB.getItem('language', 1).then(res => {
+    console.log('innn.res=', res)
     return { code: '000000', message: '操作成功', result: res || null, success: true }
   })
   const { success } = resultOr
@@ -26,7 +29,7 @@ export async function saveLanguageApi(lang: any) {
   } else { // 说明数据不存在，则新增数据
     obj = { name: lang }
   }
-  const result: IResultOr = await airbnb.airbnbDB.updateItem(storeName, obj).then(res => {
+  const result: IResultOr = await airbnbDB.updateItem('language', obj).then(res => {
     setTimeout(() => {
       loading.close()
     }, 200)
@@ -41,7 +44,8 @@ export async function fetchLanguageApi() {
     lock: true,
     background: 'rgba(0, 0, 0, 0.1)'
   })
-  const result: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then((res: any) => {
+  await airbnbDB.openStore('language', 'id', ['name'])
+  const result: IResultOr = await airbnbDB.getItem('language', 1).then((res: any) => {
     setTimeout(() => {
       loading.close()
     }, 200)

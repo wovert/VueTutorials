@@ -40,7 +40,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // additionalData: `$injectedColor: orange;`,
-        additionalData: '@import "@/assets/scss/variable.scss";'
+        additionalData: '@import "@/assets/scss/variable.scss";@import "@/assets/scss/main.scss";'
       },
       // less: {
       //   math: 'parens-division',

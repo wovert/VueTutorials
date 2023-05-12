@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import HeaderCommon from './components/layout/HeaderCommon.vue'
+import FooterCommon from './components/layout/FooterCommon.vue'
 
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 import ko from 'element-plus/dist/locale/ko.mjs'
-const router = useRouter()
+// const router = useRouter()
 
-// element-plus 国际化
+// // element-plus 国际化
 const locale = ref(zhCn)
 
 // i18n国际化
@@ -25,25 +27,23 @@ const changeLang = (language: any) => {
 <template>
   <!-- <el-config-provider :locale="zhCn"> -->
   <el-config-provider :locale="locale">
+    <HeaderCommon @onChangeLang="changeLang" />
+    <router-view />
     <button @click="changeLang(zhCn)">中文</button>
     <button @click="changeLang(en)">英文</button>
     <button @click="changeLang(ko)">韩文</button>
     <br />
-
+    <FooterCommon @onChangeLang="changeLang" />
+    <!-- 
     <el-button @click="()=>router.push({path: '/home'})">{{ t('message.home')}}</el-button>
     <el-button @click="()=>router.push({path: '/my'})">{{ t('message.my')}}</el-button>
-    <br />
+    <br /> -->
 
     <!-- <router-link to='/home'>首页</router-link>
     <router-link to='/my'>我的</router-link> -->
-    <router-view />
   </el-config-provider>
 </template>
 
 <style lang="scss" scoped>
-#app {
-  button {
-    font-size: 20px;
-  }
-}
+
 </style>
