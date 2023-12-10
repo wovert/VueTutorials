@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-计时器</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: `
+                <div>
+                    <h2>{{ counter }}</h2>
+                    <button @click="inc">+1</button>
+                    <button @click="dec">-1</button>
+                </div>
+            `,
+            data: function() {
+                return {
+                    counter: 100
+                }
+            },
+            methods: {
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

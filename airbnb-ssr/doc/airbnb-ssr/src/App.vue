@@ -12,6 +12,9 @@ import { useStore } from '@/store'
 
 const store = useStore()
 const route = useRoute()
+
+console.log('route=', route)
+console.log('route=', route.fullPath)
 // const { locale: localeLanguage } = useI18n()
 // const locale = ref(zhCn)
 // const changeLang = (language: any) => {

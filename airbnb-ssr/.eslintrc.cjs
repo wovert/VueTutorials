@@ -1,14 +1,25 @@
 module.exports = {
   env: {
-    es2021: true,
     browser: true,
+    es2021: true,
     node: true
   },
   extends: [
-    'plugin:vue/vue3-essential',
-    'standard-with-typescript'
+    'standard-with-typescript',
+    'plugin:vue/vue3-essential'
   ],
   overrides: [
+    {
+      env: {
+        node: true
+      },
+      files: [
+        '.eslintrc.{js,cjs}'
+      ],
+      parserOptions: {
+        sourceType: 'script'
+      }
+    }
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -18,5 +29,6 @@ module.exports = {
     'vue'
   ],
   rules: {
+    'space-before-function-paren': 0
   }
 }

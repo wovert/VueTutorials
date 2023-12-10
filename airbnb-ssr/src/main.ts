@@ -11,6 +11,7 @@ import 'element-plus/dist/index.css'
 import i18n from './language/i18n'
 
 const app = createApp(App)
+
 // 全局组件
 app.config.globalProperties.$message = ElMessage
 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-引入JS方法</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '<h1>Hello World</h1>'
+        }
+        const app = Vue.createApp({
+            template: '<h1>Vue3引入JS方法</h1>'
+        })
+        app.mount('#app')
+    </script>    
+</body>
+</html>

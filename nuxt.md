@@ -8,7 +8,6 @@
 
 - Vue + TS + SSR
 
-
 ## 基础组件
 
 - Layout组件
@@ -48,6 +47,8 @@
   - Plugin: 
 
 
+### 开发依赖相关版本
+
 - nvm 1.1.7
 - node 12.20.0(vue), 17.0.0(nuxt3 beta)
 - npm 6.14.8(vue3), 8.1.0(nuxt3 beta)
@@ -59,95 +60,72 @@
 
 Tips: VSCode 禁用Vetur, 因为不支持 script setup  语法
 
-## Vite
+### Vite
 
-```
-npm 6.x
-预设模板(vue-ts)
+> 构建工具
+
+```sh
+#npm 6.x
+#预设模板(vue-ts)
 npm init vite@latest airbnb-ssr --template  vue-ts
 
-npm 7.x
-预设模板(vue-ts)
+#npm 7.x
+#预设模板(vue-ts)
 npm init vite@latest airbnb-ssr -- --template  vue-ts
 
 
 cd airbnb-ssr
 npm i
 npm run dev
-```
 
 
-## vue-router4
 
-```
+#vue-router4
 npm i vue-router@next -S
-```
 
-## element-plus
-
-
-```
+# element-plus
 npm i element-plus -S
-```
 
-### 按需加载
-
-- 依赖包
-```
+#按需加载，依赖包
 npm i -D unplugin-vue-components unplugin-auto-import
-```
 
-## ESLint
-
-```
+# ESLint
 npm i eslint -D
 npx eslint --init
-```
 
-## sass
-
-```
+# sass
 npm i sass -D
-```
+
+# 报错：Cannot find name '__dirname'
 
 
-## 报错：Cannot find name '__dirname'
-
-```
-// tsconfig.json
+vim tsconfi.json
 {
  "compilerOptions": {
   ...
   "types": [
     "node"
+    
   ]
   ...
   }
 }
-
 npm install @types/node --save-dev
-```
 
-## axios
-
-```
+# axios
 npm i axios -S
-```
 
-## 国际化
+# 国际化
+# elment-plush 配置国际化 ConfigProvider
+# Vue-i18n 实现网站全局国际化
 
-- elment-plush 配置国际化 ConfigProvider
-- Vue-i18n 实现网站全局国际化
-
-
-```
 npm i vue-i18n@next -S
+
+indexedDB
 ```
 
-## indexedDB
 
-
-## 同构（现代服务端渲染）
+### 同构（现代服务端渲染）
 
 - CSR
 - SSR
@@ -155,7 +133,7 @@ npm i vue-i18n@next -S
 
 ## nuxt
 
-```
+```sh
 npx nuxi init nuxt-project && cd nuxt-project
 yarn install
 ```

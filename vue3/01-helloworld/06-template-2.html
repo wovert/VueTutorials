@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-template写法2</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- template HTML5 原生标签 浏览器内核不渲染template内容，但是JS可以获取内容 -->
+    <template id="tmp">
+        <div>
+            <h2>{{ counter }}</h2>
+            <button @click="inc">+1</button>
+            <button @click="dec">-1</button>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#tmp',
+            data: function() {
+                return {
+                    counter: 100
+                }
+            },
+            methods: {
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>
