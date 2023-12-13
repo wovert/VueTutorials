@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <h2>{{ message }}</h2>
+      <input type="text" :value="message" @input="message = $event.target.value"><br>
+      <input type="text" v-model.trim="message"><br>
+      <input type="text" v-model.lazy="message"><br>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    message: 'Hello World'
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

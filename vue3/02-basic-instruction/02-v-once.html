@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- template HTML5 原生标签 浏览器内核不渲染template内容，但是JS可以获取内容 -->
+    <template id="my-app">
+        <div>
+            <h2>{{ counter }}</h2>
+            <div>{{ message }}</div>
+            <div v-once>
+                <h2>v-once: 指定元素或组件只渲染一次</h2>
+                <h2 v-once>{{ counter }}</h2>
+                <div>{{ message }}</div>
+            </div>
+            <button @click="inc">+1</button>
+            <button @click="dec">-1</button>
+            <input type="text" v-model="message" />
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    counter: 100,
+                    message: 'hello world'
+                }
+            },
+            methods: {
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

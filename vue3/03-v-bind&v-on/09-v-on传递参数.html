@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+    <style>
+        .area {
+            background-color: brown;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="tmp">
+        <h2>{{ counter }}</h2>
+        <button v-on:click="inc">+1</button>
+        <button @click="dec">-1</button>
+        <div class="area">
+            <button @click="innerBtn($event, 'Alice')">innerBTN(阻止冒泡)</button>
+            <p>{{ message }}</p>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#tmp',
+            data: function() {
+                return {
+                    message: 'hello world',
+                    counter: 100
+                }
+            },
+            methods: {
+                outerMove() {
+                    console.log('outerMove')
+                },
+                outerBtn() {
+                    console.log('outerBtn');
+                },
+                innerBtn(event, name) {
+                    console.log('innerBtn');
+                    console.log('event=', event)
+                    console.log('name=', name)
+                },
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

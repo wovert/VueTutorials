@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-on</title>
+    <style>
+        .area {
+            background-color: brown;
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="tmp">
+        <h2>{{ counter }}</h2>
+        <button v-on:click="inc">+1</button>
+        <button @click="dec">-1</button>
+        <div class="area" @click="outerBtn" @mousemove="outerMove">
+            <button @click="innerBtn">innerBTN</button>
+            <p>{{ message }}</p>
+        </div>
+        <hr />
+        <div class="area" v-on="{click: outerBtn, mousemove: outerMove}">
+            <button @click.stop="innerBtn">innerBTN(阻止冒泡)</button>
+            <p>{{ message }}</p>
+        </div>
+        <input type="text" @keyup="keyUp()"><br>
+        <input type="text" @keyup.enter="enterKeyup"><br>
+        <input type="text" @keyup.a="enterOneKeyup"><br>
+        <input type="text" @keyup.0="enterOneKeyup"><br>
+        <a href="https://bing.com" @click.prevent="goTo">跳转</a>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#tmp',
+            data: function() {
+                return {
+                    message: 'hello world',
+                    counter: 100
+                }
+            },
+            methods: {
+                enterOneKeyup(event) {
+                    console.log(event.target.value)
+                },
+                goTo() {
+                    console.log('阻止跳转')
+                },
+                keyUp() {
+                    console.log('keyup');
+                },
+                enterKeyup(event) {
+                    console.log('enter keyup')
+                    console.log(event)
+                    console.log(event.target.value)
+                },
+                outerMove() {
+                    console.log('outerMove')
+                },
+                outerBtn() {
+                    console.log('outerBtn');
+                },
+                innerBtn() {
+                    console.log('innerBtn');
+                },
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

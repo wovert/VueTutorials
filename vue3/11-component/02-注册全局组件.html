@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <h2>{{ message }}</h2>
+      <component-a />
+    </template>
+
+    <template id="component-a">
+        <h3>{{ title }}</h3>
+        <p>{{ desc }}</p>
+        <input v-model="title"><br>
+        <input v-model="desc"><br>
+        <button @click="handle">点击按钮</button>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const App = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    message: 'Hello World'
+                }
+            }
+        }
+        const app = Vue.createApp(App)
+
+        // 全局组件
+        app.component('component-a', {
+            template: '#component-a',
+            data: function() {
+                return {
+                    title: '标题',
+                    desc: '描述内容'
+                }
+            },
+            methods: {
+                handle() {
+                    console.log('按钮的点击')
+                }
+            }
+        })
+
+        app.mount('#app')
+    </script>    
+</body>
+</html>

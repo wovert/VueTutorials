@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <h2>{{ info.name }} : {{ info.age }} : {{ info.nba.team }}</h2>
+      <button @click="changeInfo">change</button>
+      <button @click="changeInfoName">changeName</button>
+      <button @click="changeInfoNbaTeam">changeNbaTeam</button>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    info: {
+                        name: "Alice",
+                        age: 18,
+                        nba: {
+                            team: "LA"
+                        }
+                    }
+                }
+            },
+            methods: {
+                changeInfo() {
+                    this.info = {name: "Koby", age: 33}
+                },
+                changeInfoName() {
+                    this.info.name = 'Onel'
+                },
+                changeInfoNbaTeam() {
+                    this.info.nba.team = 'Miami'
+                }
+            },
+            created() {
+                const unwatch = this.$watch('info.nba.team', (newInfo, oldInfo) => {
+                    console.log('new value=', newInfo)
+                    console.log('old value=', oldInfo)
+                }, {
+                    deep: true,
+                    immediate: true
+                })
+                unwatch() // 取消监听
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <input type="text" v-model="score" />
+      <h2 v-if="score >= 90">优秀</h2>
+      <h2 v-if="score < 90 && score > 60">良</h2>
+      <template v-else>不及格</template>
+      <div v-show="score > 90">内容</div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    score: 0,
+                    message: 'Hello World'
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

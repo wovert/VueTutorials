@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <input type="text" v-model.lazy="question">
+      <h2>{{ answer }}</h2>
+      <button @click="queryAnswer">查找答案</button>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    question: 'Hello World',
+                    answer: ''
+                }
+            },
+            watch: {
+                question(newValue, oldValue) {
+                    console.log('new value=', newValue)
+                    console.log('old value=', oldValue)
+                    // this.queryAnswer()
+                    if (this.question === 'AA') {
+                        this.answer = this.question          
+                    }
+                }
+            },
+            methods: {
+                queryAnswer() {
+                    if (this.question === 'AA') {
+                        this.answer = this.question                      
+                    } else {
+                        console.log('question=', this.question)
+                        this.answer = ''
+                    }
+
+                },
+            },
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <h2>{{ fullname }}</h2>
+      <h2>{{ fullname }}</h2>
+      <h2>{{ result }}</h2>
+      <h2>{{ msg }}</h2>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    firstName: 'Alice',
+                    lastName: 'Bob',
+                    score: 90,
+                    message: 'Hello World'
+                }
+            },
+            computed: {
+                fullname() {
+                    console.log('仅执行一次，进行缓存')
+                    return this.firstName + " " + this.lastName
+                },
+                result() {
+                    return this.score >= 60 ? '及格': '不及格' 
+                },
+                msg() {
+                    return this.message.split(" ").reverse().join(" ")
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

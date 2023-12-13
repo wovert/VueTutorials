@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-html</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- template HTML5 原生标签 浏览器内核不渲染template内容，但是JS可以获取内容 -->
+    <template id="my-app">
+        <div>
+            <div v-html="message"></div>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    message: '<strong style="color:red">helo world</strong>'
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

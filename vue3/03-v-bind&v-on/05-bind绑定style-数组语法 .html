@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+    <style>
+        .header {
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <p :style="[styles, styles2]">{{ message }}</p>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    counter: 100,
+                    fSize: 50,
+                    message: 'hello world',
+                    styles: {
+                        'font-size': '50px',
+                        fontWeight: 700,
+                        backgroundColor: '#ff0'
+                    },
+                    styles2: {
+                        color: 'red'
+                    },
+                }
+            },
+            methods: {
+                getStyles() {
+                    return {
+                        'font-size': '50px',
+                        fontWeight: 700,
+                        backgroundColor: '#ff0'
+                    }
+                },
+                toggle() {
+                    this.isActive = !this.isActive
+                    this.isBg = !this.isBg
+                },
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

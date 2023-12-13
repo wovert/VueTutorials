@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <h2>{{ counter }}</h2>
+        <div>
+            <a v-bind:href="url">bing</a>
+            <a :href="url">bing</a>
+        </div>
+         <button @click="inc">+1</button>
+        <button @click="dec">-1</button>
+        <input type="text" v-model="message" />
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    counter: 100,
+                    message: 'hello world',
+                    url: 'https://bing.com'
+                }
+            },
+            methods: {
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

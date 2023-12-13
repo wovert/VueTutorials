@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-代码片段</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+      <h2>{{ message }}</h2>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="../js/vue.js"></script>
+    <script>
+        /****** 1. 对象的引用赋值 ******/
+        // 对象是引用类型
+        const info = {name: 'Alic', age: 18}
+        const obj = info
+        info.name = 'Kobe'
+        console.log(obj.name)
+
+        /****** 2. 对象的浅拷贝 ******/
+        const info2 = {name: 'Bob', age: 20, nba: { team: 'LA' }}
+        // const obj2 = Object.assign({}, info2) // 创建新的对象，所有的对象属性赋值给新创建的属性
+        const obj2 = _.clone(info2)
+        info2.name = "Onel"
+        console.log(obj2.name)
+        info2.nba.team = 'Miyami'
+        console.log(obj2.nba.team) // Miyami, 访问原对象的属性值是对象的属性
+
+        /****** 3. 对象的深拷贝 ******/
+        const info3 = {name: 'Bob', age: 20, nba: { team: 'LA' }}
+        // const obj3 = JSON.parse(JSON.stringify(info3))
+        const obj3 = _.cloneDeep(info3)
+        info3.name = "Onel"
+        console.log(obj3.name)
+        info3.nba.team = 'Miyami'
+        console.log(obj3.nba.team) // LA
+        console.log(info3.nba.team) // Miyami
+
+    </script>    
+</body>
+</html>

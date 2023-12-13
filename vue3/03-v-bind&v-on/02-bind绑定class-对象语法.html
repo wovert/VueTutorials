@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-bind</title>
+    <style>
+        .header {
+            color: #f00;
+        }
+        .active {
+            font-size: 20px;
+        }
+        .bg {
+            background: gold;
+        }
+        .def {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <h2 :class="className">默认语法：{{ counter }}</h2>
+        <h2 :class="{'active': true}">对象语法：{{ counter }}</h2>
+        <h2 :class="{active: isActive, bg: isBg}">对象语法：{{ counter }}</h2>
+        <button @click="toggle">切换</button>
+        <h2 class="def" :class="{active: isActive, bg: isBg}">默认和动态组合：{{ counter }}</h2>
+        <h2 :class="classObj">独立对象：{{ counter }}</h2>
+        <h2 :class="getClassObj()">方法中：{{ counter }}</h2>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    counter: 100,
+                    className: 'header',
+                    isActive: false,
+                    isBg: false,
+                    message: 'hello world',
+                    classObj: {
+                        active: true,
+                        bg: true
+                    }
+                }
+            },
+            methods: {
+                getClassObj() {
+                    return {
+                        active: true,
+                        bg: true
+                    }
+                },
+                toggle() {
+                    this.isActive = !this.isActive
+                    this.isBg = !this.isBg
+                },
+                inc() {
+                    this.counter++
+                },
+                dec() {
+                    this.counter--
+                }
+            }
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>

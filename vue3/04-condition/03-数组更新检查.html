@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue3-数组更新检查</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <div v-for="(item, index) in hobby" :key="index">
+            {{ index + 1}}·{{ item }}
+        </div>
+        <input v-model="value" />
+        <button @click="addValue">添加</button>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const page = {
+            template: '#my-app',
+            data: function() {
+                return {
+                    value: '',
+                    obj: {
+                        name: 'Alice',
+                        age: 30,
+                        gender: 'male'
+                    },
+                    hobby: ['footer', 'baseketball', 'volleyball', 'pingpong']
+                }
+            },
+            methods: {
+                addValue() {
+                    // 自动更新的方法：push,pop,shift,unshift,splice,sort,reverse
+                    // 替换数组的犯法：concat, slice, filter
+                    this.hobby.push(this.value)
+                    this.value = ''
+                }
+            },
+        }
+        const app = Vue.createApp(page)
+        app.mount('#app')
+    </script>    
+</body>
+</html>
