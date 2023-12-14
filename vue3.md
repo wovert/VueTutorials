@@ -217,3 +217,43 @@ pnpm install postcss-preset-env -D
 vim postcss.config.js
   require('autoprefixer') 修改成 require('postcss-preset-env')
 ```
+
+## sass-loader
+
+```sh
+pnpm i sass sass-loader -D
+
+vim webpack.config.js
+
+{
+  test: /\.s[ac]ss$/i,
+  use: [
+    // 将 JS 字符串生成为 style 节点
+    'style-loader',
+    // 将 CSS 转化成 CommonJS 模块
+    'css-loader',
+    // 将 Sass 编译成 CSS
+    'sass-loader',
+  ],
+},
+```
+
+### stylus-loader
+
+```sh
+pnpm i stylus stylus-loader -D
+
+vim webapck.config.js
+{
+  test: /\.styl$/,
+  loader: 'stylus-loader', // 将 Stylus 文件编译为 CSS
+},
+```
+
+### tailwind
+
+
+```sh
+pnpm i tailwindcss postcss postcss-import  -D
+npx tailwindcss init
+```
