@@ -257,3 +257,372 @@ vim webapck.config.js
 pnpm i tailwindcss postcss postcss-import  -D
 npx tailwindcss init
 ```
+
+## 打包图片
+
+> webpack5 中内置了 **file-loader、url-loader、raw-loader**, 可以直接通过配置实现常用功能
+> webpack5，直接使用资源模块类型（asset module type），来替代这些loader
+
+- url-loader包中包含了file-loader，但是安装的是都要安装url-loader, file-loader
+- url-loader 可以将较小的文件，转换成 **base64的URI**
+
+- file-loader: 使用import/reuqire()方式引入一个文件资源，并且把它们输出到指定的目录中
+
+ Webpack5 file-loader、url-loader打包url引入的图片生成两个图片，一个无法加载。
+
+ 就算是使用了file-loader的outputPath，也会发现，生成的无效图片并不会进入到outputPath中指定的路径里面。
+
+问题原因： css-loader 6.0.0以上版本。对引入背景图片的url解析方式不一样，导致生成了两个图片（一个正常由file-loader解析生成，一个仅由css-loader解析引入）
+
+- 解决方案1：将css-loader版本由6降到5就行了
+
+- 解决方案2：官方推荐使用asset module 资源模块替换loader
+  - 转自官网：javascript
+  - asset/resource 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。
+  - asset/inline 导出一个资源的 data URI。之前通过使用 url-loader 实现。
+  - asset/source 导出资源的源代码。之前通过使用 raw-loader 实现。
+  - asset 在导出一个 data URI 和发送一个单独的文件之间自动选择。之前通过使用 url-loader，并且配置资源体积限制实现。
+
+- 解决方案3： 
+  -  如果你还想使用url-loader 那么你只需要在url-loader中设置type: 'javascript/auto’即可；
+  - 同样的对于页面上的图片的引入我们之前的方法是使用css-loader并且要将url-loader的esModule设置为false，因为我们现在的css-loader引入图片使用的是 commonjs，而url-loader默认使用es6模块化解析，如果不设置为false打包后的图片路径会出现 [object Module]。
+
+```json
+{
+  test: /\.(png|jpe?g|gif|svg)$/i,
+  use: {
+      loader: 'url-loader',
+      options: {
+          outputPath: 'assets/images',
+          name: '[name]-[hash:32].[ext][query]',
+          esModule: false
+      }
+  },
+  type: 'javascript/auto'
+}
+```
+
+## plugin
+
+- loader 用于特定**模块类型进行转换**
+- plugin **执行更广泛的任务**，比如打包优化、资源管理、环境变量注入等
+
+### CleanWebpackPlugin
+
+> 重新打包时，自动删除之前编译的目录
+
+```sh
+#1.安装
+pnpm i clean-webpack-plugin -D
+#2.配置
+vim webpack.config.js
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+module.exports = {
+  plugins: [
+      new CleanWebpackPlugin()
+  ]
+}
+```
+
+### HtmlWebpackPlugin
+
+> 最终打包目录里没有index.html入口文件
+
+```sh
+#1.安装
+pnpm i html-webpack-plugin -D
+#2.配置
+vim webpack.config.js
+
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+module.exports = {
+  plugins: [
+      new HtmlWebpackPlugin()
+  ]
+}
+```
+
+
+### CopyWebpackPlugin
+
+> 复制  public/favicon.ico等文件到编译目录中
+
+```sh
+pnpm i -D copy-webpack-plugin
+
+vim webpack.config.js
+module.exports = {
+  plugins: [
+    new CopyWebpackPlugin({
+        // 复制规则
+        patterns: [
+            {
+                from: 'public',
+                to: '.', // 目标编译目录
+                // 忽略文件
+                globOptions: {
+                    ignore: [
+                        '**/index.html'
+                    ]
+                }
+            }
+        ]
+    })
+  ]
+}
+```
+
+## babel
+
+> 是工具链，用于旧浏览器或者环境中将ESMAScript 2015+代码转换为向后兼容的JavaScript
+> 语法转换、源代码转换等
+
+### babel 命令行使用
+
+> 独立工具（postcss一样）
+
+- 命令行尝试使用babel的依赖库
+  - **@babel/core**: Babel**核心代码**
+  - **@babel/cli**：**命令行**使用Babel
+
+```sh
+pnpm i @babel/core @babel/cli -D
+
+npx babel demo-es6.js --out-dir dist
+npx babel demo-es6.js --out-file demo-es5.js
+```
+
+如果需要转换箭头函数，就使用箭头函数转换相关的插件
+
+```sh
+#安装插件
+pnpm i @babel/plugin-transform-arrow-functions -D
+
+#配置插件
+npx babel demo-es6.js --out-file demo-es5.js --plugins=@babel/plugin-transform-arrow-functions
+
+# const转换为var
+pnpm i @babel/plugin-transform-block-scoping -D
+
+npx babel demo-es6.js --out-file demo-es5.js --plugins=@babel/plugin-transform-arrow-functions,@babel/plugin-transform-block-scoping
+```
+
+### babel的预设 preset
+
+```sh
+pnpm i @babel/preset-env -D
+
+npx babel demo-es6.js --out-file demo-es5.js --presets=@babel/preset-env
+```
+
+使用preset 之后代码首行中增加了 `"use strict"` 
+
+### webpack 配置 babel
+
+```sh
+pnpm i @babel/core babel-loader -D
+
+vim webapck.config.js
+
+ {
+    test: /\.js$/,
+    use: {
+        loader: 'babel-loader',
+        options: {
+            # plugins: [
+            #     '@babel/plugin-transform-arrow-functions',
+            #     '@babel/plugin-transform-block-scoping',
+            # ]
+            presets: [
+              '@babel/preset-env'
+            ]
+        }
+    }
+},
+```
+
+### Babel的配置文件
+
+- babel.config.json or .babelrc.json
+  - .js/.cjs/.mjs
+
+- babel7 开始使用 babel.config.json
+
+```sh
+vim babel.config.json
+  module.exports = {
+      presets: [
+          '@babel/preset-env'
+      ]    
+  }
+
+vim webpack.config.js
+  {
+      test: /\.js$/,
+      loader: 'babel-loader',
+  }
+```
+
+## webpack配置vue
+
+```sh
+#vue2
+pnpm i vue -S
+
+#vue3
+pnpm i vue@next -S
+
+vim webpack.config.js
+
+
+```
+### Vue 打包后不同版本解析
+
+- vue(.runtime).global(.prod).js
+  - 通过浏览器中的script
+  - CDN引入和下载的Vue版本
+  - 会暴漏一个全局的Vue使用
+- vue(.runtime).esm-browser(.prod).js
+  - 通过原生 ES 模块导入使用（<script type="module">）
+- vue(.rutnime).esm-bundler.js
+  - 用于 webpack, rollup 和 parcel等构建工具
+  - 构建工具中模式使用 vue.runtime.esm-bundler.js
+  - 需要解析模板 template, 需要手动指定vue.esm-bundler.js
+- vue.cjs(.prod).js
+  - 服务器端渲染使用。
+  - 通过require()在Node.js中使用。
+
+
+### 运行时+编译器 vs 仅运行时
+
+对应着 runtime+compiler 和 runtime-only。
+
+- 在Vue的开发过程中我们有三种方式来编写DOM元素：
+  - 方式一：**template模板**的方式（之前经常使用的方式）。
+  - 方式二：**render函数**的方式，使用h函数来编写渲染的内容。
+  - 方式三：通过.**vue文件**（SFC）中的template来编写模板。
+  
+- 三种方式的模板如何处理：
+  - 方式二中的h函数可以直接返回一个**虚拟节点**，也就是**Vnode节点**。而方式一和方式三的template都需要有 **特定的代码** 来对其进行解析：
+
+  - 方式三.**vue文件**中的template可以通过在**vue-loader**对其进行编译和处理。
+
+  - 方式一种的**template**我们必须要**通过源码中一部分代码**来进行编译。
+
+因此Vue在选择版本的时候分为运行时+编译器vs仅运行时
+
+**运行时+编译器**包含了对template模板的编译代码，更加完整，但是也**更大**一些；
+
+仅**运行时**没有包含对template版本的编译代码，相对**更小**一些。
+
+
+### VSCode 对 SFC 文件的支持
+
+> SFC: Single-file components 单文件组件
+
+- 插件1：Vetur，从Vue2支持
+- 插件2：Volar，官方推荐的插件
+
+### vue-loader
+
+```sh
+#vue2
+pnpm i vue-loader -D
+pnpm i @vue/vue-template-compiler -D
+
+#vue3
+pnpm i vue-loader@next -D
+pnpm i @vue/compiler-sfc -D
+
+vim webpack.config.js
+  const { VueLoaderPLugin } = require('vue-loader/dist/index')
+  
+  ....
+  rules: [
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader',
+    },
+  ],
+  plugins: [
+    new VueLoaderPLugin()
+  ]
+```
+
+## webpack-server
+
+> live sever 
+
+- 自动编译
+  - webpack match mode
+  - webpack-dev-server(常用)
+
+### webpack watch
+
+> webpack 依赖图中的所有文件，只要一个文件发生了更新，代码将被重新编译
+
+- 开启方式
+  - 1. 在启动webpack的命令中，添加`--watch`
+  - 2. 导出的配置中，添加`watch: true`
+
+
+1. 配置方式
+```sh
+vim package.json
+  "build": "webpack --watch"
+```
+
+2. 配置方式
+```sh
+vim webpack.config.js
+  ...
+  watch: true,
+  ...
+```
+
+### webpack-dev-server
+
+- webpack watch 没有自动刷新浏览器的功能
+- 可以使用VScode使用 live-server 来完成此功能
+
+不使用 live-server 情况下，可以具体  live reloading（实时重新加载） 的方式
+
+```sh
+pnpm i webpack-dev-server -D
+
+vim package.json
+  "dev": "webpack serve "
+vim webpack.config.js
+  watch: false
+
+npm run dev
+```
+webpack-dev-server 编译之后不会写入到任何输出文件，而是将bundle文件保留在内存中。
+
+事实上 webpack-dev-server 使用了 memfs库(以前是memory-fs webpack)
+
+
+
+```sh
+#配置webpack-dev-server
+vim webpack.config.js
+
+```
+
+### HMR
+
+> Hot Module REplacement，模块热替换
+
+- 不重新加载整个页面，保留某些应用程序的状态不丢失
+- 只更新变化的内容，节省编译时间
+- 修改CSS，JS源代码会立即在浏览器更新
+
+### proxy
+
+> 跨域问题
+
+```sh
+pnpm i axios -S
+
+```
