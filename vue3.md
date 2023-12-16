@@ -654,3 +654,109 @@ pnpm i axios -S
 ```sh
 pnpm i webpack-merge -D
 ```
+
+## VueCLI
+
+> 项目的创建和配置，内置了 webpack相关配置
+
+```sh
+#全局安装
+npm i @vue/cli -g
+npm update @vue/cli -g
+vue --version
+
+#使用
+vue create project-name
+```
+
+
+## Vite
+
+1. 一个开发服务器，基于原生ES模块提供了丰富的内建功能，HMR的速度非常快速
+2. 一套构建指令，使用rollup打开代码，并且是预配置的，可以输出成环境的优化过的静态资源
+
+
+
+```sh
+pnpm i lodash-es
+```
+
+1. 某些特定文件类型不能识别（vs,vue）
+2. 包之间依赖太多，发送过多的网络请求
+
+
+
+```sh
+#安装 node > 12+
+pnpm i vite -D
+npx vite 
+
+
+pnpm i less postcss postcss-preset-env -D
+
+vim postcss.config.js
+module.exports = {
+  plubins: [
+    require('postcss-preset-env')
+  ]
+}
+
+
+pnpm i vue@next -D
+
+
+#vite对vue提供
+
+#vue3单文件组件支持
+npm i @vitejs/plugin-vue -D
+
+#Vue3 JSX支持
+npm i @vitejs/plugin-vue-jsx -D
+
+#Vue2支持
+npm underfin/vite-plugin-vue2 -D
+
+
+
+#插件配置
+vim vite.config.js
+
+const vue = require('@vitejs/plugin-vue') 
+module.exports = {
+  plugins: [
+    vue()
+  ]
+}
+
+
+pnpm i @vue/compiler-sfc -D
+```
+
+## ESbuild 解析
+
+- 超快的构建速度，并且不需要缓存
+- 支持ES6和CommonJS模块化
+- 支持ES6和 Three Shaking
+- 支持 Go、JavaScript的API
+- 支持 TypeScript、JSX等语法编译
+- 支持 SourceMap;
+- 支持代码压缩
+- 支持扩展其他插件
+
+
+
+- Go语言编写的，直接转换成机器代码，而无需经过字节码
+- 充分利用CPU的多内核，尽可能让他们饱和运行
+
+
+
+## vite 脚手架
+
+```sh
+pnpm create vite
+
+pnpm create vite my-vue-app --template vue
+
+
+
+```
