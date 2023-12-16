@@ -650,3 +650,7 @@ pnpm i axios -S
     - 在根据 resolve.extensions 来解析扩展名
 
 ## 区分开发环境和生产环境
+
+```sh
+pnpm i webpack-merge -D
+```
