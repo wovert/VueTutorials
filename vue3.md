@@ -626,3 +626,27 @@ vim webpack.config.js
 pnpm i axios -S
 
 ```
+
+### resolve
+
+> 模块如何解析
+
+- resolve可以帮助 webpack从每个 import/require语句中，找到需要引入到合适的模块代码
+
+- webpack 中使用 enhanced-resolve 来解析文件路径
+
+- webpack 解析文件路径
+  - 1. 绝对路径
+  - 2. 相对路径
+    - 使用 import/require的资源文件所处的目录，被认为是上下文目录；
+    - 在 import/require 中给定的相对路径，会凭借此上下文路径，来生成模块的绝对路径；
+
+- 如果是一个文件
+  - 如果文件具有扩展名，则直接打包文件
+  - 否则，将使用 **resolve.extensions** 选项作为文件扩展名解析
+- 如果是一个目录
+  - 在目录中根据 resolve.mainFiles 配置选项中指定的文件顺序查找；
+    - resolve.mainFiles 的默认值 `[index]`
+    - 在根据 resolve.extensions 来解析扩展名
+
+## 区分开发环境和生产环境
