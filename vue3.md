@@ -756,7 +756,4 @@ pnpm i @vue/compiler-sfc -D
 pnpm create vite
 
 pnpm create vite my-vue-app --template vue
-
-
-
 ```
