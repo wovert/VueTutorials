@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Home</h2>
+    <h2>Home    {{ $route }}</h2>
     <ul>
       <li>home的内容1</li>
       <li>home的内容2</li>
