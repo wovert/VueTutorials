@@ -7,6 +7,9 @@ module.exports = merge(commonConfig, {
     mode: 'development', // 调试配置：在源码中错误错误，生成阶段：production
     devtool: 'source-map', // 调试配置：默认是 eval，建立js映射文件
     devServer: {
+        historyApiFallback: {
+            disableDotRule: true
+        },
         // contentBase: './public'
         host: '0.0.0.0',
         port: 3000,

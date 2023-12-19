@@ -11,12 +11,14 @@ module.exports = {
     mode: 'development', // 调试配置：在源码中错误错误，生成阶段：production
     // watch: true, // webpack-dev-server 启用时设置 false
     devServer: {
-        // contentBase: './public'
+        historyApiFallback: true,
         host: '0.0.0.0',
         port: 3000,
         open: true,
         // 模块热替换
         hot: true,
+        // contentBase: './public',
+        // contentBase配置或static配置
         static: {
             // 内存中相对目录中查找资源文件
             directory: path.join(__dirname, 'public')

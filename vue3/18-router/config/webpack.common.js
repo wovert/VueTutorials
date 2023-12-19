@@ -8,6 +8,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, "../build"),
+        publicPath: '/',
         filename: 'static/js/bundle.js',
         // assetModuleFilename: 'img/[name]_[hash:10][ext][query]' // 指定静态文件存储规则
     },

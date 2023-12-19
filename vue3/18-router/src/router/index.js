@@ -59,10 +59,11 @@ const routes = [
 ]
 
 // 3.创建一个路由对象router
+// hisotry模式nginx配置： tyy_files $uri $uri/ /index.html
 const router = createRouter({
   routes,
-  // history: createWebHistory() // H5 History
-  history: createWebHashHistory(),
+  history: createWebHistory() // H5 History
+  // history: createWebHashHistory(),
   // linkActiveClass: 'link-active',
   // linkExactActiveClass: 'link-exact-active',
 })
